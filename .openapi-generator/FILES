@@ -30,11 +30,4 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
-test/test_identify_request.py
-test/test_identify_request_user_properties.py
-test/test_ours_privacy_api.py
-test/test_track200_response.py
-test/test_track_request.py
-test/test_track_request_default_properties.py
-test/test_track_request_user_properties.py
 tox.ini
