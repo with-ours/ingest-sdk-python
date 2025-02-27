@@ -16,3 +16,5 @@ composer.phar
 .DS_Store
 *.egg-info
 venv
+dist
+.env
