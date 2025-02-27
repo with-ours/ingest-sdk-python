@@ -1,0 +1,16 @@
+# https://openapi-generator.tech/docs/generators/python/
+# https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator/src/main/resources/python
+
+generatorName: python
+infoUrl: https://docs.oursprivacy.com
+developerOrganization: oursprivacy
+developerOrganizationUrl: https://oursprivacy.com
+
+infoEmail: support@oursprivacy.com
+artifactUrl: https://docs.oursprivacy.com
+licenseName: MIT
+licenseInfo: MIT
+
+gitHost: github
+gitUserId: with-ours
+gitRepoId: ingest-sdk-python
