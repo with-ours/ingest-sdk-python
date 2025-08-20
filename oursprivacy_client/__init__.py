@@ -17,24 +17,44 @@
 
 __version__ = "1.0.0"
 
+# Define package exports
+__all__ = [
+    "OursPrivacyApi",
+    "ApiResponse",
+    "ApiClient",
+    "Configuration",
+    "OpenApiException",
+    "ApiTypeError",
+    "ApiValueError",
+    "ApiKeyError",
+    "ApiAttributeError",
+    "ApiException",
+    "IdentifyRequest",
+    "IdentifyRequestUserProperties",
+    "Track200Response",
+    "TrackRequest",
+    "TrackRequestDefaultProperties",
+    "TrackRequestUserProperties",
+]
+
 # import apis into sdk package
-from oursprivacy_client.api.ours_privacy_api import OursPrivacyApi
+from oursprivacy_client.api.ours_privacy_api import OursPrivacyApi as OursPrivacyApi
 
 # import ApiClient
-from oursprivacy_client.api_response import ApiResponse
-from oursprivacy_client.api_client import ApiClient
-from oursprivacy_client.configuration import Configuration
-from oursprivacy_client.exceptions import OpenApiException
-from oursprivacy_client.exceptions import ApiTypeError
-from oursprivacy_client.exceptions import ApiValueError
-from oursprivacy_client.exceptions import ApiKeyError
-from oursprivacy_client.exceptions import ApiAttributeError
-from oursprivacy_client.exceptions import ApiException
+from oursprivacy_client.api_response import ApiResponse as ApiResponse
+from oursprivacy_client.api_client import ApiClient as ApiClient
+from oursprivacy_client.configuration import Configuration as Configuration
+from oursprivacy_client.exceptions import OpenApiException as OpenApiException
+from oursprivacy_client.exceptions import ApiTypeError as ApiTypeError
+from oursprivacy_client.exceptions import ApiValueError as ApiValueError
+from oursprivacy_client.exceptions import ApiKeyError as ApiKeyError
+from oursprivacy_client.exceptions import ApiAttributeError as ApiAttributeError
+from oursprivacy_client.exceptions import ApiException as ApiException
 
 # import models into sdk package
-from oursprivacy_client.models.identify_request import IdentifyRequest
-from oursprivacy_client.models.identify_request_user_properties import IdentifyRequestUserProperties
-from oursprivacy_client.models.track200_response import Track200Response
-from oursprivacy_client.models.track_request import TrackRequest
-from oursprivacy_client.models.track_request_default_properties import TrackRequestDefaultProperties
-from oursprivacy_client.models.track_request_user_properties import TrackRequestUserProperties
+from oursprivacy_client.models.identify_request import IdentifyRequest as IdentifyRequest
+from oursprivacy_client.models.identify_request_user_properties import IdentifyRequestUserProperties as IdentifyRequestUserProperties
+from oursprivacy_client.models.track200_response import Track200Response as Track200Response
+from oursprivacy_client.models.track_request import TrackRequest as TrackRequest
+from oursprivacy_client.models.track_request_default_properties import TrackRequestDefaultProperties as TrackRequestDefaultProperties
+from oursprivacy_client.models.track_request_user_properties import TrackRequestUserProperties as TrackRequestUserProperties

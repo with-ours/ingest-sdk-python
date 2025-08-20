@@ -18,8 +18,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
 from oursprivacy_client.models.track_request_default_properties import TrackRequestDefaultProperties
 from oursprivacy_client.models.track_request_user_properties import TrackRequestUserProperties
@@ -35,11 +35,12 @@ class TrackRequest(BaseModel):
     user_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=400)]] = Field(default=None, description="The Ours user id stored in local storage and cookies on your web properties. If userId is included in the request, we do not lookup the user by email or externalId.", alias="userId")
     external_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=400)]] = Field(default=None, description="The externalId (the ID in your system) of a user. We will associate this event with the user or create a user. If included in the request, email lookup is ignored.", alias="externalId")
     email: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=1000)]] = Field(default=None, description="The email address of a user. We will associate this event with the user or create a user. Used for lookup if externalId and userId are not included in the request.")
+    time: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The time at which the event occurred in milliseconds since UTC epoch. The time must be in the past and within the last 7 days.")
+    distinct_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=400)]] = Field(default=None, description="A unique identifier for the event. This helps prevent duplicate events.", alias="distinctId")
     event_properties: Optional[Dict[str, Any]] = Field(default=None, description="Any additional event properties you want to pass along.", alias="eventProperties")
     user_properties: Optional[TrackRequestUserProperties] = Field(default=None, alias="userProperties")
     default_properties: Optional[TrackRequestDefaultProperties] = Field(default=None, alias="defaultProperties")
-    distinct_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=400)]] = Field(default=None, description="A unique identifier for the event. This helps prevent duplicate events.", alias="distinctId")
-    __properties: ClassVar[List[str]] = ["event", "token", "userId", "externalId", "email", "eventProperties", "userProperties", "defaultProperties", "distinctId"]
+    __properties: ClassVar[List[str]] = ["event", "token", "userId", "externalId", "email", "time", "distinctId", "eventProperties", "userProperties", "defaultProperties"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -101,6 +102,16 @@ class TrackRequest(BaseModel):
         if self.email is None and "email" in self.model_fields_set:
             _dict['email'] = None
 
+        # set to None if time (nullable) is None
+        # and model_fields_set contains the field
+        if self.time is None and "time" in self.model_fields_set:
+            _dict['time'] = None
+
+        # set to None if distinct_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.distinct_id is None and "distinct_id" in self.model_fields_set:
+            _dict['distinctId'] = None
+
         # set to None if event_properties (nullable) is None
         # and model_fields_set contains the field
         if self.event_properties is None and "event_properties" in self.model_fields_set:
@@ -115,11 +126,6 @@ class TrackRequest(BaseModel):
         # and model_fields_set contains the field
         if self.default_properties is None and "default_properties" in self.model_fields_set:
             _dict['defaultProperties'] = None
-
-        # set to None if distinct_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.distinct_id is None and "distinct_id" in self.model_fields_set:
-            _dict['distinctId'] = None
 
         return _dict
 
@@ -138,10 +144,11 @@ class TrackRequest(BaseModel):
             "userId": obj.get("userId"),
             "externalId": obj.get("externalId"),
             "email": obj.get("email"),
+            "time": obj.get("time"),
+            "distinctId": obj.get("distinctId"),
             "eventProperties": obj.get("eventProperties"),
             "userProperties": TrackRequestUserProperties.from_dict(obj["userProperties"]) if obj.get("userProperties") is not None else None,
-            "defaultProperties": TrackRequestDefaultProperties.from_dict(obj["defaultProperties"]) if obj.get("defaultProperties") is not None else None,
-            "distinctId": obj.get("distinctId")
+            "defaultProperties": TrackRequestDefaultProperties.from_dict(obj["defaultProperties"]) if obj.get("defaultProperties") is not None else None
         })
         return _obj
 

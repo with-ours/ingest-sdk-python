@@ -42,7 +42,8 @@ class TrackRequestUserProperties(BaseModel):
     company_name: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
     job_title: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
     ip: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The IP address of the user")
-    __properties: ClassVar[List[str]] = ["email", "first_name", "last_name", "gender", "date_of_birth", "phone_number", "city", "state", "zip", "country", "external_id", "company_name", "job_title", "ip"]
+    custom_properties: Optional[Dict[str, Any]] = None
+    __properties: ClassVar[List[str]] = ["email", "first_name", "last_name", "gender", "date_of_birth", "phone_number", "city", "state", "zip", "country", "external_id", "company_name", "job_title", "ip", "custom_properties"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -153,6 +154,11 @@ class TrackRequestUserProperties(BaseModel):
         if self.ip is None and "ip" in self.model_fields_set:
             _dict['ip'] = None
 
+        # set to None if custom_properties (nullable) is None
+        # and model_fields_set contains the field
+        if self.custom_properties is None and "custom_properties" in self.model_fields_set:
+            _dict['custom_properties'] = None
+
         return _dict
 
     @classmethod
@@ -178,7 +184,8 @@ class TrackRequestUserProperties(BaseModel):
             "external_id": obj.get("external_id"),
             "company_name": obj.get("company_name"),
             "job_title": obj.get("job_title"),
-            "ip": obj.get("ip")
+            "ip": obj.get("ip"),
+            "custom_properties": obj.get("custom_properties")
         })
         return _obj
 

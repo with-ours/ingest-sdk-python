@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **company_name** | **str** |  | [optional] 
 **job_title** | **str** |  | [optional] 
 **ip** | **str** | The IP address of the user | [optional] 
+**custom_properties** | **Dict[str, Optional[object]]** |  | [optional] 
 
 ## Example
 

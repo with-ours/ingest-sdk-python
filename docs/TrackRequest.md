@@ -10,10 +10,11 @@ Name | Type | Description | Notes
 **user_id** | **str** | The Ours user id stored in local storage and cookies on your web properties. If userId is included in the request, we do not lookup the user by email or externalId. | [optional] 
 **external_id** | **str** | The externalId (the ID in your system) of a user. We will associate this event with the user or create a user. If included in the request, email lookup is ignored. | [optional] 
 **email** | **str** | The email address of a user. We will associate this event with the user or create a user. Used for lookup if externalId and userId are not included in the request. | [optional] 
+**time** | **float** | The time at which the event occurred in milliseconds since UTC epoch. The time must be in the past and within the last 7 days. | [optional] 
+**distinct_id** | **str** | A unique identifier for the event. This helps prevent duplicate events. | [optional] 
 **event_properties** | **Dict[str, Optional[object]]** | Any additional event properties you want to pass along. | [optional] 
 **user_properties** | [**TrackRequestUserProperties**](TrackRequestUserProperties.md) |  | [optional] 
 **default_properties** | [**TrackRequestDefaultProperties**](TrackRequestDefaultProperties.md) |  | [optional] 
-**distinct_id** | **str** | A unique identifier for the event. This helps prevent duplicate events. | [optional] 
 
 ## Example
 

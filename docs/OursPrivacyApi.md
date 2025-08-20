@@ -4,16 +4,16 @@ All URIs are relative to *https://api.oursprivacy.com/api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**identify**](OursPrivacyApi.md#identify) | **POST** /identify | Identify Users
+[**identify**](OursPrivacyApi.md#identify) | **POST** /identify | Identify Visitors
 [**track**](OursPrivacyApi.md#track) | **POST** /track | Track Events
 
 
 # **identify**
 > Track200Response identify(identify_request)
 
-Identify Users
+Identify Visitors
 
-Add user properties to an existing user's profile.
+Define visitor properties on an existing visitor or create a new visitor. Note: This does not fire an event. If you want to fire an event, use the track method and include properties for the visitor.
 
 ### Example
 
@@ -36,10 +36,10 @@ configuration = oursprivacy_client.Configuration(
 with oursprivacy_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = oursprivacy_client.OursPrivacyApi(api_client)
-    identify_request = oursprivacy_client.IdentifyRequest() # IdentifyRequest | The payload to identify a user
+    identify_request = oursprivacy_client.IdentifyRequest() # IdentifyRequest | The payload to identify a visitor
 
     try:
-        # Identify Users
+        # Identify Visitors
         api_response = api_instance.identify(identify_request)
         print("The response of OursPrivacyApi->identify:\n")
         pprint(api_response)
@@ -54,7 +54,7 @@ with oursprivacy_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **identify_request** | [**IdentifyRequest**](IdentifyRequest.md)| The payload to identify a user | 
+ **identify_request** | [**IdentifyRequest**](IdentifyRequest.md)| The payload to identify a visitor | 
 
 ### Return type
 
@@ -86,7 +86,7 @@ No authorization required
 
 Track Events
 
-Track events from your server and native apps. We recommend our web client-side SDKs for most use-cases. But, if you need to track events from a server, use this endpoint. Please include at least one of: userId, externalId, or email. We will use the provided information to create or associate the event with a user.
+Track events from your server. Please include at least one of: userId, externalId, or email. These properties help us associate events with existing users. For all fields, null values unset the property and undefined values do not unset existing properties.
 
 ### Example
 
