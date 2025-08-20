@@ -11,11 +11,12 @@ api_client = ApiClient(configuration=config)
 
 api = OursPrivacyApi(api_client)
 
-ireq = IdentifyRequest.from_dict({
-  'token': api_key,
-  'userId': 'python.developer',
-  'userProperties': {}
-})
+ireq = IdentifyRequest()
+# ireq = IdentifyRequest.from_dict({
+#   'token': api_key,
+#   'userId': 'python.developer',
+#   'userProperties': {}
+# })
 
 response = api.identify(ireq)
 pprint(response)

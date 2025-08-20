@@ -1,6 +1,6 @@
 [project]
 name = "oursprivacy_client"
-version = "1.0.0"
+version = "1.0.1"
 description = "Ours"
 authors = [
   {name = "OpenAPI Generator Community",email = "support@oursprivacy.com"},
