@@ -267,7 +267,10 @@ class ApiClient:
             for `application/x-www-form-urlencoded`, `multipart/form-data`.
         :param _request_timeout: timeout setting for this request.
         :return: RESTResponse
+
         """
+
+        print(f"calling {url} with {method}")
 
         try:
             # perform request and return response
@@ -277,6 +280,7 @@ class ApiClient:
                 body=body, post_params=post_params,
                 _request_timeout=_request_timeout
             )
+            print(f"response data {response_data.read()}")
 
         except ApiException as e:
             raise e
@@ -382,6 +386,10 @@ class ApiClient:
                 obj_dict = obj.to_dict()
             else:
                 obj_dict = obj.__dict__
+
+        if isinstance(obj_dict, list):
+            # here we handle instances that can either be a list or something else, and only became a real list by calling to_dict()
+            return self.sanitize_for_serialization(obj_dict)
 
         return {
             key: self.sanitize_for_serialization(val)

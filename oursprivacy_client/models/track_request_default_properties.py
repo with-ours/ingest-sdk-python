@@ -28,58 +28,70 @@ class TrackRequestDefaultProperties(BaseModel):
     """
     These properties are used throughout the Ours app to pass known values onto destinations
     """ # noqa: E501
-    is_bot: Optional[StrictBool] = None
-    ad_id: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    encoding: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The character encoding of the page. Ex: UTF-8")
-    browser_name: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    browser_version: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    cpu_architecture: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    device_type: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="\"mobile\" | \"tablet\" | \"console\" | \"smarttv\" | \"wearable\" | \"xr\" | \"embedded\"")
-    device_model: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    device_vendor: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    engine_name: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    engine_version: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    os_name: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    os_version: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    browser_language: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    current_url: Optional[Annotated[str, Field(strict=True, max_length=3000)]] = Field(default=None, description="The full url (including query params) of the current page")
-    webview: Optional[StrictBool] = None
-    iframe: Optional[StrictBool] = None
-    session_count: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="sessionCount")
+    is_bot: Optional[StrictBool] = Field(default=None, description="Whether we have detected that the user is a bot. This is set automatically by the Ours server primarily for events tracked through the web SDK.")
+    ad_id: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The ad id for detected in the session. This is set by the web sdk automatically.")
+    adset_id: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The adset id for detected in the session. This is set by the web sdk automatically.")
+    campaign_id: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The campaign id for detected in the session. This is set by the web sdk automatically.")
+    encoding: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The browsers encoding. Ex: UTF-8")
+    browser_name: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The name of the browser. Ex: Chrome")
+    browser_version: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The version of the browser. Ex: 114.0")
+    cpu_architecture: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The architecture of the CPU. Ex: x64")
+    device_type: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The type of device the user is using. Ex: mobile")
+    device_model: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The model of the device. Ex: iPhone 13")
+    device_vendor: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The vendor of the device. Ex: Apple")
+    engine_name: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The name of the browser engine. Ex: Blink")
+    engine_version: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The version of the browser engine. Ex: 114.0")
+    os_name: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The name of the operating system. Ex: Windows")
+    os_version: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The version of the operating system. Ex: 10.0")
+    browser_language: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The language of the browser. Ex: en-US")
+    current_url: Optional[StrictStr] = Field(default=None, description="The full url (including query params) of the current page")
+    webview: Optional[StrictBool] = Field(default=None, description="Whether the user is in a webview. Ex: true")
+    iframe: Optional[StrictBool] = Field(default=None, description="Whether the user is in an iframe. Ex: true")
+    session_count: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The number of sessions the user has had. Ex: 3", alias="sessionCount")
     active_duration: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The active time in milliseconds that the user had this tab active", alias="activeDuration")
     duration: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The time in milliseconds since the page was loaded // script was loaded")
-    epik: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    sacid: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    fbc: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    fbclid: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    fbclid_creation_time: Optional[Union[StrictFloat, StrictInt]] = None
-    fbp: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    gad_source: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    gbraid: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    gc_id: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    gclid: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    rdt_cid: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    host: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    ip: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    msclkid: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The MSCLKID that led to the conversion (see below for click ID information). The MSCLKID is a GUID (32 characters) that is unique for each ad click")
-    li_fat_id: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The LinkedIn Fat ID that led to the conversion (see below for click ID information). The Fat ID is a GUID (32 characters) that is unique for each ad click")
-    pathname: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    referrer: Optional[Annotated[str, Field(strict=True, max_length=3500)]] = Field(default=None, description="The referrer URL of the current page")
-    screen_height: Optional[Union[StrictFloat, StrictInt]] = None
-    screen_width: Optional[Union[StrictFloat, StrictInt]] = None
-    title: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    user_agent: Optional[StrictStr] = None
-    user_agent_full_list: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    utm_campaign: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    utm_content: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    utm_medium: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    utm_name: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    ttclid: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    utm_source: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    utm_term: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    version: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
-    wbraid: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="?wbraid=1")
-    __properties: ClassVar[List[str]] = ["is_bot", "ad_id", "encoding", "browser_name", "browser_version", "cpu_architecture", "device_type", "device_model", "device_vendor", "engine_name", "engine_version", "os_name", "os_version", "browser_language", "current_url", "webview", "iframe", "sessionCount", "activeDuration", "duration", "epik", "sacid", "fbc", "fbclid", "fbclid_creation_time", "fbp", "gad_source", "gbraid", "gc_id", "gclid", "rdt_cid", "host", "ip", "msclkid", "li_fat_id", "pathname", "referrer", "screen_height", "screen_width", "title", "user_agent", "user_agent_full_list", "utm_campaign", "utm_content", "utm_medium", "utm_name", "ttclid", "utm_source", "utm_term", "version", "wbraid"]
+    epik: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The Pinterest Click ID. Ex: epik456")
+    sacid: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The StackAdapt Tracking ID. Ex: sacid123")
+    fbc: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="Facebook Click ID with prefix format for Conversions API tracking. Ex: fb.1.1554763741205.AbCdEfGhIjKlMnOpQrStUvWxYz1234567890")
+    fbclid: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="Raw Facebook Click ID query parameter without prefix from ad clicks. Ex: AbCdEfGhIjKlMnOpQrStUvWxYz1234567890")
+    fbp: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="Facebook Browser ID parameter for identifying browsers and attributing events. Ex: fb.1.1554763741205.1098115397")
+    gad_source: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The Google Ad Source. Ex: google")
+    gbraid: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The Google Braid ID. Ex: gbraid123")
+    gclid: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The Google Click ID. Ex: gclid123")
+    ndclid: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The NextDoor Click ID. Ex: ndclid123")
+    dclid: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The DoubleClick Click ID. Ex: dclid123")
+    qclid: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The Quora Click ID. Ex: qclid123")
+    rdt_cid: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The Reddit Click ID. Ex: rdt_cid123")
+    host: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The host of the current page. Ex: example.com")
+    ip: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The IP address of the user. Ex: 127.0.0.1")
+    msclkid: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The Microsoft Click ID. Ex: msclkid123")
+    li_fat_id: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The LinkedIn Click ID. Ex: li_fat_id123")
+    pathname: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The pathname of the current page. Ex: /home")
+    referrer: Optional[Annotated[str, Field(strict=True, max_length=5000)]] = Field(default=None, description="The referrer URL of the current page")
+    screen_height: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The height of the screen. Ex: 1080")
+    screen_width: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The width of the screen. Ex: 1920")
+    title: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The title of the current page")
+    user_agent: Optional[StrictStr] = Field(default=None, description="The user agent of the browser")
+    utm_campaign: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The UTM Campaign. The web SDK automatically captures this from the query params.")
+    utm_content: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The UTM Content. The web SDK automatically captures this from the query params.")
+    utm_medium: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The UTM Medium. The web SDK automatically captures this from the query params.")
+    utm_name: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The UTM Name. The web SDK automatically captures this from the query params.")
+    ttclid: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The TikTok Click ID. Ex: ttclid123")
+    twclid: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The Twitter Click ID. Ex: twclid123")
+    clickid: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The Click ID. Ex: clickid123")
+    clid: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The Generic Click ID. Ex: clid123")
+    sccid: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The SnapChat Click ID. Ex: sccid123")
+    utm_source: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The UTM Source. The web SDK automatically captures this from the query params.")
+    utm_term: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The UTM Term. The web SDK automatically captures this from the query params.")
+    version: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The version of the web SDK")
+    wbraid: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The WBRAID Identifier. The web SDK automatically captures this from the query params.")
+    uafvl: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="User agent as a full list of strings.")
+    page_hash: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="A random set of numbers for the page load")
+    sid: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="The session ID as assigned automatically by the web SDK.")
+    new_s: Optional[StrictBool] = Field(default=None, description="Deprecated")
+    fv: Optional[StrictBool] = Field(default=None, description="Deprecated")
+    sr: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
+    __properties: ClassVar[List[str]] = ["is_bot", "ad_id", "adset_id", "campaign_id", "encoding", "browser_name", "browser_version", "cpu_architecture", "device_type", "device_model", "device_vendor", "engine_name", "engine_version", "os_name", "os_version", "browser_language", "current_url", "webview", "iframe", "sessionCount", "activeDuration", "duration", "epik", "sacid", "fbc", "fbclid", "fbp", "gad_source", "gbraid", "gclid", "ndclid", "dclid", "qclid", "rdt_cid", "host", "ip", "msclkid", "li_fat_id", "pathname", "referrer", "screen_height", "screen_width", "title", "user_agent", "utm_campaign", "utm_content", "utm_medium", "utm_name", "ttclid", "twclid", "clickid", "clid", "sccid", "utm_source", "utm_term", "version", "wbraid", "uafvl", "page_hash", "sid", "new_s", "fv", "sr"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -129,6 +141,16 @@ class TrackRequestDefaultProperties(BaseModel):
         # and model_fields_set contains the field
         if self.ad_id is None and "ad_id" in self.model_fields_set:
             _dict['ad_id'] = None
+
+        # set to None if adset_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.adset_id is None and "adset_id" in self.model_fields_set:
+            _dict['adset_id'] = None
+
+        # set to None if campaign_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.campaign_id is None and "campaign_id" in self.model_fields_set:
+            _dict['campaign_id'] = None
 
         # set to None if encoding (nullable) is None
         # and model_fields_set contains the field
@@ -240,11 +262,6 @@ class TrackRequestDefaultProperties(BaseModel):
         if self.fbclid is None and "fbclid" in self.model_fields_set:
             _dict['fbclid'] = None
 
-        # set to None if fbclid_creation_time (nullable) is None
-        # and model_fields_set contains the field
-        if self.fbclid_creation_time is None and "fbclid_creation_time" in self.model_fields_set:
-            _dict['fbclid_creation_time'] = None
-
         # set to None if fbp (nullable) is None
         # and model_fields_set contains the field
         if self.fbp is None and "fbp" in self.model_fields_set:
@@ -260,15 +277,25 @@ class TrackRequestDefaultProperties(BaseModel):
         if self.gbraid is None and "gbraid" in self.model_fields_set:
             _dict['gbraid'] = None
 
-        # set to None if gc_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.gc_id is None and "gc_id" in self.model_fields_set:
-            _dict['gc_id'] = None
-
         # set to None if gclid (nullable) is None
         # and model_fields_set contains the field
         if self.gclid is None and "gclid" in self.model_fields_set:
             _dict['gclid'] = None
+
+        # set to None if ndclid (nullable) is None
+        # and model_fields_set contains the field
+        if self.ndclid is None and "ndclid" in self.model_fields_set:
+            _dict['ndclid'] = None
+
+        # set to None if dclid (nullable) is None
+        # and model_fields_set contains the field
+        if self.dclid is None and "dclid" in self.model_fields_set:
+            _dict['dclid'] = None
+
+        # set to None if qclid (nullable) is None
+        # and model_fields_set contains the field
+        if self.qclid is None and "qclid" in self.model_fields_set:
+            _dict['qclid'] = None
 
         # set to None if rdt_cid (nullable) is None
         # and model_fields_set contains the field
@@ -325,11 +352,6 @@ class TrackRequestDefaultProperties(BaseModel):
         if self.user_agent is None and "user_agent" in self.model_fields_set:
             _dict['user_agent'] = None
 
-        # set to None if user_agent_full_list (nullable) is None
-        # and model_fields_set contains the field
-        if self.user_agent_full_list is None and "user_agent_full_list" in self.model_fields_set:
-            _dict['user_agent_full_list'] = None
-
         # set to None if utm_campaign (nullable) is None
         # and model_fields_set contains the field
         if self.utm_campaign is None and "utm_campaign" in self.model_fields_set:
@@ -355,6 +377,26 @@ class TrackRequestDefaultProperties(BaseModel):
         if self.ttclid is None and "ttclid" in self.model_fields_set:
             _dict['ttclid'] = None
 
+        # set to None if twclid (nullable) is None
+        # and model_fields_set contains the field
+        if self.twclid is None and "twclid" in self.model_fields_set:
+            _dict['twclid'] = None
+
+        # set to None if clickid (nullable) is None
+        # and model_fields_set contains the field
+        if self.clickid is None and "clickid" in self.model_fields_set:
+            _dict['clickid'] = None
+
+        # set to None if clid (nullable) is None
+        # and model_fields_set contains the field
+        if self.clid is None and "clid" in self.model_fields_set:
+            _dict['clid'] = None
+
+        # set to None if sccid (nullable) is None
+        # and model_fields_set contains the field
+        if self.sccid is None and "sccid" in self.model_fields_set:
+            _dict['sccid'] = None
+
         # set to None if utm_source (nullable) is None
         # and model_fields_set contains the field
         if self.utm_source is None and "utm_source" in self.model_fields_set:
@@ -375,6 +417,36 @@ class TrackRequestDefaultProperties(BaseModel):
         if self.wbraid is None and "wbraid" in self.model_fields_set:
             _dict['wbraid'] = None
 
+        # set to None if uafvl (nullable) is None
+        # and model_fields_set contains the field
+        if self.uafvl is None and "uafvl" in self.model_fields_set:
+            _dict['uafvl'] = None
+
+        # set to None if page_hash (nullable) is None
+        # and model_fields_set contains the field
+        if self.page_hash is None and "page_hash" in self.model_fields_set:
+            _dict['page_hash'] = None
+
+        # set to None if sid (nullable) is None
+        # and model_fields_set contains the field
+        if self.sid is None and "sid" in self.model_fields_set:
+            _dict['sid'] = None
+
+        # set to None if new_s (nullable) is None
+        # and model_fields_set contains the field
+        if self.new_s is None and "new_s" in self.model_fields_set:
+            _dict['new_s'] = None
+
+        # set to None if fv (nullable) is None
+        # and model_fields_set contains the field
+        if self.fv is None and "fv" in self.model_fields_set:
+            _dict['fv'] = None
+
+        # set to None if sr (nullable) is None
+        # and model_fields_set contains the field
+        if self.sr is None and "sr" in self.model_fields_set:
+            _dict['sr'] = None
+
         return _dict
 
     @classmethod
@@ -389,6 +461,8 @@ class TrackRequestDefaultProperties(BaseModel):
         _obj = cls.model_validate({
             "is_bot": obj.get("is_bot"),
             "ad_id": obj.get("ad_id"),
+            "adset_id": obj.get("adset_id"),
+            "campaign_id": obj.get("campaign_id"),
             "encoding": obj.get("encoding"),
             "browser_name": obj.get("browser_name"),
             "browser_version": obj.get("browser_version"),
@@ -411,12 +485,13 @@ class TrackRequestDefaultProperties(BaseModel):
             "sacid": obj.get("sacid"),
             "fbc": obj.get("fbc"),
             "fbclid": obj.get("fbclid"),
-            "fbclid_creation_time": obj.get("fbclid_creation_time"),
             "fbp": obj.get("fbp"),
             "gad_source": obj.get("gad_source"),
             "gbraid": obj.get("gbraid"),
-            "gc_id": obj.get("gc_id"),
             "gclid": obj.get("gclid"),
+            "ndclid": obj.get("ndclid"),
+            "dclid": obj.get("dclid"),
+            "qclid": obj.get("qclid"),
             "rdt_cid": obj.get("rdt_cid"),
             "host": obj.get("host"),
             "ip": obj.get("ip"),
@@ -428,16 +503,25 @@ class TrackRequestDefaultProperties(BaseModel):
             "screen_width": obj.get("screen_width"),
             "title": obj.get("title"),
             "user_agent": obj.get("user_agent"),
-            "user_agent_full_list": obj.get("user_agent_full_list"),
             "utm_campaign": obj.get("utm_campaign"),
             "utm_content": obj.get("utm_content"),
             "utm_medium": obj.get("utm_medium"),
             "utm_name": obj.get("utm_name"),
             "ttclid": obj.get("ttclid"),
+            "twclid": obj.get("twclid"),
+            "clickid": obj.get("clickid"),
+            "clid": obj.get("clid"),
+            "sccid": obj.get("sccid"),
             "utm_source": obj.get("utm_source"),
             "utm_term": obj.get("utm_term"),
             "version": obj.get("version"),
-            "wbraid": obj.get("wbraid")
+            "wbraid": obj.get("wbraid"),
+            "uafvl": obj.get("uafvl"),
+            "page_hash": obj.get("page_hash"),
+            "sid": obj.get("sid"),
+            "new_s": obj.get("new_s"),
+            "fv": obj.get("fv"),
+            "sr": obj.get("sr")
         })
         return _obj
 

@@ -44,7 +44,7 @@ class OursPrivacyApi:
     @validate_call
     def identify(
         self,
-        identify_request: Annotated[IdentifyRequest, Field(description="The payload to identify a user")],
+        identify_request: Annotated[IdentifyRequest, Field(description="The payload to identify a visitor")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -58,11 +58,11 @@ class OursPrivacyApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
     ) -> Track200Response:
-        """Identify Users
+        """Identify Visitors
 
-        Add user properties to an existing user's profile.
+        Define visitor properties on an existing visitor or create a new visitor. Note: This does not fire an event. If you want to fire an event, use the track method and include properties for the visitor.
 
-        :param identify_request: The payload to identify a user (required)
+        :param identify_request: The payload to identify a visitor (required)
         :type identify_request: IdentifyRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -115,7 +115,7 @@ class OursPrivacyApi:
     @validate_call
     def identify_with_http_info(
         self,
-        identify_request: Annotated[IdentifyRequest, Field(description="The payload to identify a user")],
+        identify_request: Annotated[IdentifyRequest, Field(description="The payload to identify a visitor")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -129,11 +129,11 @@ class OursPrivacyApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
     ) -> ApiResponse[Track200Response]:
-        """Identify Users
+        """Identify Visitors
 
-        Add user properties to an existing user's profile.
+        Define visitor properties on an existing visitor or create a new visitor. Note: This does not fire an event. If you want to fire an event, use the track method and include properties for the visitor.
 
-        :param identify_request: The payload to identify a user (required)
+        :param identify_request: The payload to identify a visitor (required)
         :type identify_request: IdentifyRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -186,7 +186,7 @@ class OursPrivacyApi:
     @validate_call
     def identify_without_preload_content(
         self,
-        identify_request: Annotated[IdentifyRequest, Field(description="The payload to identify a user")],
+        identify_request: Annotated[IdentifyRequest, Field(description="The payload to identify a visitor")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -200,11 +200,11 @@ class OursPrivacyApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=1)] = 0,
     ) -> RESTResponseType:
-        """Identify Users
+        """Identify Visitors
 
-        Add user properties to an existing user's profile.
+        Define visitor properties on an existing visitor or create a new visitor. Note: This does not fire an event. If you want to fire an event, use the track method and include properties for the visitor.
 
-        :param identify_request: The payload to identify a user (required)
+        :param identify_request: The payload to identify a visitor (required)
         :type identify_request: IdentifyRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -348,7 +348,7 @@ class OursPrivacyApi:
     ) -> Track200Response:
         """Track Events
 
-        Track events from your server and native apps. We recommend our web client-side SDKs for most use-cases. But, if you need to track events from a server, use this endpoint. Please include at least one of: userId, externalId, or email. We will use the provided information to create or associate the event with a user.
+        Track events from your server. Please include at least one of: userId, externalId, or email. These properties help us associate events with existing users. For all fields, null values unset the property and undefined values do not unset existing properties.
 
         :param track_request: The payload to track an event (required)
         :type track_request: TrackRequest
@@ -419,7 +419,7 @@ class OursPrivacyApi:
     ) -> ApiResponse[Track200Response]:
         """Track Events
 
-        Track events from your server and native apps. We recommend our web client-side SDKs for most use-cases. But, if you need to track events from a server, use this endpoint. Please include at least one of: userId, externalId, or email. We will use the provided information to create or associate the event with a user.
+        Track events from your server. Please include at least one of: userId, externalId, or email. These properties help us associate events with existing users. For all fields, null values unset the property and undefined values do not unset existing properties.
 
         :param track_request: The payload to track an event (required)
         :type track_request: TrackRequest
@@ -490,7 +490,7 @@ class OursPrivacyApi:
     ) -> RESTResponseType:
         """Track Events
 
-        Track events from your server and native apps. We recommend our web client-side SDKs for most use-cases. But, if you need to track events from a server, use this endpoint. Please include at least one of: userId, externalId, or email. We will use the provided information to create or associate the event with a user.
+        Track events from your server. Please include at least one of: userId, externalId, or email. These properties help us associate events with existing users. For all fields, null values unset the property and undefined values do not unset existing properties.
 
         :param track_request: The payload to track an event (required)
         :type track_request: TrackRequest
