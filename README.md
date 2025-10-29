@@ -115,7 +115,14 @@ Class | Method | HTTP request | Description
 
 Endpoints do not require authorization, but instead take a source token in the body of each endpoint.
 
+## Contributing
 
-## Author
+If you'd like to contribute to this SDK, please see our [publishing documentation](PUBLISHING.md) for development and publishing guidelines.
 
-support@oursprivacy.com
+## Support
+
+For help with this SDK, please:
+
+- Check the [documentation](https://docs.oursprivacy.com)
+- Open an issue on [GitHub](https://github.com/with-ours/ingest-sdk-python/issues)
+- Contact us at support@oursprivacy.com
