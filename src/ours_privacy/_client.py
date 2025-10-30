@@ -12,7 +12,6 @@ from . import _exceptions
 from ._qs import Querystring
 from ._types import (
     Omit,
-    Headers,
     Timeout,
     NotGiven,
     Transport,
@@ -50,12 +49,10 @@ class OursPrivacy(SyncAPIClient):
     with_streaming_response: OursPrivacyWithStreamedResponse
 
     # client options
-    api_key: str | None
 
     def __init__(
         self,
         *,
-        api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -75,14 +72,7 @@ class OursPrivacy(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous OursPrivacy client instance.
-
-        This automatically infers the `api_key` argument from the `OURS_PRIVACY_API_KEY` environment variable if it is not provided.
-        """
-        if api_key is None:
-            api_key = os.environ.get("OURS_PRIVACY_API_KEY")
-        self.api_key = api_key
-
+        """Construct a new synchronous OursPrivacy client instance."""
         if base_url is None:
             base_url = os.environ.get("OURS_PRIVACY_BASE_URL")
         self._base_url_overridden = base_url is not None
@@ -112,14 +102,6 @@ class OursPrivacy(SyncAPIClient):
 
     @property
     @override
-    def auth_headers(self) -> dict[str, str]:
-        api_key = self.api_key
-        if api_key is None:
-            return {}
-        return {"Authorization": f"Bearer {api_key}"}
-
-    @property
-    @override
     def default_headers(self) -> dict[str, str | Omit]:
         return {
             **super().default_headers,
@@ -127,21 +109,9 @@ class OursPrivacy(SyncAPIClient):
             **self._custom_headers,
         }
 
-    @override
-    def _validate_headers(self, headers: Headers, custom_headers: Headers) -> None:
-        if self.api_key and headers.get("Authorization"):
-            return
-        if isinstance(custom_headers.get("Authorization"), Omit):
-            return
-
-        raise TypeError(
-            '"Could not resolve authentication method. Expected the api_key to be set. Or for the `Authorization` headers to be explicitly omitted"'
-        )
-
     def copy(
         self,
         *,
-        api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         http_client: httpx.Client | None = None,
@@ -175,7 +145,6 @@ class OursPrivacy(SyncAPIClient):
 
         http_client = http_client or self._client
         client = self.__class__(
-            api_key=api_key or self.api_key,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
@@ -232,12 +201,10 @@ class AsyncOursPrivacy(AsyncAPIClient):
     with_streaming_response: AsyncOursPrivacyWithStreamedResponse
 
     # client options
-    api_key: str | None
 
     def __init__(
         self,
         *,
-        api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -257,14 +224,7 @@ class AsyncOursPrivacy(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async AsyncOursPrivacy client instance.
-
-        This automatically infers the `api_key` argument from the `OURS_PRIVACY_API_KEY` environment variable if it is not provided.
-        """
-        if api_key is None:
-            api_key = os.environ.get("OURS_PRIVACY_API_KEY")
-        self.api_key = api_key
-
+        """Construct a new async AsyncOursPrivacy client instance."""
         if base_url is None:
             base_url = os.environ.get("OURS_PRIVACY_BASE_URL")
         self._base_url_overridden = base_url is not None
@@ -294,14 +254,6 @@ class AsyncOursPrivacy(AsyncAPIClient):
 
     @property
     @override
-    def auth_headers(self) -> dict[str, str]:
-        api_key = self.api_key
-        if api_key is None:
-            return {}
-        return {"Authorization": f"Bearer {api_key}"}
-
-    @property
-    @override
     def default_headers(self) -> dict[str, str | Omit]:
         return {
             **super().default_headers,
@@ -309,21 +261,9 @@ class AsyncOursPrivacy(AsyncAPIClient):
             **self._custom_headers,
         }
 
-    @override
-    def _validate_headers(self, headers: Headers, custom_headers: Headers) -> None:
-        if self.api_key and headers.get("Authorization"):
-            return
-        if isinstance(custom_headers.get("Authorization"), Omit):
-            return
-
-        raise TypeError(
-            '"Could not resolve authentication method. Expected the api_key to be set. Or for the `Authorization` headers to be explicitly omitted"'
-        )
-
     def copy(
         self,
         *,
-        api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         http_client: httpx.AsyncClient | None = None,
@@ -357,7 +297,6 @@ class AsyncOursPrivacy(AsyncAPIClient):
 
         http_client = http_client or self._client
         client = self.__class__(
-            api_key=api_key or self.api_key,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
