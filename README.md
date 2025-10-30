@@ -11,7 +11,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 ## Documentation
 
-The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [docs.oursprivacy.com](https://docs.oursprivacy.com). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
@@ -35,7 +35,7 @@ client = OursPrivacy(
     api_key=os.environ.get("OURS_PRIVACY_API_KEY"),  # This is the default and can be omitted
 )
 
-response = client.track.create_event(
+response = client.track.event(
     token="REPLACE_ME",
     event="REPLACE_ME",
 )
@@ -62,7 +62,7 @@ client = AsyncOursPrivacy(
 
 
 async def main() -> None:
-    response = await client.track.create_event(
+    response = await client.track.event(
         token="REPLACE_ME",
         event="REPLACE_ME",
     )
@@ -98,7 +98,7 @@ async def main() -> None:
         api_key="My API Key",
         http_client=DefaultAioHttpClient(),
     ) as client:
-        response = await client.track.create_event(
+        response = await client.track.event(
             token="REPLACE_ME",
             event="REPLACE_ME",
         )
@@ -126,7 +126,7 @@ from ours_privacy import OursPrivacy
 
 client = OursPrivacy()
 
-response = client.track.create_event(
+response = client.track.event(
     token="x",
     event="x",
     default_properties={},
@@ -150,7 +150,7 @@ from ours_privacy import OursPrivacy
 client = OursPrivacy()
 
 try:
-    client.track.create_event(
+    client.track.event(
         token="REPLACE_ME",
         event="REPLACE_ME",
     )
@@ -196,7 +196,7 @@ client = OursPrivacy(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).track.create_event(
+client.with_options(max_retries=5).track.event(
     token="REPLACE_ME",
     event="REPLACE_ME",
 )
@@ -222,7 +222,7 @@ client = OursPrivacy(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).track.create_event(
+client.with_options(timeout=5.0).track.event(
     token="REPLACE_ME",
     event="REPLACE_ME",
 )
@@ -266,13 +266,13 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from ours_privacy import OursPrivacy
 
 client = OursPrivacy()
-response = client.track.with_raw_response.create_event(
+response = client.track.with_raw_response.event(
     token="REPLACE_ME",
     event="REPLACE_ME",
 )
 print(response.headers.get('X-My-Header'))
 
-track = response.parse()  # get the object that `track.create_event()` would have returned
+track = response.parse()  # get the object that `track.event()` would have returned
 print(track.success)
 ```
 
@@ -287,7 +287,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.track.with_streaming_response.create_event(
+with client.track.with_streaming_response.event(
     token="REPLACE_ME",
     event="REPLACE_ME",
 ) as response:

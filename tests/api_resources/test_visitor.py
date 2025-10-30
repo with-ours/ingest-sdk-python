@@ -9,27 +9,27 @@ import pytest
 
 from tests.utils import assert_matches_type
 from ours_privacy import OursPrivacy, AsyncOursPrivacy
-from ours_privacy.types import IdentifyCreateOrUpdateResponse
+from ours_privacy.types import VisitorUpsertResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 
-class TestIdentify:
+class TestVisitor:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_create_or_update(self, client: OursPrivacy) -> None:
-        identify = client.identify.create_or_update(
+    def test_method_upsert(self, client: OursPrivacy) -> None:
+        visitor = client.visitor.upsert(
             token="x",
             user_properties={},
         )
-        assert_matches_type(IdentifyCreateOrUpdateResponse, identify, path=["response"])
+        assert_matches_type(VisitorUpsertResponse, visitor, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_create_or_update_with_all_params(self, client: OursPrivacy) -> None:
-        identify = client.identify.create_or_update(
+    def test_method_upsert_with_all_params(self, client: OursPrivacy) -> None:
+        visitor = client.visitor.upsert(
             token="x",
             user_properties={
                 "ad_id": "ad_id",
@@ -153,55 +153,55 @@ class TestIdentify:
             external_id="x",
             user_id="x",
         )
-        assert_matches_type(IdentifyCreateOrUpdateResponse, identify, path=["response"])
+        assert_matches_type(VisitorUpsertResponse, visitor, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_create_or_update(self, client: OursPrivacy) -> None:
-        response = client.identify.with_raw_response.create_or_update(
+    def test_raw_response_upsert(self, client: OursPrivacy) -> None:
+        response = client.visitor.with_raw_response.upsert(
             token="x",
             user_properties={},
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        identify = response.parse()
-        assert_matches_type(IdentifyCreateOrUpdateResponse, identify, path=["response"])
+        visitor = response.parse()
+        assert_matches_type(VisitorUpsertResponse, visitor, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_create_or_update(self, client: OursPrivacy) -> None:
-        with client.identify.with_streaming_response.create_or_update(
+    def test_streaming_response_upsert(self, client: OursPrivacy) -> None:
+        with client.visitor.with_streaming_response.upsert(
             token="x",
             user_properties={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            identify = response.parse()
-            assert_matches_type(IdentifyCreateOrUpdateResponse, identify, path=["response"])
+            visitor = response.parse()
+            assert_matches_type(VisitorUpsertResponse, visitor, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
 
-class TestAsyncIdentify:
+class TestAsyncVisitor:
     parametrize = pytest.mark.parametrize(
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_create_or_update(self, async_client: AsyncOursPrivacy) -> None:
-        identify = await async_client.identify.create_or_update(
+    async def test_method_upsert(self, async_client: AsyncOursPrivacy) -> None:
+        visitor = await async_client.visitor.upsert(
             token="x",
             user_properties={},
         )
-        assert_matches_type(IdentifyCreateOrUpdateResponse, identify, path=["response"])
+        assert_matches_type(VisitorUpsertResponse, visitor, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_create_or_update_with_all_params(self, async_client: AsyncOursPrivacy) -> None:
-        identify = await async_client.identify.create_or_update(
+    async def test_method_upsert_with_all_params(self, async_client: AsyncOursPrivacy) -> None:
+        visitor = await async_client.visitor.upsert(
             token="x",
             user_properties={
                 "ad_id": "ad_id",
@@ -325,32 +325,32 @@ class TestAsyncIdentify:
             external_id="x",
             user_id="x",
         )
-        assert_matches_type(IdentifyCreateOrUpdateResponse, identify, path=["response"])
+        assert_matches_type(VisitorUpsertResponse, visitor, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_create_or_update(self, async_client: AsyncOursPrivacy) -> None:
-        response = await async_client.identify.with_raw_response.create_or_update(
+    async def test_raw_response_upsert(self, async_client: AsyncOursPrivacy) -> None:
+        response = await async_client.visitor.with_raw_response.upsert(
             token="x",
             user_properties={},
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        identify = await response.parse()
-        assert_matches_type(IdentifyCreateOrUpdateResponse, identify, path=["response"])
+        visitor = await response.parse()
+        assert_matches_type(VisitorUpsertResponse, visitor, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_create_or_update(self, async_client: AsyncOursPrivacy) -> None:
-        async with async_client.identify.with_streaming_response.create_or_update(
+    async def test_streaming_response_upsert(self, async_client: AsyncOursPrivacy) -> None:
+        async with async_client.visitor.with_streaming_response.upsert(
             token="x",
             user_properties={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            identify = await response.parse()
-            assert_matches_type(IdentifyCreateOrUpdateResponse, identify, path=["response"])
+            visitor = await response.parse()
+            assert_matches_type(VisitorUpsertResponse, visitor, path=["response"])
 
         assert cast(Any, response.is_closed) is True

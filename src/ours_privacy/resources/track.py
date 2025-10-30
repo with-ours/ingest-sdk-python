@@ -6,7 +6,7 @@ from typing import Dict, Optional
 
 import httpx
 
-from ..types import track_create_event_params
+from ..types import track_event_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -18,7 +18,7 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.track_create_event_response import TrackCreateEventResponse
+from ..types.track_event_response import TrackEventResponse
 
 __all__ = ["TrackResource", "AsyncTrackResource"]
 
@@ -43,26 +43,26 @@ class TrackResource(SyncAPIResource):
         """
         return TrackResourceWithStreamingResponse(self)
 
-    def create_event(
+    def event(
         self,
         *,
         token: str,
         event: str,
-        default_properties: Optional[track_create_event_params.DefaultProperties] | Omit = omit,
+        default_properties: Optional[track_event_params.DefaultProperties] | Omit = omit,
         distinct_id: Optional[str] | Omit = omit,
         email: Optional[str] | Omit = omit,
         event_properties: Optional[Dict[str, Optional[object]]] | Omit = omit,
         external_id: Optional[str] | Omit = omit,
         time: Optional[float] | Omit = omit,
         user_id: Optional[str] | Omit = omit,
-        user_properties: Optional[track_create_event_params.UserProperties] | Omit = omit,
+        user_properties: Optional[track_event_params.UserProperties] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TrackCreateEventResponse:
+    ) -> TrackEventResponse:
         """Track events from your server.
 
         Please include at least one of: userId,
@@ -124,12 +124,12 @@ class TrackResource(SyncAPIResource):
                     "user_id": user_id,
                     "user_properties": user_properties,
                 },
-                track_create_event_params.TrackCreateEventParams,
+                track_event_params.TrackEventParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=TrackCreateEventResponse,
+            cast_to=TrackEventResponse,
         )
 
 
@@ -153,26 +153,26 @@ class AsyncTrackResource(AsyncAPIResource):
         """
         return AsyncTrackResourceWithStreamingResponse(self)
 
-    async def create_event(
+    async def event(
         self,
         *,
         token: str,
         event: str,
-        default_properties: Optional[track_create_event_params.DefaultProperties] | Omit = omit,
+        default_properties: Optional[track_event_params.DefaultProperties] | Omit = omit,
         distinct_id: Optional[str] | Omit = omit,
         email: Optional[str] | Omit = omit,
         event_properties: Optional[Dict[str, Optional[object]]] | Omit = omit,
         external_id: Optional[str] | Omit = omit,
         time: Optional[float] | Omit = omit,
         user_id: Optional[str] | Omit = omit,
-        user_properties: Optional[track_create_event_params.UserProperties] | Omit = omit,
+        user_properties: Optional[track_event_params.UserProperties] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TrackCreateEventResponse:
+    ) -> TrackEventResponse:
         """Track events from your server.
 
         Please include at least one of: userId,
@@ -234,12 +234,12 @@ class AsyncTrackResource(AsyncAPIResource):
                     "user_id": user_id,
                     "user_properties": user_properties,
                 },
-                track_create_event_params.TrackCreateEventParams,
+                track_event_params.TrackEventParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=TrackCreateEventResponse,
+            cast_to=TrackEventResponse,
         )
 
 
@@ -247,8 +247,8 @@ class TrackResourceWithRawResponse:
     def __init__(self, track: TrackResource) -> None:
         self._track = track
 
-        self.create_event = to_raw_response_wrapper(
-            track.create_event,
+        self.event = to_raw_response_wrapper(
+            track.event,
         )
 
 
@@ -256,8 +256,8 @@ class AsyncTrackResourceWithRawResponse:
     def __init__(self, track: AsyncTrackResource) -> None:
         self._track = track
 
-        self.create_event = async_to_raw_response_wrapper(
-            track.create_event,
+        self.event = async_to_raw_response_wrapper(
+            track.event,
         )
 
 
@@ -265,8 +265,8 @@ class TrackResourceWithStreamingResponse:
     def __init__(self, track: TrackResource) -> None:
         self._track = track
 
-        self.create_event = to_streamed_response_wrapper(
-            track.create_event,
+        self.event = to_streamed_response_wrapper(
+            track.event,
         )
 
 
@@ -274,6 +274,6 @@ class AsyncTrackResourceWithStreamingResponse:
     def __init__(self, track: AsyncTrackResource) -> None:
         self._track = track
 
-        self.create_event = async_to_streamed_response_wrapper(
-            track.create_event,
+        self.event = async_to_streamed_response_wrapper(
+            track.event,
         )

@@ -8,13 +8,13 @@ from .track import (
     TrackResourceWithStreamingResponse,
     AsyncTrackResourceWithStreamingResponse,
 )
-from .identify import (
-    IdentifyResource,
-    AsyncIdentifyResource,
-    IdentifyResourceWithRawResponse,
-    AsyncIdentifyResourceWithRawResponse,
-    IdentifyResourceWithStreamingResponse,
-    AsyncIdentifyResourceWithStreamingResponse,
+from .visitor import (
+    VisitorResource,
+    AsyncVisitorResource,
+    VisitorResourceWithRawResponse,
+    AsyncVisitorResourceWithRawResponse,
+    VisitorResourceWithStreamingResponse,
+    AsyncVisitorResourceWithStreamingResponse,
 )
 
 __all__ = [
@@ -24,10 +24,10 @@ __all__ = [
     "AsyncTrackResourceWithRawResponse",
     "TrackResourceWithStreamingResponse",
     "AsyncTrackResourceWithStreamingResponse",
-    "IdentifyResource",
-    "AsyncIdentifyResource",
-    "IdentifyResourceWithRawResponse",
-    "AsyncIdentifyResourceWithRawResponse",
-    "IdentifyResourceWithStreamingResponse",
-    "AsyncIdentifyResourceWithStreamingResponse",
+    "VisitorResource",
+    "AsyncVisitorResource",
+    "VisitorResourceWithRawResponse",
+    "AsyncVisitorResourceWithRawResponse",
+    "VisitorResourceWithStreamingResponse",
+    "AsyncVisitorResourceWithStreamingResponse",
 ]

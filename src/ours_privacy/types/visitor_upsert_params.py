@@ -7,10 +7,10 @@ from typing_extensions import Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["IdentifyCreateOrUpdateParams", "UserProperties", "DefaultProperties"]
+__all__ = ["VisitorUpsertParams", "UserProperties", "DefaultProperties"]
 
 
-class IdentifyCreateOrUpdateParams(TypedDict, total=False):
+class VisitorUpsertParams(TypedDict, total=False):
     token: Required[str]
     """The token for your Ours Privacy Source.
 
