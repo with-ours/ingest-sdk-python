@@ -28,12 +28,9 @@ pip install git+ssh://git@github.com/stainless-sdks/ours-privacy-python.git
 The full API of this library can be found in [api.md](api.md).
 
 ```python
-import os
 from ours_privacy import OursPrivacy
 
-client = OursPrivacy(
-    api_key=os.environ.get("OURS_PRIVACY_API_KEY"),  # This is the default and can be omitted
-)
+client = OursPrivacy()
 
 response = client.track.event(
     token="REPLACE_ME",
@@ -42,23 +39,15 @@ response = client.track.event(
 print(response.success)
 ```
 
-While you can provide an `api_key` keyword argument,
-we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `OURS_PRIVACY_API_KEY="My API Key"` to your `.env` file
-so that your API Key is not stored in source control.
-
 ## Async usage
 
 Simply import `AsyncOursPrivacy` instead of `OursPrivacy` and use `await` with each API call:
 
 ```python
-import os
 import asyncio
 from ours_privacy import AsyncOursPrivacy
 
-client = AsyncOursPrivacy(
-    api_key=os.environ.get("OURS_PRIVACY_API_KEY"),  # This is the default and can be omitted
-)
+client = AsyncOursPrivacy()
 
 
 async def main() -> None:
@@ -95,7 +84,6 @@ from ours_privacy import AsyncOursPrivacy
 
 async def main() -> None:
     async with AsyncOursPrivacy(
-        api_key="My API Key",
         http_client=DefaultAioHttpClient(),
     ) as client:
         response = await client.track.event(
