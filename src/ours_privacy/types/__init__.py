@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from .track_create_event_params import TrackCreateEventParams as TrackCreateEventParams
-from .track_create_event_response import TrackCreateEventResponse as TrackCreateEventResponse
-from .identify_create_or_update_params import IdentifyCreateOrUpdateParams as IdentifyCreateOrUpdateParams
-from .identify_create_or_update_response import IdentifyCreateOrUpdateResponse as IdentifyCreateOrUpdateResponse
+from .track_event_params import TrackEventParams as TrackEventParams
+from .track_event_response import TrackEventResponse as TrackEventResponse
+from .visitor_upsert_params import VisitorUpsertParams as VisitorUpsertParams
+from .visitor_upsert_response import VisitorUpsertResponse as VisitorUpsertResponse

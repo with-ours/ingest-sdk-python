@@ -6,7 +6,7 @@ from typing import Optional
 
 import httpx
 
-from ..types import identify_create_or_update_params
+from ..types import visitor_upsert_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -18,37 +18,37 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.identify_create_or_update_response import IdentifyCreateOrUpdateResponse
+from ..types.visitor_upsert_response import VisitorUpsertResponse
 
-__all__ = ["IdentifyResource", "AsyncIdentifyResource"]
+__all__ = ["VisitorResource", "AsyncVisitorResource"]
 
 
-class IdentifyResource(SyncAPIResource):
+class VisitorResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> IdentifyResourceWithRawResponse:
+    def with_raw_response(self) -> VisitorResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/stainless-sdks/ours-privacy-python#accessing-raw-response-data-eg-headers
         """
-        return IdentifyResourceWithRawResponse(self)
+        return VisitorResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> IdentifyResourceWithStreamingResponse:
+    def with_streaming_response(self) -> VisitorResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/stainless-sdks/ours-privacy-python#with_streaming_response
         """
-        return IdentifyResourceWithStreamingResponse(self)
+        return VisitorResourceWithStreamingResponse(self)
 
-    def create_or_update(
+    def upsert(
         self,
         *,
         token: str,
-        user_properties: identify_create_or_update_params.UserProperties,
-        default_properties: Optional[identify_create_or_update_params.DefaultProperties] | Omit = omit,
+        user_properties: visitor_upsert_params.UserProperties,
+        default_properties: Optional[visitor_upsert_params.DefaultProperties] | Omit = omit,
         email: Optional[str] | Omit = omit,
         external_id: Optional[str] | Omit = omit,
         user_id: Optional[str] | Omit = omit,
@@ -58,7 +58,7 @@ class IdentifyResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> IdentifyCreateOrUpdateResponse:
+    ) -> VisitorUpsertResponse:
         """Define visitor properties on an existing visitor or create a new visitor.
 
         Note:
@@ -106,41 +106,41 @@ class IdentifyResource(SyncAPIResource):
                     "external_id": external_id,
                     "user_id": user_id,
                 },
-                identify_create_or_update_params.IdentifyCreateOrUpdateParams,
+                visitor_upsert_params.VisitorUpsertParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=IdentifyCreateOrUpdateResponse,
+            cast_to=VisitorUpsertResponse,
         )
 
 
-class AsyncIdentifyResource(AsyncAPIResource):
+class AsyncVisitorResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncIdentifyResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncVisitorResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/stainless-sdks/ours-privacy-python#accessing-raw-response-data-eg-headers
         """
-        return AsyncIdentifyResourceWithRawResponse(self)
+        return AsyncVisitorResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncIdentifyResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncVisitorResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/stainless-sdks/ours-privacy-python#with_streaming_response
         """
-        return AsyncIdentifyResourceWithStreamingResponse(self)
+        return AsyncVisitorResourceWithStreamingResponse(self)
 
-    async def create_or_update(
+    async def upsert(
         self,
         *,
         token: str,
-        user_properties: identify_create_or_update_params.UserProperties,
-        default_properties: Optional[identify_create_or_update_params.DefaultProperties] | Omit = omit,
+        user_properties: visitor_upsert_params.UserProperties,
+        default_properties: Optional[visitor_upsert_params.DefaultProperties] | Omit = omit,
         email: Optional[str] | Omit = omit,
         external_id: Optional[str] | Omit = omit,
         user_id: Optional[str] | Omit = omit,
@@ -150,7 +150,7 @@ class AsyncIdentifyResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> IdentifyCreateOrUpdateResponse:
+    ) -> VisitorUpsertResponse:
         """Define visitor properties on an existing visitor or create a new visitor.
 
         Note:
@@ -198,46 +198,46 @@ class AsyncIdentifyResource(AsyncAPIResource):
                     "external_id": external_id,
                     "user_id": user_id,
                 },
-                identify_create_or_update_params.IdentifyCreateOrUpdateParams,
+                visitor_upsert_params.VisitorUpsertParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=IdentifyCreateOrUpdateResponse,
+            cast_to=VisitorUpsertResponse,
         )
 
 
-class IdentifyResourceWithRawResponse:
-    def __init__(self, identify: IdentifyResource) -> None:
-        self._identify = identify
+class VisitorResourceWithRawResponse:
+    def __init__(self, visitor: VisitorResource) -> None:
+        self._visitor = visitor
 
-        self.create_or_update = to_raw_response_wrapper(
-            identify.create_or_update,
+        self.upsert = to_raw_response_wrapper(
+            visitor.upsert,
         )
 
 
-class AsyncIdentifyResourceWithRawResponse:
-    def __init__(self, identify: AsyncIdentifyResource) -> None:
-        self._identify = identify
+class AsyncVisitorResourceWithRawResponse:
+    def __init__(self, visitor: AsyncVisitorResource) -> None:
+        self._visitor = visitor
 
-        self.create_or_update = async_to_raw_response_wrapper(
-            identify.create_or_update,
+        self.upsert = async_to_raw_response_wrapper(
+            visitor.upsert,
         )
 
 
-class IdentifyResourceWithStreamingResponse:
-    def __init__(self, identify: IdentifyResource) -> None:
-        self._identify = identify
+class VisitorResourceWithStreamingResponse:
+    def __init__(self, visitor: VisitorResource) -> None:
+        self._visitor = visitor
 
-        self.create_or_update = to_streamed_response_wrapper(
-            identify.create_or_update,
+        self.upsert = to_streamed_response_wrapper(
+            visitor.upsert,
         )
 
 
-class AsyncIdentifyResourceWithStreamingResponse:
-    def __init__(self, identify: AsyncIdentifyResource) -> None:
-        self._identify = identify
+class AsyncVisitorResourceWithStreamingResponse:
+    def __init__(self, visitor: AsyncVisitorResource) -> None:
+        self._visitor = visitor
 
-        self.create_or_update = async_to_streamed_response_wrapper(
-            identify.create_or_update,
+        self.upsert = async_to_streamed_response_wrapper(
+            visitor.upsert,
         )

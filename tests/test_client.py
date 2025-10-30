@@ -756,7 +756,7 @@ class TestOursPrivacy:
         respx_mock.post("/track").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            client.track.with_streaming_response.create_event(token="x", event="x").__enter__()
+            client.track.with_streaming_response.event(token="x", event="x").__enter__()
 
         assert _get_open_connections(client) == 0
 
@@ -766,7 +766,7 @@ class TestOursPrivacy:
         respx_mock.post("/track").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            client.track.with_streaming_response.create_event(token="x", event="x").__enter__()
+            client.track.with_streaming_response.event(token="x", event="x").__enter__()
         assert _get_open_connections(client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -795,7 +795,7 @@ class TestOursPrivacy:
 
         respx_mock.post("/track").mock(side_effect=retry_handler)
 
-        response = client.track.with_raw_response.create_event(token="x", event="x")
+        response = client.track.with_raw_response.event(token="x", event="x")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -819,7 +819,7 @@ class TestOursPrivacy:
 
         respx_mock.post("/track").mock(side_effect=retry_handler)
 
-        response = client.track.with_raw_response.create_event(
+        response = client.track.with_raw_response.event(
             token="x", event="x", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
@@ -844,7 +844,7 @@ class TestOursPrivacy:
 
         respx_mock.post("/track").mock(side_effect=retry_handler)
 
-        response = client.track.with_raw_response.create_event(
+        response = client.track.with_raw_response.event(
             token="x", event="x", extra_headers={"x-stainless-retry-count": "42"}
         )
 
@@ -1605,7 +1605,7 @@ class TestAsyncOursPrivacy:
         respx_mock.post("/track").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            await async_client.track.with_streaming_response.create_event(token="x", event="x").__aenter__()
+            await async_client.track.with_streaming_response.event(token="x", event="x").__aenter__()
 
         assert _get_open_connections(async_client) == 0
 
@@ -1617,7 +1617,7 @@ class TestAsyncOursPrivacy:
         respx_mock.post("/track").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            await async_client.track.with_streaming_response.create_event(token="x", event="x").__aenter__()
+            await async_client.track.with_streaming_response.event(token="x", event="x").__aenter__()
         assert _get_open_connections(async_client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -1646,7 +1646,7 @@ class TestAsyncOursPrivacy:
 
         respx_mock.post("/track").mock(side_effect=retry_handler)
 
-        response = await client.track.with_raw_response.create_event(token="x", event="x")
+        response = await client.track.with_raw_response.event(token="x", event="x")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1670,7 +1670,7 @@ class TestAsyncOursPrivacy:
 
         respx_mock.post("/track").mock(side_effect=retry_handler)
 
-        response = await client.track.with_raw_response.create_event(
+        response = await client.track.with_raw_response.event(
             token="x", event="x", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
@@ -1695,7 +1695,7 @@ class TestAsyncOursPrivacy:
 
         respx_mock.post("/track").mock(side_effect=retry_handler)
 
-        response = await client.track.with_raw_response.create_event(
+        response = await client.track.with_raw_response.event(
             token="x", event="x", extra_headers={"x-stainless-retry-count": "42"}
         )
 

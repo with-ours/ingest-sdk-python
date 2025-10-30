@@ -22,7 +22,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import track, identify
+from .resources import track, visitor
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError
 from ._base_client import (
@@ -45,7 +45,7 @@ __all__ = [
 
 class OursPrivacy(SyncAPIClient):
     track: track.TrackResource
-    identify: identify.IdentifyResource
+    visitor: visitor.VisitorResource
     with_raw_response: OursPrivacyWithRawResponse
     with_streaming_response: OursPrivacyWithStreamedResponse
 
@@ -101,7 +101,7 @@ class OursPrivacy(SyncAPIClient):
         )
 
         self.track = track.TrackResource(self)
-        self.identify = identify.IdentifyResource(self)
+        self.visitor = visitor.VisitorResource(self)
         self.with_raw_response = OursPrivacyWithRawResponse(self)
         self.with_streaming_response = OursPrivacyWithStreamedResponse(self)
 
@@ -227,7 +227,7 @@ class OursPrivacy(SyncAPIClient):
 
 class AsyncOursPrivacy(AsyncAPIClient):
     track: track.AsyncTrackResource
-    identify: identify.AsyncIdentifyResource
+    visitor: visitor.AsyncVisitorResource
     with_raw_response: AsyncOursPrivacyWithRawResponse
     with_streaming_response: AsyncOursPrivacyWithStreamedResponse
 
@@ -283,7 +283,7 @@ class AsyncOursPrivacy(AsyncAPIClient):
         )
 
         self.track = track.AsyncTrackResource(self)
-        self.identify = identify.AsyncIdentifyResource(self)
+        self.visitor = visitor.AsyncVisitorResource(self)
         self.with_raw_response = AsyncOursPrivacyWithRawResponse(self)
         self.with_streaming_response = AsyncOursPrivacyWithStreamedResponse(self)
 
@@ -410,25 +410,25 @@ class AsyncOursPrivacy(AsyncAPIClient):
 class OursPrivacyWithRawResponse:
     def __init__(self, client: OursPrivacy) -> None:
         self.track = track.TrackResourceWithRawResponse(client.track)
-        self.identify = identify.IdentifyResourceWithRawResponse(client.identify)
+        self.visitor = visitor.VisitorResourceWithRawResponse(client.visitor)
 
 
 class AsyncOursPrivacyWithRawResponse:
     def __init__(self, client: AsyncOursPrivacy) -> None:
         self.track = track.AsyncTrackResourceWithRawResponse(client.track)
-        self.identify = identify.AsyncIdentifyResourceWithRawResponse(client.identify)
+        self.visitor = visitor.AsyncVisitorResourceWithRawResponse(client.visitor)
 
 
 class OursPrivacyWithStreamedResponse:
     def __init__(self, client: OursPrivacy) -> None:
         self.track = track.TrackResourceWithStreamingResponse(client.track)
-        self.identify = identify.IdentifyResourceWithStreamingResponse(client.identify)
+        self.visitor = visitor.VisitorResourceWithStreamingResponse(client.visitor)
 
 
 class AsyncOursPrivacyWithStreamedResponse:
     def __init__(self, client: AsyncOursPrivacy) -> None:
         self.track = track.AsyncTrackResourceWithStreamingResponse(client.track)
-        self.identify = identify.AsyncIdentifyResourceWithStreamingResponse(client.identify)
+        self.visitor = visitor.AsyncVisitorResourceWithStreamingResponse(client.visitor)
 
 
 Client = OursPrivacy

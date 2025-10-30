@@ -4,8 +4,8 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["IdentifyCreateOrUpdateResponse"]
+__all__ = ["VisitorUpsertResponse"]
 
 
-class IdentifyCreateOrUpdateResponse(BaseModel):
+class VisitorUpsertResponse(BaseModel):
     success: Literal[True]

@@ -4,8 +4,8 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["TrackCreateEventResponse"]
+__all__ = ["TrackEventResponse"]
 
 
-class TrackCreateEventResponse(BaseModel):
+class TrackEventResponse(BaseModel):
     success: Literal[True]

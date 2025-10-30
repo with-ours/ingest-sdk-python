@@ -3,21 +3,21 @@
 Types:
 
 ```python
-from ours_privacy.types import TrackCreateEventResponse
+from ours_privacy.types import TrackEventResponse
 ```
 
 Methods:
 
-- <code title="post /track">client.track.<a href="./src/ours_privacy/resources/track.py">create_event</a>(\*\*<a href="src/ours_privacy/types/track_create_event_params.py">params</a>) -> <a href="./src/ours_privacy/types/track_create_event_response.py">TrackCreateEventResponse</a></code>
+- <code title="post /track">client.track.<a href="./src/ours_privacy/resources/track.py">event</a>(\*\*<a href="src/ours_privacy/types/track_event_params.py">params</a>) -> <a href="./src/ours_privacy/types/track_event_response.py">TrackEventResponse</a></code>
 
-# Identify
+# Visitor
 
 Types:
 
 ```python
-from ours_privacy.types import IdentifyCreateOrUpdateResponse
+from ours_privacy.types import VisitorUpsertResponse
 ```
 
 Methods:
 
-- <code title="post /identify">client.identify.<a href="./src/ours_privacy/resources/identify.py">create_or_update</a>(\*\*<a href="src/ours_privacy/types/identify_create_or_update_params.py">params</a>) -> <a href="./src/ours_privacy/types/identify_create_or_update_response.py">IdentifyCreateOrUpdateResponse</a></code>
+- <code title="post /identify">client.visitor.<a href="./src/ours_privacy/resources/visitor.py">upsert</a>(\*\*<a href="src/ours_privacy/types/visitor_upsert_params.py">params</a>) -> <a href="./src/ours_privacy/types/visitor_upsert_response.py">VisitorUpsertResponse</a></code>

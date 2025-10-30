@@ -7,10 +7,10 @@ from typing_extensions import Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["TrackCreateEventParams", "DefaultProperties", "UserProperties"]
+__all__ = ["TrackEventParams", "DefaultProperties", "UserProperties"]
 
 
-class TrackCreateEventParams(TypedDict, total=False):
+class TrackEventParams(TypedDict, total=False):
     token: Required[str]
     """The token for your Ours Privacy Source.
 

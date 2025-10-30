@@ -9,7 +9,7 @@ import pytest
 
 from tests.utils import assert_matches_type
 from ours_privacy import OursPrivacy, AsyncOursPrivacy
-from ours_privacy.types import TrackCreateEventResponse
+from ours_privacy.types import TrackEventResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -19,17 +19,17 @@ class TestTrack:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_create_event(self, client: OursPrivacy) -> None:
-        track = client.track.create_event(
+    def test_method_event(self, client: OursPrivacy) -> None:
+        track = client.track.event(
             token="x",
             event="x",
         )
-        assert_matches_type(TrackCreateEventResponse, track, path=["response"])
+        assert_matches_type(TrackEventResponse, track, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_create_event_with_all_params(self, client: OursPrivacy) -> None:
-        track = client.track.create_event(
+    def test_method_event_with_all_params(self, client: OursPrivacy) -> None:
+        track = client.track.event(
             token="x",
             event="x",
             default_properties={
@@ -157,12 +157,12 @@ class TestTrack:
                 "zip": {},
             },
         )
-        assert_matches_type(TrackCreateEventResponse, track, path=["response"])
+        assert_matches_type(TrackEventResponse, track, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_create_event(self, client: OursPrivacy) -> None:
-        response = client.track.with_raw_response.create_event(
+    def test_raw_response_event(self, client: OursPrivacy) -> None:
+        response = client.track.with_raw_response.event(
             token="x",
             event="x",
         )
@@ -170,12 +170,12 @@ class TestTrack:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         track = response.parse()
-        assert_matches_type(TrackCreateEventResponse, track, path=["response"])
+        assert_matches_type(TrackEventResponse, track, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_create_event(self, client: OursPrivacy) -> None:
-        with client.track.with_streaming_response.create_event(
+    def test_streaming_response_event(self, client: OursPrivacy) -> None:
+        with client.track.with_streaming_response.event(
             token="x",
             event="x",
         ) as response:
@@ -183,7 +183,7 @@ class TestTrack:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             track = response.parse()
-            assert_matches_type(TrackCreateEventResponse, track, path=["response"])
+            assert_matches_type(TrackEventResponse, track, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -195,17 +195,17 @@ class TestAsyncTrack:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_create_event(self, async_client: AsyncOursPrivacy) -> None:
-        track = await async_client.track.create_event(
+    async def test_method_event(self, async_client: AsyncOursPrivacy) -> None:
+        track = await async_client.track.event(
             token="x",
             event="x",
         )
-        assert_matches_type(TrackCreateEventResponse, track, path=["response"])
+        assert_matches_type(TrackEventResponse, track, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_create_event_with_all_params(self, async_client: AsyncOursPrivacy) -> None:
-        track = await async_client.track.create_event(
+    async def test_method_event_with_all_params(self, async_client: AsyncOursPrivacy) -> None:
+        track = await async_client.track.event(
             token="x",
             event="x",
             default_properties={
@@ -333,12 +333,12 @@ class TestAsyncTrack:
                 "zip": {},
             },
         )
-        assert_matches_type(TrackCreateEventResponse, track, path=["response"])
+        assert_matches_type(TrackEventResponse, track, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_create_event(self, async_client: AsyncOursPrivacy) -> None:
-        response = await async_client.track.with_raw_response.create_event(
+    async def test_raw_response_event(self, async_client: AsyncOursPrivacy) -> None:
+        response = await async_client.track.with_raw_response.event(
             token="x",
             event="x",
         )
@@ -346,12 +346,12 @@ class TestAsyncTrack:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         track = await response.parse()
-        assert_matches_type(TrackCreateEventResponse, track, path=["response"])
+        assert_matches_type(TrackEventResponse, track, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_create_event(self, async_client: AsyncOursPrivacy) -> None:
-        async with async_client.track.with_streaming_response.create_event(
+    async def test_streaming_response_event(self, async_client: AsyncOursPrivacy) -> None:
+        async with async_client.track.with_streaming_response.event(
             token="x",
             event="x",
         ) as response:
@@ -359,6 +359,6 @@ class TestAsyncTrack:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             track = await response.parse()
-            assert_matches_type(TrackCreateEventResponse, track, path=["response"])
+            assert_matches_type(TrackEventResponse, track, path=["response"])
 
         assert cast(Any, response.is_closed) is True
