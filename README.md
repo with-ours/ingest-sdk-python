@@ -1,7 +1,7 @@
 # Ours Privacy Python API library
 
 <!-- prettier-ignore -->
-[![PyPI version](https://img.shields.io/pypi/v/ours_privacy.svg?label=pypi%20(stable))](https://pypi.org/project/ours_privacy/)
+[![PyPI version](https://img.shields.io/pypi/v/oursprivacy-client.svg?label=pypi%20(stable))](https://pypi.org/project/oursprivacy-client/)
 
 The Ours Privacy Python library provides convenient access to the Ours Privacy REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
@@ -16,12 +16,9 @@ The REST API documentation can be found on [docs.oursprivacy.com](https://docs.o
 ## Installation
 
 ```sh
-# install from the production repo
-pip install git+ssh://git@github.com/with-ours/ingest-sdk-python.git
+# install from PyPI
+pip install oursprivacy-client
 ```
-
-> [!NOTE]
-> Once this package is [published to PyPI](https://www.stainless.com/docs/guides/publish), this will become: `pip install ours_privacy`
 
 ## Usage
 
@@ -70,8 +67,8 @@ By default, the async client uses `httpx` for HTTP requests. However, for improv
 You can enable this by installing `aiohttp`:
 
 ```sh
-# install from the production repo
-pip install 'ours_privacy[aiohttp] @ git+ssh://git@github.com/with-ours/ingest-sdk-python.git'
+# install from PyPI
+pip install oursprivacy-client[aiohttp]
 ```
 
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
