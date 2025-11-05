@@ -1,7 +1,7 @@
 # Ours Privacy Python API library
 
 <!-- prettier-ignore -->
-[![PyPI version](https://img.shields.io/pypi/v/ours_privacy.svg?label=pypi%20(stable))](https://pypi.org/project/ours_privacy/)
+[![PyPI version](https://img.shields.io/pypi/v/oursprivacy-client.svg?label=pypi%20(stable))](https://pypi.org/project/oursprivacy-client/)
 
 The Ours Privacy Python library provides convenient access to the Ours Privacy REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
@@ -16,12 +16,9 @@ The REST API documentation can be found on [docs.oursprivacy.com](https://docs.o
 ## Installation
 
 ```sh
-# install from this staging repo
-pip install git+ssh://git@github.com/stainless-sdks/ours-privacy-python.git
+# install from PyPI
+pip install oursprivacy-client
 ```
-
-> [!NOTE]
-> Once this package is [published to PyPI](https://www.stainless.com/docs/guides/publish), this will become: `pip install ours_privacy`
 
 ## Usage
 
@@ -70,8 +67,8 @@ By default, the async client uses `httpx` for HTTP requests. However, for improv
 You can enable this by installing `aiohttp`:
 
 ```sh
-# install from this staging repo
-pip install 'ours_privacy[aiohttp] @ git+ssh://git@github.com/stainless-sdks/ours-privacy-python.git'
+# install from PyPI
+pip install oursprivacy-client[aiohttp]
 ```
 
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
@@ -264,9 +261,9 @@ track = response.parse()  # get the object that `track.event()` would have retur
 print(track.success)
 ```
 
-These methods return an [`APIResponse`](https://github.com/stainless-sdks/ours-privacy-python/tree/main/src/ours_privacy/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/with-ours/ingest-sdk-python/tree/main/src/ours_privacy/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/stainless-sdks/ours-privacy-python/tree/main/src/ours_privacy/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/with-ours/ingest-sdk-python/tree/main/src/ours_privacy/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -373,7 +370,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/ours-privacy-python/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/with-ours/ingest-sdk-python/issues) with questions, bugs, or suggestions.
 
 ### Determining the installed version
 
