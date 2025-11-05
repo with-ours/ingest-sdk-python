@@ -1,5 +1,5 @@
 [project]
-name = "ours_privacy"
+name = "oursprivacy-client"
 version = "0.0.1"
 description = "The official Python library for the ours-privacy API"
 dynamic = ["readme"]
