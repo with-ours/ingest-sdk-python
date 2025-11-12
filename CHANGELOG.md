@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.0.2 (2025-11-12)
+
+Full Changelog: [v1.0.1...v1.0.2](https://github.com/with-ours/ingest-sdk-python/compare/v1.0.1...v1.0.2)
+
+### Bug Fixes
+
+* compat with Python 3.14 ([cd383a5](https://github.com/with-ours/ingest-sdk-python/commit/cd383a547755f9f4d2bead67e0e550182acdd058))
+* **compat:** update signatures of `model_dump` and `model_dump_json` for Pydantic v1 ([88a2708](https://github.com/with-ours/ingest-sdk-python/commit/88a2708fdf7677fd6f247801f1010dc5beaba4af))
+
+
+### Chores
+
+* **package:** drop Python 3.8 support ([2efe742](https://github.com/with-ours/ingest-sdk-python/commit/2efe7425d8e2ede324289b0355586f0b8608de6d))
+
 ## 1.0.1 (2025-11-05)
 
 Full Changelog: [v0.0.1...v1.0.1](https://github.com/with-ours/ingest-sdk-python/compare/v0.0.1...v1.0.1)
