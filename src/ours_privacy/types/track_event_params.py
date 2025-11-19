@@ -224,6 +224,9 @@ class DefaultProperties(TypedDict, total=False):
     referrer: Optional[str]
     """The referrer URL of the current page"""
 
+    referring_domain: Optional[str]
+    """The referring domain of the current page"""
+
     sacid: Optional[str]
     """The StackAdapt Tracking ID. Ex: sacid123"""
 
@@ -367,6 +370,8 @@ class UserProperties(TypedDict, total=False):
     rdt_cid: Optional[str]
 
     referrer: Optional[str]
+
+    referring_domain: Optional[str]
 
     sacid: Optional[str]
 
