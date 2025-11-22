@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.2.0 (2025-11-22)
+
+Full Changelog: [v1.1.0...v1.2.0](https://github.com/with-ours/ingest-sdk-python/compare/v1.1.0...v1.2.0)
+
+### Features
+
+* **api:** api update ([056fb31](https://github.com/with-ours/ingest-sdk-python/commit/056fb315770479159e447bc14f3514343936fc5e))
+* **api:** api update ([1d5b0b9](https://github.com/with-ours/ingest-sdk-python/commit/1d5b0b95d3524f8c213d9387947a7d44c8584955))
+
+
+### Chores
+
+* add Python 3.14 classifier and testing ([88dcfd9](https://github.com/with-ours/ingest-sdk-python/commit/88dcfd9a234ee59926b2b0127b4d3d0b9e3d6be8))
+
 ## 1.1.0 (2025-11-19)
 
 Full Changelog: [v1.0.1...v1.1.0](https://github.com/with-ours/ingest-sdk-python/compare/v1.0.1...v1.1.0)
