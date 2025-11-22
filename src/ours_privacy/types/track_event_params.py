@@ -178,6 +178,9 @@ class DefaultProperties(TypedDict, total=False):
     ip: Optional[str]
     """The IP address of the user. Ex: 127.0.0.1"""
 
+    irclickid: Optional[str]
+    """The Impact Click ID. Ex: irclickid123"""
+
     is_bot: object
     """Whether we have detected that the user is a bot.
 
@@ -220,6 +223,9 @@ class DefaultProperties(TypedDict, total=False):
 
     referrer: Optional[str]
     """The referrer URL of the current page"""
+
+    referring_domain: Optional[str]
+    """The referring domain of the current page"""
 
     sacid: Optional[str]
     """The StackAdapt Tracking ID. Ex: sacid123"""
@@ -343,6 +349,8 @@ class UserProperties(TypedDict, total=False):
     ip: Optional[str]
     """The IP address of the user"""
 
+    irclickid: Optional[str]
+
     is_bot: object
 
     job_title: Optional[str]
@@ -362,6 +370,8 @@ class UserProperties(TypedDict, total=False):
     rdt_cid: Optional[str]
 
     referrer: Optional[str]
+
+    referring_domain: Optional[str]
 
     sacid: Optional[str]
 
