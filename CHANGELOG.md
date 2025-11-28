@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.2.1 (2025-11-28)
+
+Full Changelog: [v1.2.0...v1.2.1](https://github.com/with-ours/ingest-sdk-python/compare/v1.2.0...v1.2.1)
+
+### Bug Fixes
+
+* ensure streams are always closed ([0d6b6f0](https://github.com/with-ours/ingest-sdk-python/commit/0d6b6f0f4ad99f46c9815b136f828f210295bc88))
+
+
+### Chores
+
+* **deps:** mypy 1.18.1 has a regression, pin to 1.17 ([8decd50](https://github.com/with-ours/ingest-sdk-python/commit/8decd50690d7ebc355c7fc7e7b1adbbad2ef7549))
+
 ## 1.2.0 (2025-11-22)
 
 Full Changelog: [v1.1.0...v1.2.0](https://github.com/with-ours/ingest-sdk-python/compare/v1.1.0...v1.2.0)
