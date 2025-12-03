@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.2 (2025-12-03)
+
+Full Changelog: [v1.2.1...v1.2.2](https://github.com/with-ours/ingest-sdk-python/compare/v1.2.1...v1.2.2)
+
+### Chores
+
+* update lockfile ([06565c9](https://github.com/with-ours/ingest-sdk-python/commit/06565c969d21d8d2bca00303f4411bb376fd7214))
+
 ## 1.2.1 (2025-11-28)
 
 Full Changelog: [v1.2.0...v1.2.1](https://github.com/with-ours/ingest-sdk-python/compare/v1.2.0...v1.2.1)
