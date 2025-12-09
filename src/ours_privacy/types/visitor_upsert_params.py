@@ -53,6 +53,11 @@ class VisitorUpsertParams(TypedDict, total=False):
 
 
 class UserProperties(TypedDict, total=False):
+    """User properties to associate with this user.
+
+    The existing user properties will be updated. And all future events will have these properties associated with them.
+    """
+
     ad_id: Optional[str]
 
     adset_id: Optional[str]
@@ -160,6 +165,10 @@ class UserProperties(TypedDict, total=False):
 
 
 class DefaultProperties(TypedDict, total=False):
+    """
+    These properties are used throughout the Ours app to pass known values onto destinations
+    """
+
     active_duration: Annotated[Optional[float], PropertyInfo(alias="activeDuration")]
     """The active time in milliseconds that the user had this tab active"""
 
