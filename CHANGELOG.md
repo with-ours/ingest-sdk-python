@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.2.3 (2025-12-09)
+
+Full Changelog: [v1.2.2...v1.2.3](https://github.com/with-ours/ingest-sdk-python/compare/v1.2.2...v1.2.3)
+
+### Bug Fixes
+
+* **types:** allow pyright to infer TypedDict types within SequenceNotStr ([56b7762](https://github.com/with-ours/ingest-sdk-python/commit/56b7762f847d1e18c47de1c5751f4b5dd3af48ac))
+
+
+### Chores
+
+* add missing docstrings ([c69a391](https://github.com/with-ours/ingest-sdk-python/commit/c69a39178bb856462f20d19c904c604b83365bf0))
+
 ## 1.2.2 (2025-12-03)
 
 Full Changelog: [v1.2.1...v1.2.2](https://github.com/with-ours/ingest-sdk-python/compare/v1.2.1...v1.2.2)
