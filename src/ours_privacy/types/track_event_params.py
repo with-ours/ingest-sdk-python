@@ -70,6 +70,10 @@ class TrackEventParams(TypedDict, total=False):
 
 
 class DefaultProperties(TypedDict, total=False):
+    """
+    These properties are used throughout the Ours app to pass known values onto destinations
+    """
+
     active_duration: Annotated[Optional[float], PropertyInfo(alias="activeDuration")]
     """The active time in milliseconds that the user had this tab active"""
 
@@ -300,6 +304,11 @@ class DefaultProperties(TypedDict, total=False):
 
 
 class UserProperties(TypedDict, total=False):
+    """Properties to set on the visitor.
+
+    (optional) You can also update these properties via the identify endpoint.
+    """
+
     ad_id: Optional[str]
 
     adset_id: Optional[str]
