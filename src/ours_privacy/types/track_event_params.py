@@ -179,6 +179,9 @@ class DefaultProperties(TypedDict, total=False):
     iframe: Optional[bool]
     """Whether the user is in an iframe. Ex: true"""
 
+    im_ref: Optional[str]
+    """The Impact Click ID reference. Ex: im_ref123"""
+
     ip: Optional[str]
     """The IP address of the user. Ex: 127.0.0.1"""
 
@@ -354,6 +357,8 @@ class UserProperties(TypedDict, total=False):
     gclid: Optional[str]
 
     gender: Optional[str]
+
+    im_ref: Optional[str]
 
     ip: Optional[str]
     """The IP address of the user"""
