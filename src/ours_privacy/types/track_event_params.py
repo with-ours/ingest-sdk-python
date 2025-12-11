@@ -89,6 +89,9 @@ class DefaultProperties(TypedDict, total=False):
     This is set by the web sdk automatically.
     """
 
+    basis_cid: Optional[str]
+    """The Basis DSP Click ID. Ex: basis_cid123"""
+
     browser_language: Optional[str]
     """The language of the browser. Ex: en-US"""
 
@@ -315,6 +318,8 @@ class UserProperties(TypedDict, total=False):
     ad_id: Optional[str]
 
     adset_id: Optional[str]
+
+    basis_cid: Optional[str]
 
     campaign_id: Optional[str]
 
