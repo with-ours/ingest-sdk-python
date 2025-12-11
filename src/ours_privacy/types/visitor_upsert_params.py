@@ -74,11 +74,11 @@ class UserProperties(TypedDict, total=False):
 
     company_name: Optional[str]
 
-    consent: Optional[Dict[str, Optional[object]]]
+    consent: Optional[Dict[str, Optional[str]]]
 
     country: Optional[str]
 
-    custom_properties: Optional[Dict[str, Optional[object]]]
+    custom_properties: Optional[Dict[str, Optional[str]]]
 
     date_of_birth: Optional[str]
 
@@ -113,7 +113,7 @@ class UserProperties(TypedDict, total=False):
 
     irclickid: Optional[str]
 
-    is_bot: object
+    is_bot: Optional[str]
 
     job_title: Optional[str]
 
@@ -125,7 +125,7 @@ class UserProperties(TypedDict, total=False):
 
     ndclid: Optional[str]
 
-    phone_number: object
+    phone_number: Optional[str]
 
     qclid: Optional[str]
 
@@ -165,7 +165,7 @@ class UserProperties(TypedDict, total=False):
 
     wbraid: Optional[str]
 
-    zip: object
+    zip: Optional[str]
 
 
 class DefaultProperties(TypedDict, total=False):
@@ -290,7 +290,7 @@ class DefaultProperties(TypedDict, total=False):
     irclickid: Optional[str]
     """The Impact Click ID. Ex: irclickid123"""
 
-    is_bot: object
+    is_bot: Optional[str]
     """Whether we have detected that the user is a bot.
 
     This is set automatically by the Ours server primarily for events tracked
