@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.5.1 (2025-12-16)
+
+Full Changelog: [v1.5.0...v1.5.1](https://github.com/with-ours/ingest-sdk-python/compare/v1.5.0...v1.5.1)
+
+### Chores
+
+* **internal:** add missing files argument to base client ([25e312c](https://github.com/with-ours/ingest-sdk-python/commit/25e312c7d8bd11cc47d91370b06f75ae40b3f3c7))
+
 ## 1.5.0 (2025-12-11)
 
 Full Changelog: [v1.4.0...v1.5.0](https://github.com/with-ours/ingest-sdk-python/compare/v1.4.0...v1.5.0)
