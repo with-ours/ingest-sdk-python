@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.5.2 (2025-12-17)
+
+Full Changelog: [v1.5.1...v1.5.2](https://github.com/with-ours/ingest-sdk-python/compare/v1.5.1...v1.5.2)
+
+### Chores
+
+* speedup initial import ([ae14513](https://github.com/with-ours/ingest-sdk-python/commit/ae14513fb6fb88118ac0168fb4a69dc04f2d9c36))
+
 ## 1.5.1 (2025-12-16)
 
 Full Changelog: [v1.5.0...v1.5.1](https://github.com/with-ours/ingest-sdk-python/compare/v1.5.0...v1.5.1)
