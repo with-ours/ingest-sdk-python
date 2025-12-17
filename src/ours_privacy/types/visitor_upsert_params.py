@@ -62,6 +62,10 @@ class UserProperties(TypedDict, total=False):
 
     adset_id: Optional[str]
 
+    alart: Optional[str]
+
+    aleid: Optional[str]
+
     basis_cid: Optional[str]
 
     campaign_id: Optional[str]
@@ -187,6 +191,12 @@ class DefaultProperties(TypedDict, total=False):
 
     This is set by the web sdk automatically.
     """
+
+    alart: Optional[str]
+    """The AppLovin alart query parameter. Ex: alart123"""
+
+    aleid: Optional[str]
+    """The AppLovin aleid query parameter. Ex: aleid123"""
 
     basis_cid: Optional[str]
     """The Basis DSP Click ID. Ex: basis_cid123"""
