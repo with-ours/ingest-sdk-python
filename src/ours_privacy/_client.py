@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Mapping
+from typing import TYPE_CHECKING, Any, Mapping
 from typing_extensions import Self, override
 
 import httpx
@@ -20,8 +20,8 @@ from ._types import (
     not_given,
 )
 from ._utils import is_given, get_async_library
+from ._compat import cached_property
 from ._version import __version__
-from .resources import track, visitor
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError
 from ._base_client import (
@@ -29,6 +29,11 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
+
+if TYPE_CHECKING:
+    from .resources import track, visitor
+    from .resources.track import TrackResource, AsyncTrackResource
+    from .resources.visitor import VisitorResource, AsyncVisitorResource
 
 __all__ = [
     "Timeout",
@@ -43,11 +48,6 @@ __all__ = [
 
 
 class OursPrivacy(SyncAPIClient):
-    track: track.TrackResource
-    visitor: visitor.VisitorResource
-    with_raw_response: OursPrivacyWithRawResponse
-    with_streaming_response: OursPrivacyWithStreamedResponse
-
     # client options
 
     def __init__(
@@ -90,10 +90,25 @@ class OursPrivacy(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.track = track.TrackResource(self)
-        self.visitor = visitor.VisitorResource(self)
-        self.with_raw_response = OursPrivacyWithRawResponse(self)
-        self.with_streaming_response = OursPrivacyWithStreamedResponse(self)
+    @cached_property
+    def track(self) -> TrackResource:
+        from .resources.track import TrackResource
+
+        return TrackResource(self)
+
+    @cached_property
+    def visitor(self) -> VisitorResource:
+        from .resources.visitor import VisitorResource
+
+        return VisitorResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> OursPrivacyWithRawResponse:
+        return OursPrivacyWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> OursPrivacyWithStreamedResponse:
+        return OursPrivacyWithStreamedResponse(self)
 
     @property
     @override
@@ -195,11 +210,6 @@ class OursPrivacy(SyncAPIClient):
 
 
 class AsyncOursPrivacy(AsyncAPIClient):
-    track: track.AsyncTrackResource
-    visitor: visitor.AsyncVisitorResource
-    with_raw_response: AsyncOursPrivacyWithRawResponse
-    with_streaming_response: AsyncOursPrivacyWithStreamedResponse
-
     # client options
 
     def __init__(
@@ -242,10 +252,25 @@ class AsyncOursPrivacy(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.track = track.AsyncTrackResource(self)
-        self.visitor = visitor.AsyncVisitorResource(self)
-        self.with_raw_response = AsyncOursPrivacyWithRawResponse(self)
-        self.with_streaming_response = AsyncOursPrivacyWithStreamedResponse(self)
+    @cached_property
+    def track(self) -> AsyncTrackResource:
+        from .resources.track import AsyncTrackResource
+
+        return AsyncTrackResource(self)
+
+    @cached_property
+    def visitor(self) -> AsyncVisitorResource:
+        from .resources.visitor import AsyncVisitorResource
+
+        return AsyncVisitorResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> AsyncOursPrivacyWithRawResponse:
+        return AsyncOursPrivacyWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncOursPrivacyWithStreamedResponse:
+        return AsyncOursPrivacyWithStreamedResponse(self)
 
     @property
     @override
@@ -347,27 +372,79 @@ class AsyncOursPrivacy(AsyncAPIClient):
 
 
 class OursPrivacyWithRawResponse:
+    _client: OursPrivacy
+
     def __init__(self, client: OursPrivacy) -> None:
-        self.track = track.TrackResourceWithRawResponse(client.track)
-        self.visitor = visitor.VisitorResourceWithRawResponse(client.visitor)
+        self._client = client
+
+    @cached_property
+    def track(self) -> track.TrackResourceWithRawResponse:
+        from .resources.track import TrackResourceWithRawResponse
+
+        return TrackResourceWithRawResponse(self._client.track)
+
+    @cached_property
+    def visitor(self) -> visitor.VisitorResourceWithRawResponse:
+        from .resources.visitor import VisitorResourceWithRawResponse
+
+        return VisitorResourceWithRawResponse(self._client.visitor)
 
 
 class AsyncOursPrivacyWithRawResponse:
+    _client: AsyncOursPrivacy
+
     def __init__(self, client: AsyncOursPrivacy) -> None:
-        self.track = track.AsyncTrackResourceWithRawResponse(client.track)
-        self.visitor = visitor.AsyncVisitorResourceWithRawResponse(client.visitor)
+        self._client = client
+
+    @cached_property
+    def track(self) -> track.AsyncTrackResourceWithRawResponse:
+        from .resources.track import AsyncTrackResourceWithRawResponse
+
+        return AsyncTrackResourceWithRawResponse(self._client.track)
+
+    @cached_property
+    def visitor(self) -> visitor.AsyncVisitorResourceWithRawResponse:
+        from .resources.visitor import AsyncVisitorResourceWithRawResponse
+
+        return AsyncVisitorResourceWithRawResponse(self._client.visitor)
 
 
 class OursPrivacyWithStreamedResponse:
+    _client: OursPrivacy
+
     def __init__(self, client: OursPrivacy) -> None:
-        self.track = track.TrackResourceWithStreamingResponse(client.track)
-        self.visitor = visitor.VisitorResourceWithStreamingResponse(client.visitor)
+        self._client = client
+
+    @cached_property
+    def track(self) -> track.TrackResourceWithStreamingResponse:
+        from .resources.track import TrackResourceWithStreamingResponse
+
+        return TrackResourceWithStreamingResponse(self._client.track)
+
+    @cached_property
+    def visitor(self) -> visitor.VisitorResourceWithStreamingResponse:
+        from .resources.visitor import VisitorResourceWithStreamingResponse
+
+        return VisitorResourceWithStreamingResponse(self._client.visitor)
 
 
 class AsyncOursPrivacyWithStreamedResponse:
+    _client: AsyncOursPrivacy
+
     def __init__(self, client: AsyncOursPrivacy) -> None:
-        self.track = track.AsyncTrackResourceWithStreamingResponse(client.track)
-        self.visitor = visitor.AsyncVisitorResourceWithStreamingResponse(client.visitor)
+        self._client = client
+
+    @cached_property
+    def track(self) -> track.AsyncTrackResourceWithStreamingResponse:
+        from .resources.track import AsyncTrackResourceWithStreamingResponse
+
+        return AsyncTrackResourceWithStreamingResponse(self._client.track)
+
+    @cached_property
+    def visitor(self) -> visitor.AsyncVisitorResourceWithStreamingResponse:
+        from .resources.visitor import AsyncVisitorResourceWithStreamingResponse
+
+        return AsyncVisitorResourceWithStreamingResponse(self._client.visitor)
 
 
 Client = OursPrivacy
