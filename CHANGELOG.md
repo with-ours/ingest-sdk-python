@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.6.1 (2025-12-19)
+
+Full Changelog: [v1.6.0...v1.6.1](https://github.com/with-ours/ingest-sdk-python/compare/v1.6.0...v1.6.1)
+
+### Bug Fixes
+
+* use async_to_httpx_files in patch method ([2a7d6d0](https://github.com/with-ours/ingest-sdk-python/commit/2a7d6d058a8319246cb7631fda0c48f14e57a7a3))
+
+
+### Chores
+
+* **internal:** add `--fix` argument to lint script ([dbd84e6](https://github.com/with-ours/ingest-sdk-python/commit/dbd84e6f66b55d8131170a62a800c6f2f0f9babb))
+
 ## 1.6.0 (2025-12-17)
 
 Full Changelog: [v1.5.2...v1.6.0](https://github.com/with-ours/ingest-sdk-python/compare/v1.5.2...v1.6.0)
