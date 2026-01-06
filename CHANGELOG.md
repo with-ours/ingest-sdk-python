@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.6.2 (2026-01-06)
+
+Full Changelog: [v1.6.1...v1.6.2](https://github.com/with-ours/ingest-sdk-python/compare/v1.6.1...v1.6.2)
+
+### Chores
+
+* **internal:** codegen related update ([ddea8e7](https://github.com/with-ours/ingest-sdk-python/commit/ddea8e76320dbe32eca79e1c8b37eaf5ea9bac1d))
+
 ## 1.6.1 (2025-12-19)
 
 Full Changelog: [v1.6.0...v1.6.1](https://github.com/with-ours/ingest-sdk-python/compare/v1.6.0...v1.6.1)
