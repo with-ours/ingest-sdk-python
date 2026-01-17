@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.7.0 (2026-01-17)
+
+Full Changelog: [v1.6.2...v1.7.0](https://github.com/with-ours/ingest-sdk-python/compare/v1.6.2...v1.7.0)
+
+### Features
+
+* **client:** add support for binary request streaming ([e97222b](https://github.com/with-ours/ingest-sdk-python/commit/e97222b495c603b6ade8b0fa65eb3415d57a413c))
+
+
+### Chores
+
+* **internal:** update `actions/checkout` version ([ff856a6](https://github.com/with-ours/ingest-sdk-python/commit/ff856a6aaa21212fab8ad90097e5e2c33eac4b1c))
+
 ## 1.6.2 (2026-01-06)
 
 Full Changelog: [v1.6.1...v1.6.2](https://github.com/with-ours/ingest-sdk-python/compare/v1.6.1...v1.6.2)
