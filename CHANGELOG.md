@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.7.1 (2026-01-24)
+
+Full Changelog: [v1.7.0...v1.7.1](https://github.com/with-ours/ingest-sdk-python/compare/v1.7.0...v1.7.1)
+
+### Chores
+
+* **ci:** upgrade `actions/github-script` ([cb083e6](https://github.com/with-ours/ingest-sdk-python/commit/cb083e6a9e225acd024d83d98dc57451766f6232))
+
 ## 1.7.0 (2026-01-17)
 
 Full Changelog: [v1.6.2...v1.7.0](https://github.com/with-ours/ingest-sdk-python/compare/v1.6.2...v1.7.0)
