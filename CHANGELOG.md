@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.8.0 (2026-01-30)
+
+Full Changelog: [v1.7.1...v1.8.0](https://github.com/with-ours/ingest-sdk-python/compare/v1.7.1...v1.8.0)
+
+### Features
+
+* **client:** add custom JSON encoder for extended type support ([cba9490](https://github.com/with-ours/ingest-sdk-python/commit/cba9490a32017abd177854e903ac3e75e2f7f5ed))
+
 ## 1.7.1 (2026-01-24)
 
 Full Changelog: [v1.7.0...v1.7.1](https://github.com/with-ours/ingest-sdk-python/compare/v1.7.0...v1.7.1)
