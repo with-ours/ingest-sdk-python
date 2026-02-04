@@ -66,7 +66,7 @@ class VisitorResource(SyncAPIResource):
         and include properties for the visitor.
 
         Args:
-          token: The token for your Ours Privacy Source. You can find this in the Ours dashboard.
+          token: The token for your Source. You can find this in the dashboard.
 
           user_properties: User properties to associate with this user. The existing user properties will
               be updated. And all future events will have these properties associated with
@@ -158,7 +158,7 @@ class AsyncVisitorResource(AsyncAPIResource):
         and include properties for the visitor.
 
         Args:
-          token: The token for your Ours Privacy Source. You can find this in the Ours dashboard.
+          token: The token for your Source. You can find this in the dashboard.
 
           user_properties: User properties to associate with this user. The existing user properties will
               be updated. And all future events will have these properties associated with
