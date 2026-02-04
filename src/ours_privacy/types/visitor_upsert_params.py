@@ -12,10 +12,7 @@ __all__ = ["VisitorUpsertParams", "UserProperties", "DefaultProperties"]
 
 class VisitorUpsertParams(TypedDict, total=False):
     token: Required[str]
-    """The token for your Ours Privacy Source.
-
-    You can find this in the Ours dashboard.
-    """
+    """The token for your Source. You can find this in the dashboard."""
 
     user_properties: Required[Annotated[UserProperties, PropertyInfo(alias="userProperties")]]
     """User properties to associate with this user.

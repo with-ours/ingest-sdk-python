@@ -12,10 +12,7 @@ __all__ = ["TrackEventParams", "DefaultProperties", "UserProperties"]
 
 class TrackEventParams(TypedDict, total=False):
     token: Required[str]
-    """The token for your Ours Privacy Source.
-
-    You can find this in the Ours dashboard.
-    """
+    """The token for your Source. You can find this in the dashboard."""
 
     event: Required[str]
     """The name of the event you're tracking.

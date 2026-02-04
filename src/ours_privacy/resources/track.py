@@ -71,7 +71,7 @@ class TrackResource(SyncAPIResource):
         not unset existing properties.
 
         Args:
-          token: The token for your Ours Privacy Source. You can find this in the Ours dashboard.
+          token: The token for your Source. You can find this in the dashboard.
 
           event: The name of the event you're tracking. This must be whitelisted in the Ours
               dashboard.
@@ -181,7 +181,7 @@ class AsyncTrackResource(AsyncAPIResource):
         not unset existing properties.
 
         Args:
-          token: The token for your Ours Privacy Source. You can find this in the Ours dashboard.
+          token: The token for your Source. You can find this in the dashboard.
 
           event: The name of the event you're tracking. This must be whitelisted in the Ours
               dashboard.
