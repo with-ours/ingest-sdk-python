@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.9.1 (2026-02-10)
+
+Full Changelog: [v1.9.0...v1.9.1](https://github.com/with-ours/ingest-sdk-python/compare/v1.9.0...v1.9.1)
+
+### Chores
+
+* **internal:** bump dependencies ([a278b41](https://github.com/with-ours/ingest-sdk-python/commit/a278b416fc9a504b634ebde83099a32dc5346f86))
+
 ## 1.9.0 (2026-02-04)
 
 Full Changelog: [v1.8.0...v1.9.0](https://github.com/with-ours/ingest-sdk-python/compare/v1.8.0...v1.9.0)
