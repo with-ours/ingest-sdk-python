@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.9.2 (2026-02-12)
+
+Full Changelog: [v1.9.1...v1.9.2](https://github.com/with-ours/ingest-sdk-python/compare/v1.9.1...v1.9.2)
+
+### Chores
+
+* **internal:** fix lint error on Python 3.14 ([0ab4c0e](https://github.com/with-ours/ingest-sdk-python/commit/0ab4c0ec9705c46ba7754a15c4ee67554895b804))
+
 ## 1.9.1 (2026-02-10)
 
 Full Changelog: [v1.9.0...v1.9.1](https://github.com/with-ours/ingest-sdk-python/compare/v1.9.0...v1.9.1)
