@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.9.3 (2026-02-13)
+
+Full Changelog: [v1.9.2...v1.9.3](https://github.com/with-ours/ingest-sdk-python/compare/v1.9.2...v1.9.3)
+
+### Chores
+
+* format all `api.md` files ([b0827d6](https://github.com/with-ours/ingest-sdk-python/commit/b0827d6a18f28ed3953a706f0d4554c1ca223839))
+
 ## 1.9.2 (2026-02-12)
 
 Full Changelog: [v1.9.1...v1.9.2](https://github.com/with-ours/ingest-sdk-python/compare/v1.9.1...v1.9.2)
