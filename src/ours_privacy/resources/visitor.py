@@ -61,9 +61,8 @@ class VisitorResource(SyncAPIResource):
     ) -> VisitorUpsertResponse:
         """Define visitor properties on an existing visitor or create a new visitor.
 
-        Note:
-        This does not fire an event. If you want to fire an event, use the track method
-        and include properties for the visitor.
+        This
+        fires a $identify event, making the call visible in the event stream.
 
         Args:
           token: The token for your Source. You can find this in the dashboard.
@@ -153,9 +152,8 @@ class AsyncVisitorResource(AsyncAPIResource):
     ) -> VisitorUpsertResponse:
         """Define visitor properties on an existing visitor or create a new visitor.
 
-        Note:
-        This does not fire an event. If you want to fire an event, use the track method
-        and include properties for the visitor.
+        This
+        fires a $identify event, making the call visible in the event stream.
 
         Args:
           token: The token for your Source. You can find this in the dashboard.
