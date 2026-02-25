@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.10.0 (2026-02-25)
+
+Full Changelog: [v1.9.3...v1.10.0](https://github.com/with-ours/ingest-sdk-python/compare/v1.9.3...v1.10.0)
+
+### Features
+
+* **api:** api update ([4739a25](https://github.com/with-ours/ingest-sdk-python/commit/4739a2551dafde2d9ef64c4019e20f4d62ebc693))
+
+
+### Chores
+
+* **internal:** add request options to SSE classes ([e2c3364](https://github.com/with-ours/ingest-sdk-python/commit/e2c33643659ad8488f474cc9a20916e88a795dc1))
+* **internal:** make `test_proxy_environment_variables` more resilient ([75d3c2a](https://github.com/with-ours/ingest-sdk-python/commit/75d3c2a803b2b726160fe3e366f5e77c1c795835))
+* **internal:** make `test_proxy_environment_variables` more resilient to env ([ea5257c](https://github.com/with-ours/ingest-sdk-python/commit/ea5257cc776b1799374f132ff18c96c6af2716ad))
+* **internal:** remove mock server code ([17dfffc](https://github.com/with-ours/ingest-sdk-python/commit/17dfffce03f27cb6c962d81bf540da628efb308e))
+* update mock server docs ([66638c7](https://github.com/with-ours/ingest-sdk-python/commit/66638c7d8c42ca8da72f15b52d1ce0b70a5f7577))
+
 ## 1.9.3 (2026-02-13)
 
 Full Changelog: [v1.9.2...v1.9.3](https://github.com/with-ours/ingest-sdk-python/compare/v1.9.2...v1.9.3)
