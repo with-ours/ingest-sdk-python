@@ -7,7 +7,7 @@ from typing_extensions import Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["TrackEventParams", "DefaultProperties", "UserProperties"]
+__all__ = ["TrackEventParams", "DefaultProperties", "IdentityContext", "UserProperties"]
 
 
 class TrackEventParams(TypedDict, total=False):
@@ -44,6 +44,13 @@ class TrackEventParams(TypedDict, total=False):
 
     We will associate this event with the user or create a user. If included in the
     request, email lookup is ignored.
+    """
+
+    identity_context: Annotated[Optional[IdentityContext], PropertyInfo(alias="identityContext")]
+    """End-user network context for server-side calls.
+
+    Required for probabilistic identity resolution when the caller is a backend
+    server rather than an end-user browser.
     """
 
     time: Optional[float]
@@ -310,6 +317,19 @@ class DefaultProperties(TypedDict, total=False):
 
     webview: Optional[bool]
     """Whether the user is in a webview. Ex: true"""
+
+
+class IdentityContext(TypedDict, total=False):
+    """End-user network context for server-side calls.
+
+    Required for probabilistic identity resolution when the caller is a backend server rather than an end-user browser.
+    """
+
+    ip: Required[str]
+    """The end-user IP address (not the server IP)."""
+
+    user_agent: Required[Annotated[str, PropertyInfo(alias="userAgent")]]
+    """The end-user User-Agent string (not the server UA)."""
 
 
 class UserProperties(TypedDict, total=False):

@@ -108,6 +108,10 @@ class TestTrack:
             email="x",
             event_properties={"foo": "string"},
             external_id="x",
+            identity_context={
+                "ip": "ip",
+                "user_agent": "userAgent",
+            },
             time=0,
             user_id="x",
             user_properties={
@@ -296,6 +300,10 @@ class TestAsyncTrack:
             email="x",
             event_properties={"foo": "string"},
             external_id="x",
+            identity_context={
+                "ip": "ip",
+                "user_agent": "userAgent",
+            },
             time=0,
             user_id="x",
             user_properties={
