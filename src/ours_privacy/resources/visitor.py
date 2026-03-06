@@ -51,6 +51,7 @@ class VisitorResource(SyncAPIResource):
         default_properties: Optional[visitor_upsert_params.DefaultProperties] | Omit = omit,
         email: Optional[str] | Omit = omit,
         external_id: Optional[str] | Omit = omit,
+        identity_context: Optional[visitor_upsert_params.IdentityContext] | Omit = omit,
         user_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -82,6 +83,10 @@ class VisitorResource(SyncAPIResource):
               with the user or create a user. If included in the request, email lookup is
               ignored.
 
+          identity_context: End-user network context for server-side calls. Required for probabilistic
+              identity resolution when the caller is a backend server rather than an end-user
+              browser.
+
           user_id: The Ours user id stored in local storage and cookies on your web properties. If
               userId is included in the request, we do not lookup the user by email or
               externalId.
@@ -103,6 +108,7 @@ class VisitorResource(SyncAPIResource):
                     "default_properties": default_properties,
                     "email": email,
                     "external_id": external_id,
+                    "identity_context": identity_context,
                     "user_id": user_id,
                 },
                 visitor_upsert_params.VisitorUpsertParams,
@@ -142,6 +148,7 @@ class AsyncVisitorResource(AsyncAPIResource):
         default_properties: Optional[visitor_upsert_params.DefaultProperties] | Omit = omit,
         email: Optional[str] | Omit = omit,
         external_id: Optional[str] | Omit = omit,
+        identity_context: Optional[visitor_upsert_params.IdentityContext] | Omit = omit,
         user_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -173,6 +180,10 @@ class AsyncVisitorResource(AsyncAPIResource):
               with the user or create a user. If included in the request, email lookup is
               ignored.
 
+          identity_context: End-user network context for server-side calls. Required for probabilistic
+              identity resolution when the caller is a backend server rather than an end-user
+              browser.
+
           user_id: The Ours user id stored in local storage and cookies on your web properties. If
               userId is included in the request, we do not lookup the user by email or
               externalId.
@@ -194,6 +205,7 @@ class AsyncVisitorResource(AsyncAPIResource):
                     "default_properties": default_properties,
                     "email": email,
                     "external_id": external_id,
+                    "identity_context": identity_context,
                     "user_id": user_id,
                 },
                 visitor_upsert_params.VisitorUpsertParams,

@@ -163,6 +163,10 @@ class TestVisitor:
             },
             email="x",
             external_id="x",
+            identity_context={
+                "ip": "ip",
+                "user_agent": "userAgent",
+            },
             user_id="x",
         )
         assert_matches_type(VisitorUpsertResponse, visitor, path=["response"])
@@ -347,6 +351,10 @@ class TestAsyncVisitor:
             },
             email="x",
             external_id="x",
+            identity_context={
+                "ip": "ip",
+                "user_agent": "userAgent",
+            },
             user_id="x",
         )
         assert_matches_type(VisitorUpsertResponse, visitor, path=["response"])

@@ -53,6 +53,7 @@ class TrackResource(SyncAPIResource):
         email: Optional[str] | Omit = omit,
         event_properties: Optional[Dict[str, Optional[str]]] | Omit = omit,
         external_id: Optional[str] | Omit = omit,
+        identity_context: Optional[track_event_params.IdentityContext] | Omit = omit,
         time: Optional[float] | Omit = omit,
         user_id: Optional[str] | Omit = omit,
         user_properties: Optional[track_event_params.UserProperties] | Omit = omit,
@@ -91,6 +92,10 @@ class TrackResource(SyncAPIResource):
               with the user or create a user. If included in the request, email lookup is
               ignored.
 
+          identity_context: End-user network context for server-side calls. Required for probabilistic
+              identity resolution when the caller is a backend server rather than an end-user
+              browser.
+
           time: The time at which the event occurred in milliseconds since UTC epoch. The time
               must be in the past and within the last 7 days.
 
@@ -120,6 +125,7 @@ class TrackResource(SyncAPIResource):
                     "email": email,
                     "event_properties": event_properties,
                     "external_id": external_id,
+                    "identity_context": identity_context,
                     "time": time,
                     "user_id": user_id,
                     "user_properties": user_properties,
@@ -163,6 +169,7 @@ class AsyncTrackResource(AsyncAPIResource):
         email: Optional[str] | Omit = omit,
         event_properties: Optional[Dict[str, Optional[str]]] | Omit = omit,
         external_id: Optional[str] | Omit = omit,
+        identity_context: Optional[track_event_params.IdentityContext] | Omit = omit,
         time: Optional[float] | Omit = omit,
         user_id: Optional[str] | Omit = omit,
         user_properties: Optional[track_event_params.UserProperties] | Omit = omit,
@@ -201,6 +208,10 @@ class AsyncTrackResource(AsyncAPIResource):
               with the user or create a user. If included in the request, email lookup is
               ignored.
 
+          identity_context: End-user network context for server-side calls. Required for probabilistic
+              identity resolution when the caller is a backend server rather than an end-user
+              browser.
+
           time: The time at which the event occurred in milliseconds since UTC epoch. The time
               must be in the past and within the last 7 days.
 
@@ -230,6 +241,7 @@ class AsyncTrackResource(AsyncAPIResource):
                     "email": email,
                     "event_properties": event_properties,
                     "external_id": external_id,
+                    "identity_context": identity_context,
                     "time": time,
                     "user_id": user_id,
                     "user_properties": user_properties,
