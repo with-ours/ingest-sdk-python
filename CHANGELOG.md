@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.11.1 (2026-03-08)
+
+Full Changelog: [v1.11.0...v1.11.1](https://github.com/with-ours/ingest-sdk-python/compare/v1.11.0...v1.11.1)
+
+### Chores
+
+* **ci:** skip uploading artifacts on stainless-internal branches ([24d22e1](https://github.com/with-ours/ingest-sdk-python/commit/24d22e13f1be81769f0cdbaa13f272c92dea95f9))
+
 ## 1.11.0 (2026-03-05)
 
 Full Changelog: [v1.10.0...v1.11.0](https://github.com/with-ours/ingest-sdk-python/compare/v1.10.0...v1.11.0)
