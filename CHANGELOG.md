@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.11.2 (2026-03-17)
+
+Full Changelog: [v1.11.1...v1.11.2](https://github.com/with-ours/ingest-sdk-python/compare/v1.11.1...v1.11.2)
+
+### Bug Fixes
+
+* **deps:** bump minimum typing-extensions version ([f069a5a](https://github.com/with-ours/ingest-sdk-python/commit/f069a5a6c09ab24a9513129ff6d5d88f321cc78f))
+* **pydantic:** do not pass `by_alias` unless set ([8cfd465](https://github.com/with-ours/ingest-sdk-python/commit/8cfd465d0f053e6a84c76966c087ca9fda38c908))
+
+
+### Chores
+
+* **internal:** tweak CI branches ([57ea2aa](https://github.com/with-ours/ingest-sdk-python/commit/57ea2aabc88dc9dd59d90bdb92d68df51638c20e))
+
 ## 1.11.1 (2026-03-08)
 
 Full Changelog: [v1.11.0...v1.11.1](https://github.com/with-ours/ingest-sdk-python/compare/v1.11.0...v1.11.1)
