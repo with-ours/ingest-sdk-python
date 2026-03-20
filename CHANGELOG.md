@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.11.3 (2026-03-20)
+
+Full Changelog: [v1.11.2...v1.11.3](https://github.com/with-ours/ingest-sdk-python/compare/v1.11.2...v1.11.3)
+
+### Bug Fixes
+
+* sanitize endpoint path params ([b84fee8](https://github.com/with-ours/ingest-sdk-python/commit/b84fee803e5c63d7426d6bbb4460354b913522dc))
+
 ## 1.11.2 (2026-03-17)
 
 Full Changelog: [v1.11.1...v1.11.2](https://github.com/with-ours/ingest-sdk-python/compare/v1.11.1...v1.11.2)
