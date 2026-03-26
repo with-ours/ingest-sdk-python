@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.11.4 (2026-03-25)
+
+Full Changelog: [v1.11.3...v1.11.4](https://github.com/with-ours/ingest-sdk-python/compare/v1.11.3...v1.11.4)
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([16175d9](https://github.com/with-ours/ingest-sdk-python/commit/16175d98570f9b963d5e33e34126a027913177d4))
+* **internal:** update gitignore ([cd86aab](https://github.com/with-ours/ingest-sdk-python/commit/cd86aab4648b7549f6bdbf777631ebb672f5254e))
+
 ## 1.11.3 (2026-03-20)
 
 Full Changelog: [v1.11.2...v1.11.3](https://github.com/with-ours/ingest-sdk-python/compare/v1.11.2...v1.11.3)
