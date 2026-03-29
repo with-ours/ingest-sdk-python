@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.12.0 (2026-03-27)
+
+Full Changelog: [v1.11.4...v1.12.0](https://github.com/with-ours/ingest-sdk-python/compare/v1.11.4...v1.12.0)
+
+### Features
+
+* **api:** api update ([26b36b3](https://github.com/with-ours/ingest-sdk-python/commit/26b36b3de6ebe2a773c320f34e404d7324c8647c))
+* **internal:** implement indices array format for query and form serialization ([fd9fa15](https://github.com/with-ours/ingest-sdk-python/commit/fd9fa157ae8850c8610ee19ae8305ee9e09b9857))
+
 ## 1.11.4 (2026-03-25)
 
 Full Changelog: [v1.11.3...v1.11.4](https://github.com/with-ours/ingest-sdk-python/compare/v1.11.3...v1.11.4)

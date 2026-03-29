@@ -70,6 +70,8 @@ class UserProperties(TypedDict, total=False):
 
     aleid: Optional[str]
 
+    axwrt: Optional[str]
+
     basis_cid: Optional[str]
 
     campaign_id: Optional[str]
@@ -201,6 +203,9 @@ class DefaultProperties(TypedDict, total=False):
 
     aleid: Optional[str]
     """The AppLovin aleid query parameter. Ex: aleid123"""
+
+    axwrt: Optional[str]
+    """The AppLovin Axon pixel cookie value (\\__axwrt). Web-only."""
 
     basis_cid: Optional[str]
     """The Basis DSP Click ID. Ex: basis_cid123"""
