@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.12.1 (2026-04-11)
+
+Full Changelog: [v1.12.0...v1.12.1](https://github.com/with-ours/ingest-sdk-python/compare/v1.12.0...v1.12.1)
+
+### Bug Fixes
+
+* **client:** preserve hardcoded query params when merging with user params ([894dfb3](https://github.com/with-ours/ingest-sdk-python/commit/894dfb3b4f3d3aa1a3ca19fd88c3dd250a87f6b2))
+* ensure file data are only sent as 1 parameter ([5f2dc9f](https://github.com/with-ours/ingest-sdk-python/commit/5f2dc9f2c8e00cd46ea0a6e4de35cd585926db0d))
+
 ## 1.12.0 (2026-03-27)
 
 Full Changelog: [v1.11.4...v1.12.0](https://github.com/with-ours/ingest-sdk-python/compare/v1.11.4...v1.12.0)
