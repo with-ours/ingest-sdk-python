@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.12.2 (2026-04-18)
+
+Full Changelog: [v1.12.1...v1.12.2](https://github.com/with-ours/ingest-sdk-python/compare/v1.12.1...v1.12.2)
+
+### Performance Improvements
+
+* **client:** optimize file structure copying in multipart requests ([de7fcdb](https://github.com/with-ours/ingest-sdk-python/commit/de7fcdb590a291f4fff8f10b7eedcf980084f951))
+
 ## 1.12.1 (2026-04-11)
 
 Full Changelog: [v1.12.0...v1.12.1](https://github.com/with-ours/ingest-sdk-python/compare/v1.12.0...v1.12.1)
