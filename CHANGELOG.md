@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.12.3 (2026-04-23)
+
+Full Changelog: [v1.12.2...v1.12.3](https://github.com/with-ours/ingest-sdk-python/compare/v1.12.2...v1.12.3)
+
+### Chores
+
+* **internal:** more robust bootstrap script ([5bf93e2](https://github.com/with-ours/ingest-sdk-python/commit/5bf93e277f61f74cd723a1a182fc0058b2013299))
+
 ## 1.12.2 (2026-04-18)
 
 Full Changelog: [v1.12.1...v1.12.2](https://github.com/with-ours/ingest-sdk-python/compare/v1.12.1...v1.12.2)
