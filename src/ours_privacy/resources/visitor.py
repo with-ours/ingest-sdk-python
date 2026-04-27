@@ -63,7 +63,12 @@ class VisitorResource(SyncAPIResource):
         """Define visitor properties on an existing visitor or create a new visitor.
 
         This
-        fires a $identify event, making the call visible in the event stream.
+        fires a $identify event, making the call visible in the event stream. For
+        top-level visitor properties: null clears the existing value, while undefined,
+        omitted fields, and empty strings are ignored. For entries inside
+        custom_properties: null, undefined, and empty strings are all ignored
+        (custom_properties use merge semantics). See
+        https://docs.oursprivacy.com/docs/data-types for details and common pitfalls.
 
         Args:
           token: The token for your Source. You can find this in the dashboard.
@@ -160,7 +165,12 @@ class AsyncVisitorResource(AsyncAPIResource):
         """Define visitor properties on an existing visitor or create a new visitor.
 
         This
-        fires a $identify event, making the call visible in the event stream.
+        fires a $identify event, making the call visible in the event stream. For
+        top-level visitor properties: null clears the existing value, while undefined,
+        omitted fields, and empty strings are ignored. For entries inside
+        custom_properties: null, undefined, and empty strings are all ignored
+        (custom_properties use merge semantics). See
+        https://docs.oursprivacy.com/docs/data-types for details and common pitfalls.
 
         Args:
           token: The token for your Source. You can find this in the dashboard.
