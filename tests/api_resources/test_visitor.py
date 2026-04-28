@@ -33,6 +33,7 @@ class TestVisitor:
             token="x",
             user_properties={
                 "ad_id": "ad_id",
+                "admitad_uid": "admitad_uid",
                 "adset_id": "adset_id",
                 "alart": "alart",
                 "aleid": "aleid",
@@ -93,6 +94,7 @@ class TestVisitor:
             default_properties={
                 "active_duration": 0,
                 "ad_id": "ad_id",
+                "admitad_uid": "admitad_uid",
                 "adset_id": "adset_id",
                 "alart": "alart",
                 "aleid": "aleid",
@@ -223,6 +225,7 @@ class TestAsyncVisitor:
             token="x",
             user_properties={
                 "ad_id": "ad_id",
+                "admitad_uid": "admitad_uid",
                 "adset_id": "adset_id",
                 "alart": "alart",
                 "aleid": "aleid",
@@ -283,6 +286,7 @@ class TestAsyncVisitor:
             default_properties={
                 "active_duration": 0,
                 "ad_id": "ad_id",
+                "admitad_uid": "admitad_uid",
                 "adset_id": "adset_id",
                 "alart": "alart",
                 "aleid": "aleid",

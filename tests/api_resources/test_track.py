@@ -35,6 +35,7 @@ class TestTrack:
             default_properties={
                 "active_duration": 0,
                 "ad_id": "ad_id",
+                "admitad_uid": "admitad_uid",
                 "adset_id": "adset_id",
                 "alart": "alart",
                 "aleid": "aleid",
@@ -117,6 +118,7 @@ class TestTrack:
             user_id="x",
             user_properties={
                 "ad_id": "ad_id",
+                "admitad_uid": "admitad_uid",
                 "adset_id": "adset_id",
                 "alart": "alart",
                 "aleid": "aleid",
@@ -229,6 +231,7 @@ class TestAsyncTrack:
             default_properties={
                 "active_duration": 0,
                 "ad_id": "ad_id",
+                "admitad_uid": "admitad_uid",
                 "adset_id": "adset_id",
                 "alart": "alart",
                 "aleid": "aleid",
@@ -311,6 +314,7 @@ class TestAsyncTrack:
             user_id="x",
             user_properties={
                 "ad_id": "ad_id",
+                "admitad_uid": "admitad_uid",
                 "adset_id": "adset_id",
                 "alart": "alart",
                 "aleid": "aleid",

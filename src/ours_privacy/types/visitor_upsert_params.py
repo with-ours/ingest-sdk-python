@@ -64,6 +64,8 @@ class UserProperties(TypedDict, total=False):
 
     ad_id: Optional[str]
 
+    admitad_uid: Optional[str]
+
     adset_id: Optional[str]
 
     alart: Optional[str]
@@ -191,6 +193,9 @@ class DefaultProperties(TypedDict, total=False):
 
     This is set by the web sdk automatically.
     """
+
+    admitad_uid: Optional[str]
+    """The Admitad (Mitgo) affiliate Click ID. Ex: admitad_uid_abc123"""
 
     adset_id: Optional[str]
     """The adset id for detected in the session.
