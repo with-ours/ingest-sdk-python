@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.13.0 (2026-04-29)
+
+Full Changelog: [v1.12.3...v1.13.0](https://github.com/with-ours/ingest-sdk-python/compare/v1.12.3...v1.13.0)
+
+### Features
+
+* **api:** api update ([9409366](https://github.com/with-ours/ingest-sdk-python/commit/9409366c4dc91c5a93602bacd37489778ba283ff))
+* **api:** api update ([bfa7176](https://github.com/with-ours/ingest-sdk-python/commit/bfa7176eb0593bcff48068d4eadf36a0bada40ad))
+* support setting headers via env ([b981bb5](https://github.com/with-ours/ingest-sdk-python/commit/b981bb57b0971df0d65919c9726eb7e3f0856c46))
+
+
+### Bug Fixes
+
+* use correct field name format for multipart file arrays ([54b7469](https://github.com/with-ours/ingest-sdk-python/commit/54b746955d4818e7ef3a61b1c5cf15a197f7f9cd))
+
 ## 1.12.3 (2026-04-23)
 
 Full Changelog: [v1.12.2...v1.12.3](https://github.com/with-ours/ingest-sdk-python/compare/v1.12.2...v1.12.3)
