@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.13.1 (2026-05-01)
+
+Full Changelog: [v1.13.0...v1.13.1](https://github.com/with-ours/ingest-sdk-python/compare/v1.13.0...v1.13.1)
+
+### Chores
+
+* **internal:** reformat pyproject.toml ([d29b44f](https://github.com/with-ours/ingest-sdk-python/commit/d29b44f2dd2075d5c692d5fb118c60732828d23e))
+
 ## 1.13.0 (2026-04-29)
 
 Full Changelog: [v1.12.3...v1.13.0](https://github.com/with-ours/ingest-sdk-python/compare/v1.12.3...v1.13.0)
