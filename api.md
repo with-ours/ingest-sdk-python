@@ -1,3 +1,15 @@
+# Batch
+
+Types:
+
+```python
+from ours_privacy.types import BatchCreateResponse
+```
+
+Methods:
+
+- <code title="post /batch">client.batch.<a href="./src/ours_privacy/resources/batch.py">create</a>(\*\*<a href="src/ours_privacy/types/batch_create_params.py">params</a>) -> <a href="./src/ours_privacy/types/batch_create_response.py">BatchCreateResponse</a></code>
+
 # Track
 
 Types:
@@ -21,15 +33,3 @@ from ours_privacy.types import VisitorUpsertResponse
 Methods:
 
 - <code title="post /identify">client.visitor.<a href="./src/ours_privacy/resources/visitor.py">upsert</a>(\*\*<a href="src/ours_privacy/types/visitor_upsert_params.py">params</a>) -> <a href="./src/ours_privacy/types/visitor_upsert_response.py">VisitorUpsertResponse</a></code>
-
-# Batch
-
-Types:
-
-```python
-from ours_privacy.types import BatchCreateResponse
-```
-
-Methods:
-
-- <code title="post /batch">client.batch.<a href="./src/ours_privacy/resources/batch.py">create</a>(\*\*<a href="src/ours_privacy/types/batch_create_params.py">params</a>) -> <a href="./src/ours_privacy/types/batch_create_response.py">BatchCreateResponse</a></code>
