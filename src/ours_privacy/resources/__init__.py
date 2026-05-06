@@ -26,6 +26,12 @@ from .visitor import (
 )
 
 __all__ = [
+    "BatchResource",
+    "AsyncBatchResource",
+    "BatchResourceWithRawResponse",
+    "AsyncBatchResourceWithRawResponse",
+    "BatchResourceWithStreamingResponse",
+    "AsyncBatchResourceWithStreamingResponse",
     "TrackResource",
     "AsyncTrackResource",
     "TrackResourceWithRawResponse",
@@ -38,10 +44,4 @@ __all__ = [
     "AsyncVisitorResourceWithRawResponse",
     "VisitorResourceWithStreamingResponse",
     "AsyncVisitorResourceWithStreamingResponse",
-    "BatchResource",
-    "AsyncBatchResource",
-    "BatchResourceWithRawResponse",
-    "AsyncBatchResourceWithRawResponse",
-    "BatchResourceWithStreamingResponse",
-    "AsyncBatchResourceWithStreamingResponse",
 ]
