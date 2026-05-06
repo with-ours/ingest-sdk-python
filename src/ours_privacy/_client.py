@@ -35,7 +35,8 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import track, visitor
+    from .resources import batch, track, visitor
+    from .resources.batch import BatchResource, AsyncBatchResource
     from .resources.track import TrackResource, AsyncTrackResource
     from .resources.visitor import VisitorResource, AsyncVisitorResource
 
@@ -114,6 +115,12 @@ class OursPrivacy(SyncAPIClient):
         from .resources.visitor import VisitorResource
 
         return VisitorResource(self)
+
+    @cached_property
+    def batch(self) -> BatchResource:
+        from .resources.batch import BatchResource
+
+        return BatchResource(self)
 
     @cached_property
     def with_raw_response(self) -> OursPrivacyWithRawResponse:
@@ -287,6 +294,12 @@ class AsyncOursPrivacy(AsyncAPIClient):
         return AsyncVisitorResource(self)
 
     @cached_property
+    def batch(self) -> AsyncBatchResource:
+        from .resources.batch import AsyncBatchResource
+
+        return AsyncBatchResource(self)
+
+    @cached_property
     def with_raw_response(self) -> AsyncOursPrivacyWithRawResponse:
         return AsyncOursPrivacyWithRawResponse(self)
 
@@ -411,6 +424,12 @@ class OursPrivacyWithRawResponse:
 
         return VisitorResourceWithRawResponse(self._client.visitor)
 
+    @cached_property
+    def batch(self) -> batch.BatchResourceWithRawResponse:
+        from .resources.batch import BatchResourceWithRawResponse
+
+        return BatchResourceWithRawResponse(self._client.batch)
+
 
 class AsyncOursPrivacyWithRawResponse:
     _client: AsyncOursPrivacy
@@ -429,6 +448,12 @@ class AsyncOursPrivacyWithRawResponse:
         from .resources.visitor import AsyncVisitorResourceWithRawResponse
 
         return AsyncVisitorResourceWithRawResponse(self._client.visitor)
+
+    @cached_property
+    def batch(self) -> batch.AsyncBatchResourceWithRawResponse:
+        from .resources.batch import AsyncBatchResourceWithRawResponse
+
+        return AsyncBatchResourceWithRawResponse(self._client.batch)
 
 
 class OursPrivacyWithStreamedResponse:
@@ -449,6 +474,12 @@ class OursPrivacyWithStreamedResponse:
 
         return VisitorResourceWithStreamingResponse(self._client.visitor)
 
+    @cached_property
+    def batch(self) -> batch.BatchResourceWithStreamingResponse:
+        from .resources.batch import BatchResourceWithStreamingResponse
+
+        return BatchResourceWithStreamingResponse(self._client.batch)
+
 
 class AsyncOursPrivacyWithStreamedResponse:
     _client: AsyncOursPrivacy
@@ -467,6 +498,12 @@ class AsyncOursPrivacyWithStreamedResponse:
         from .resources.visitor import AsyncVisitorResourceWithStreamingResponse
 
         return AsyncVisitorResourceWithStreamingResponse(self._client.visitor)
+
+    @cached_property
+    def batch(self) -> batch.AsyncBatchResourceWithStreamingResponse:
+        from .resources.batch import AsyncBatchResourceWithStreamingResponse
+
+        return AsyncBatchResourceWithStreamingResponse(self._client.batch)
 
 
 Client = OursPrivacy
