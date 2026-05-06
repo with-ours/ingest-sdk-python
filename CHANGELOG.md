@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.14.0 (2026-05-06)
+
+Full Changelog: [v1.13.1...v1.14.0](https://github.com/with-ours/ingest-sdk-python/compare/v1.13.1...v1.14.0)
+
+### Features
+
+* **api:** api update ([9628154](https://github.com/with-ours/ingest-sdk-python/commit/9628154d1cd8b7b530562f1538e3f7cb4200bada))
+* **api:** manual updates ([2c52ff9](https://github.com/with-ours/ingest-sdk-python/commit/2c52ff9addc677c296525f1eea240241e346f4c9))
+
 ## 1.13.1 (2026-05-01)
 
 Full Changelog: [v1.13.0...v1.13.1](https://github.com/with-ours/ingest-sdk-python/compare/v1.13.0...v1.13.1)

@@ -35,7 +35,8 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import track, visitor
+    from .resources import batch, track, visitor
+    from .resources.batch import BatchResource, AsyncBatchResource
     from .resources.track import TrackResource, AsyncTrackResource
     from .resources.visitor import VisitorResource, AsyncVisitorResource
 
@@ -102,6 +103,12 @@ class OursPrivacy(SyncAPIClient):
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
         )
+
+    @cached_property
+    def batch(self) -> BatchResource:
+        from .resources.batch import BatchResource
+
+        return BatchResource(self)
 
     @cached_property
     def track(self) -> TrackResource:
@@ -275,6 +282,12 @@ class AsyncOursPrivacy(AsyncAPIClient):
         )
 
     @cached_property
+    def batch(self) -> AsyncBatchResource:
+        from .resources.batch import AsyncBatchResource
+
+        return AsyncBatchResource(self)
+
+    @cached_property
     def track(self) -> AsyncTrackResource:
         from .resources.track import AsyncTrackResource
 
@@ -400,6 +413,12 @@ class OursPrivacyWithRawResponse:
         self._client = client
 
     @cached_property
+    def batch(self) -> batch.BatchResourceWithRawResponse:
+        from .resources.batch import BatchResourceWithRawResponse
+
+        return BatchResourceWithRawResponse(self._client.batch)
+
+    @cached_property
     def track(self) -> track.TrackResourceWithRawResponse:
         from .resources.track import TrackResourceWithRawResponse
 
@@ -417,6 +436,12 @@ class AsyncOursPrivacyWithRawResponse:
 
     def __init__(self, client: AsyncOursPrivacy) -> None:
         self._client = client
+
+    @cached_property
+    def batch(self) -> batch.AsyncBatchResourceWithRawResponse:
+        from .resources.batch import AsyncBatchResourceWithRawResponse
+
+        return AsyncBatchResourceWithRawResponse(self._client.batch)
 
     @cached_property
     def track(self) -> track.AsyncTrackResourceWithRawResponse:
@@ -438,6 +463,12 @@ class OursPrivacyWithStreamedResponse:
         self._client = client
 
     @cached_property
+    def batch(self) -> batch.BatchResourceWithStreamingResponse:
+        from .resources.batch import BatchResourceWithStreamingResponse
+
+        return BatchResourceWithStreamingResponse(self._client.batch)
+
+    @cached_property
     def track(self) -> track.TrackResourceWithStreamingResponse:
         from .resources.track import TrackResourceWithStreamingResponse
 
@@ -455,6 +486,12 @@ class AsyncOursPrivacyWithStreamedResponse:
 
     def __init__(self, client: AsyncOursPrivacy) -> None:
         self._client = client
+
+    @cached_property
+    def batch(self) -> batch.AsyncBatchResourceWithStreamingResponse:
+        from .resources.batch import AsyncBatchResourceWithStreamingResponse
+
+        return AsyncBatchResourceWithStreamingResponse(self._client.batch)
 
     @cached_property
     def track(self) -> track.AsyncTrackResourceWithStreamingResponse:
