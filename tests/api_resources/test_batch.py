@@ -22,7 +22,12 @@ class TestBatch:
     def test_method_create(self, client: OursPrivacy) -> None:
         batch = client.batch.create(
             token="x",
-            events=[{"event": "x"}],
+            events=[
+                {
+                    "distinct_id": "x",
+                    "event": "x",
+                }
+            ],
         )
         assert_matches_type(BatchCreateResponse, batch, path=["response"])
 
@@ -31,7 +36,12 @@ class TestBatch:
     def test_raw_response_create(self, client: OursPrivacy) -> None:
         response = client.batch.with_raw_response.create(
             token="x",
-            events=[{"event": "x"}],
+            events=[
+                {
+                    "distinct_id": "x",
+                    "event": "x",
+                }
+            ],
         )
 
         assert response.is_closed is True
@@ -44,7 +54,12 @@ class TestBatch:
     def test_streaming_response_create(self, client: OursPrivacy) -> None:
         with client.batch.with_streaming_response.create(
             token="x",
-            events=[{"event": "x"}],
+            events=[
+                {
+                    "distinct_id": "x",
+                    "event": "x",
+                }
+            ],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -65,7 +80,12 @@ class TestAsyncBatch:
     async def test_method_create(self, async_client: AsyncOursPrivacy) -> None:
         batch = await async_client.batch.create(
             token="x",
-            events=[{"event": "x"}],
+            events=[
+                {
+                    "distinct_id": "x",
+                    "event": "x",
+                }
+            ],
         )
         assert_matches_type(BatchCreateResponse, batch, path=["response"])
 
@@ -74,7 +94,12 @@ class TestAsyncBatch:
     async def test_raw_response_create(self, async_client: AsyncOursPrivacy) -> None:
         response = await async_client.batch.with_raw_response.create(
             token="x",
-            events=[{"event": "x"}],
+            events=[
+                {
+                    "distinct_id": "x",
+                    "event": "x",
+                }
+            ],
         )
 
         assert response.is_closed is True
@@ -87,7 +112,12 @@ class TestAsyncBatch:
     async def test_streaming_response_create(self, async_client: AsyncOursPrivacy) -> None:
         async with async_client.batch.with_streaming_response.create(
             token="x",
-            events=[{"event": "x"}],
+            events=[
+                {
+                    "distinct_id": "x",
+                    "event": "x",
+                }
+            ],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

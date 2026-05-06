@@ -408,23 +408,20 @@ class EventUserProperties(TypedDict, total=False):
 
 
 class Event(TypedDict, total=False):
+    distinct_id: Required[Annotated[str, PropertyInfo(alias="distinctId")]]
+    """A unique identifier for the event. This helps prevent duplicate events."""
+
     event: Required[str]
     """The name of the event you're tracking.
 
     This must be whitelisted in the Ours dashboard.
     """
 
-    token: str
-    """The token for your Source. You can find this in the dashboard."""
-
     default_properties: Annotated[Optional[EventDefaultProperties], PropertyInfo(alias="defaultProperties")]
     """
     These properties are used throughout the Ours app to pass known values onto
     destinations
     """
-
-    distinct_id: Annotated[Optional[str], PropertyInfo(alias="distinctId")]
-    """A unique identifier for the event. This helps prevent duplicate events."""
 
     email: Optional[str]
     """The email address of a user.
