@@ -409,7 +409,12 @@ class EventUserProperties(TypedDict, total=False):
 
 class Event(TypedDict, total=False):
     distinct_id: Required[Annotated[str, PropertyInfo(alias="distinctId")]]
-    """A unique identifier for the event. This helps prevent duplicate events."""
+    """A unique identifier for this event used for deduplication.
+
+    Highly recommended — if omitted, Ours will generate one for you, but supplying
+    your own gives you stronger idempotency guarantees (e.g. a Stripe payment intent
+    ID or your internal order ID).
+    """
 
     event: Required[str]
     """The name of the event you're tracking.
@@ -426,18 +431,22 @@ class Event(TypedDict, total=False):
     email: Optional[str]
     """The email address of a user.
 
-    We will associate this event with the user or create a user. Used for lookup if
-    externalId and userId are not included in the request.
+    Used as a fallback lookup when neither userId nor externalId is provided. We
+    search your account for a visitor with this email and attach the event to them.
+    If no match is found, a new visitor is created.
     """
 
     event_properties: Annotated[Optional[Dict[str, Optional[str]]], PropertyInfo(alias="eventProperties")]
     """Any additional event properties you want to pass along."""
 
     external_id: Annotated[Optional[str], PropertyInfo(alias="externalId")]
-    """The externalId (the ID in your system) of a user.
+    """Your system's unique identifier for this user.
 
-    We will associate this event with the user or create a user. If included in the
-    request, email lookup is ignored.
+    We search your account for an existing visitor with this externalId and attach
+    the event to them (resolving to their Ours Visitor ID). If no match is found, a
+    new visitor is created. When present, email lookup is skipped. If you also have
+    the userId from cookies or local storage, send both — it removes the lookup
+    round-trip.
     """
 
     identity_context: Annotated[Optional[EventIdentityContext], PropertyInfo(alias="identityContext")]
@@ -454,10 +463,11 @@ class Event(TypedDict, total=False):
     """
 
     user_id: Annotated[Optional[str], PropertyInfo(alias="userId")]
-    """The Ours user id stored in local storage and cookies on your web properties.
+    """The Ours Visitor ID stored in local storage and cookies on your web properties.
 
-    If userId is included in the request, we do not lookup the user by email or
-    externalId.
+    When present, this is used directly — no lookup by externalId or email is
+    performed. If you have both a userId and an externalId, send both so the event
+    is attached to the right visitor without any lookup overhead.
     """
 
     user_properties: Annotated[Optional[EventUserProperties], PropertyInfo(alias="userProperties")]
