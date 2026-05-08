@@ -32,6 +32,7 @@ class TestVisitor:
         visitor = client.visitor.upsert(
             token="x",
             user_properties={
+                "_ef_transaction_id": "_ef_transaction_id",
                 "ad_id": "ad_id",
                 "admitad_uid": "admitad_uid",
                 "adset_id": "adset_id",
@@ -92,6 +93,7 @@ class TestVisitor:
                 "zip": "zip",
             },
             default_properties={
+                "_ef_transaction_id": "_ef_transaction_id",
                 "active_duration": 0,
                 "ad_id": "ad_id",
                 "admitad_uid": "admitad_uid",
@@ -224,6 +226,7 @@ class TestAsyncVisitor:
         visitor = await async_client.visitor.upsert(
             token="x",
             user_properties={
+                "_ef_transaction_id": "_ef_transaction_id",
                 "ad_id": "ad_id",
                 "admitad_uid": "admitad_uid",
                 "adset_id": "adset_id",
@@ -284,6 +287,7 @@ class TestAsyncVisitor:
                 "zip": "zip",
             },
             default_properties={
+                "_ef_transaction_id": "_ef_transaction_id",
                 "active_duration": 0,
                 "ad_id": "ad_id",
                 "admitad_uid": "admitad_uid",
