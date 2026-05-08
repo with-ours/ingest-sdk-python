@@ -67,6 +67,8 @@ class UserProperties(TypedDict, total=False):
     The existing user properties will be updated. And all future events will have these properties associated with them.
     """
 
+    _ef_transaction_id: Optional[str]
+
     ad_id: Optional[str]
 
     admitad_uid: Optional[str]
@@ -188,6 +190,12 @@ class UserProperties(TypedDict, total=False):
 class DefaultProperties(TypedDict, total=False):
     """
     These properties are used throughout the Ours app to pass known values onto destinations
+    """
+
+    _ef_transaction_id: Optional[str]
+    """
+    The Everflow affiliate Click (Transaction) ID, captured from the
+    `_ef_transaction_id` URL parameter. Ex: ef_click_abc123
     """
 
     active_duration: Annotated[Optional[float], PropertyInfo(alias="activeDuration")]

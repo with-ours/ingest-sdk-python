@@ -33,6 +33,7 @@ class TestTrack:
             token="x",
             event="x",
             default_properties={
+                "_ef_transaction_id": "_ef_transaction_id",
                 "active_duration": 0,
                 "ad_id": "ad_id",
                 "admitad_uid": "admitad_uid",
@@ -117,6 +118,7 @@ class TestTrack:
             time=0,
             user_id="x",
             user_properties={
+                "_ef_transaction_id": "_ef_transaction_id",
                 "ad_id": "ad_id",
                 "admitad_uid": "admitad_uid",
                 "adset_id": "adset_id",
@@ -229,6 +231,7 @@ class TestAsyncTrack:
             token="x",
             event="x",
             default_properties={
+                "_ef_transaction_id": "_ef_transaction_id",
                 "active_duration": 0,
                 "ad_id": "ad_id",
                 "admitad_uid": "admitad_uid",
@@ -313,6 +316,7 @@ class TestAsyncTrack:
             time=0,
             user_id="x",
             user_properties={
+                "_ef_transaction_id": "_ef_transaction_id",
                 "ad_id": "ad_id",
                 "admitad_uid": "admitad_uid",
                 "adset_id": "adset_id",
