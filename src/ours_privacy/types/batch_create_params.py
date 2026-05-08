@@ -23,6 +23,12 @@ class EventDefaultProperties(TypedDict, total=False):
     These properties are used throughout the Ours app to pass known values onto destinations
     """
 
+    _ef_transaction_id: Optional[str]
+    """
+    The Everflow affiliate Click (Transaction) ID, captured from the
+    `_ef_transaction_id` URL parameter. Ex: ef_click_abc123
+    """
+
     active_duration: Annotated[Optional[float], PropertyInfo(alias="activeDuration")]
     """The active time in milliseconds that the user had this tab active"""
 
@@ -288,6 +294,8 @@ class EventUserProperties(TypedDict, total=False):
 
     (optional) You can also update these properties via the identify endpoint.
     """
+
+    _ef_transaction_id: Optional[str]
 
     ad_id: Optional[str]
 
