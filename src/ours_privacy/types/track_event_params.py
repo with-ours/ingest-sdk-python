@@ -124,6 +124,12 @@ class DefaultProperties(TypedDict, total=False):
     basis_cid: Optional[str]
     """The Basis DSP Click ID. Ex: basis_cid123"""
 
+    beeswax_auction_id: Optional[str]
+    """
+    The Beeswax (FreeWheel Buyer Cloud) auction ID, captured from the
+    `{{AUCTION_ID}}` macro on creative click URLs. Ex: bx-auc-abc123
+    """
+
     browser_language: Optional[str]
     """The language of the browser. Ex: en-US"""
 
@@ -375,6 +381,8 @@ class UserProperties(TypedDict, total=False):
     axwrt: Optional[str]
 
     basis_cid: Optional[str]
+
+    beeswax_auction_id: Optional[str]
 
     campaign_id: Optional[str]
 
