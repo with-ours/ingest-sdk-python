@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.18.0 (2026-05-13)
+
+Full Changelog: [v1.17.0...v1.18.0](https://github.com/with-ours/ingest-sdk-python/compare/v1.17.0...v1.18.0)
+
+### Features
+
+* **api:** api update ([2217880](https://github.com/with-ours/ingest-sdk-python/commit/2217880b02265cb19a83e6353b026f1037937151))
+* **internal/types:** support eagerly validating pydantic iterators ([b7e9301](https://github.com/with-ours/ingest-sdk-python/commit/b7e930176da0ee0f463625e2bba475fdd264ec76))
+
+
+### Bug Fixes
+
+* **client:** add missing f-string prefix in file type error message ([25cd7ef](https://github.com/with-ours/ingest-sdk-python/commit/25cd7ef87aa9593956d7e424f9623bb6c84ce9fc))
+
 ## 1.17.0 (2026-05-08)
 
 Full Changelog: [v1.16.0...v1.17.0](https://github.com/with-ours/ingest-sdk-python/compare/v1.16.0...v1.17.0)
