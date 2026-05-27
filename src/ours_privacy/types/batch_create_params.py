@@ -183,6 +183,14 @@ class EventDefaultProperties(TypedDict, total=False):
     new_s: Optional[bool]
     """Deprecated"""
 
+    oppref: Optional[str]
+    """
+    The OpenAI Ads privacy-preserving reference, captured from the `oppref` URL
+    parameter on landing pages (the OpenAI Pixel also stores it in a `__oppref`
+    cookie). Sent to OpenAI Ads on Conversions API events for attribution. Ex:
+    oppref_abc
+    """
+
     os_name: Optional[str]
     """The name of the operating system. Ex: Windows"""
 
@@ -393,6 +401,8 @@ class EventUserProperties(TypedDict, total=False):
     msclkid: Optional[str]
 
     ndclid: Optional[str]
+
+    oppref: Optional[str]
 
     phone_number: Optional[str]
 
