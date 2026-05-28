@@ -24,6 +24,14 @@ from .visitor import (
     VisitorResourceWithStreamingResponse,
     AsyncVisitorResourceWithStreamingResponse,
 )
+from .experiments import (
+    ExperimentsResource,
+    AsyncExperimentsResource,
+    ExperimentsResourceWithRawResponse,
+    AsyncExperimentsResourceWithRawResponse,
+    ExperimentsResourceWithStreamingResponse,
+    AsyncExperimentsResourceWithStreamingResponse,
+)
 
 __all__ = [
     "BatchResource",
@@ -44,4 +52,10 @@ __all__ = [
     "AsyncVisitorResourceWithRawResponse",
     "VisitorResourceWithStreamingResponse",
     "AsyncVisitorResourceWithStreamingResponse",
+    "ExperimentsResource",
+    "AsyncExperimentsResource",
+    "ExperimentsResourceWithRawResponse",
+    "AsyncExperimentsResourceWithRawResponse",
+    "ExperimentsResourceWithStreamingResponse",
+    "AsyncExperimentsResourceWithStreamingResponse",
 ]

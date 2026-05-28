@@ -35,10 +35,11 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import batch, track, visitor
+    from .resources import batch, track, visitor, experiments
     from .resources.batch import BatchResource, AsyncBatchResource
     from .resources.track import TrackResource, AsyncTrackResource
     from .resources.visitor import VisitorResource, AsyncVisitorResource
+    from .resources.experiments import ExperimentsResource, AsyncExperimentsResource
 
 __all__ = [
     "Timeout",
@@ -121,6 +122,12 @@ class OursPrivacy(SyncAPIClient):
         from .resources.visitor import VisitorResource
 
         return VisitorResource(self)
+
+    @cached_property
+    def experiments(self) -> ExperimentsResource:
+        from .resources.experiments import ExperimentsResource
+
+        return ExperimentsResource(self)
 
     @cached_property
     def with_raw_response(self) -> OursPrivacyWithRawResponse:
@@ -300,6 +307,12 @@ class AsyncOursPrivacy(AsyncAPIClient):
         return AsyncVisitorResource(self)
 
     @cached_property
+    def experiments(self) -> AsyncExperimentsResource:
+        from .resources.experiments import AsyncExperimentsResource
+
+        return AsyncExperimentsResource(self)
+
+    @cached_property
     def with_raw_response(self) -> AsyncOursPrivacyWithRawResponse:
         return AsyncOursPrivacyWithRawResponse(self)
 
@@ -430,6 +443,12 @@ class OursPrivacyWithRawResponse:
 
         return VisitorResourceWithRawResponse(self._client.visitor)
 
+    @cached_property
+    def experiments(self) -> experiments.ExperimentsResourceWithRawResponse:
+        from .resources.experiments import ExperimentsResourceWithRawResponse
+
+        return ExperimentsResourceWithRawResponse(self._client.experiments)
+
 
 class AsyncOursPrivacyWithRawResponse:
     _client: AsyncOursPrivacy
@@ -454,6 +473,12 @@ class AsyncOursPrivacyWithRawResponse:
         from .resources.visitor import AsyncVisitorResourceWithRawResponse
 
         return AsyncVisitorResourceWithRawResponse(self._client.visitor)
+
+    @cached_property
+    def experiments(self) -> experiments.AsyncExperimentsResourceWithRawResponse:
+        from .resources.experiments import AsyncExperimentsResourceWithRawResponse
+
+        return AsyncExperimentsResourceWithRawResponse(self._client.experiments)
 
 
 class OursPrivacyWithStreamedResponse:
@@ -480,6 +505,12 @@ class OursPrivacyWithStreamedResponse:
 
         return VisitorResourceWithStreamingResponse(self._client.visitor)
 
+    @cached_property
+    def experiments(self) -> experiments.ExperimentsResourceWithStreamingResponse:
+        from .resources.experiments import ExperimentsResourceWithStreamingResponse
+
+        return ExperimentsResourceWithStreamingResponse(self._client.experiments)
+
 
 class AsyncOursPrivacyWithStreamedResponse:
     _client: AsyncOursPrivacy
@@ -504,6 +535,12 @@ class AsyncOursPrivacyWithStreamedResponse:
         from .resources.visitor import AsyncVisitorResourceWithStreamingResponse
 
         return AsyncVisitorResourceWithStreamingResponse(self._client.visitor)
+
+    @cached_property
+    def experiments(self) -> experiments.AsyncExperimentsResourceWithStreamingResponse:
+        from .resources.experiments import AsyncExperimentsResourceWithStreamingResponse
+
+        return AsyncExperimentsResourceWithStreamingResponse(self._client.experiments)
 
 
 Client = OursPrivacy
