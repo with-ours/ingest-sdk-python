@@ -146,6 +146,8 @@ class UserProperties(TypedDict, total=False):
 
     ndclid: Optional[str]
 
+    ob_click_id: Optional[str]
+
     oppref: Optional[str]
 
     phone_number: Optional[str]
@@ -359,6 +361,12 @@ class DefaultProperties(TypedDict, total=False):
 
     new_s: Optional[bool]
     """Deprecated"""
+
+    ob_click_id: Optional[str]
+    """
+    The Outbrain click ID, captured from the `ob_click_id` URL parameter (Outbrain
+    `{{ob_click_id}}` macro) on the landing page. Ex: ob_click_abc123
+    """
 
     oppref: Optional[str]
     """
