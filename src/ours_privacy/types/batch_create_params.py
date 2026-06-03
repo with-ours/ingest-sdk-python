@@ -183,6 +183,12 @@ class EventDefaultProperties(TypedDict, total=False):
     new_s: Optional[bool]
     """Deprecated"""
 
+    ob_click_id: Optional[str]
+    """
+    The Outbrain click ID, captured from the `ob_click_id` URL parameter (Outbrain
+    `{{ob_click_id}}` macro) on the landing page. Ex: ob_click_abc123
+    """
+
     oppref: Optional[str]
     """
     The OpenAI Ads privacy-preserving reference, captured from the `oppref` URL
@@ -401,6 +407,8 @@ class EventUserProperties(TypedDict, total=False):
     msclkid: Optional[str]
 
     ndclid: Optional[str]
+
+    ob_click_id: Optional[str]
 
     oppref: Optional[str]
 
