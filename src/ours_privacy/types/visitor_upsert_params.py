@@ -233,7 +233,7 @@ class DefaultProperties(TypedDict, total=False):
     """The AppLovin aleid query parameter. Ex: aleid123"""
 
     axwrt: Optional[str]
-    """The AppLovin Axon pixel cookie value (\\__axwrt). Web-only."""
+    """The AppLovin pixel cookie value (\\__axwrt). Web-only."""
 
     basis_cid: Optional[str]
     """The Basis DSP Click ID. Ex: basis_cid123"""
