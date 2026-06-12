@@ -463,7 +463,7 @@ class DefaultProperties(TypedDict, total=False):
     """The UTM Term. The web SDK automatically captures this from the query params."""
 
     version: Optional[str]
-    """The version of the web SDK"""
+    """The SDK version (e.g., web SDK or ingest-sdk-\\** via Stainless headers)"""
 
     viant_click_id: Optional[str]
     """
