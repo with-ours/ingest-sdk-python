@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.25.0 (2026-07-18)
+
+Full Changelog: [v1.24.0...v1.25.0](https://github.com/with-ours/ingest-sdk-python/compare/v1.24.0...v1.25.0)
+
+### Features
+
+* **stlc:** configurable CI runner and private-production-repo support in workflow templates ([d99ae2a](https://github.com/with-ours/ingest-sdk-python/commit/d99ae2a78f5113fbfdeb05f5fc413a42cab3d680))
+
 ## 1.24.0 (2026-06-12)
 
 Full Changelog: [v1.23.0...v1.24.0](https://github.com/with-ours/ingest-sdk-python/compare/v1.23.0...v1.24.0)
