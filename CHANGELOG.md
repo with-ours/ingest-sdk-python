@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.26.1 (2026-08-03)
+
+Full Changelog: [v1.26.0...v1.26.1](https://github.com/with-ours/ingest-sdk-python/compare/v1.26.0...v1.26.1)
+
+### Chores
+
+* add CODEOWNERS ([#47](https://github.com/with-ours/ingest-sdk-python/issues/47)) ([f2c0ff6](https://github.com/with-ours/ingest-sdk-python/commit/f2c0ff66ab53b98f277d2bde6f5bbf48b7b15f97))
+
 ## 1.26.0 (2026-07-21)
 
 Full Changelog: [v1.25.0...v1.26.0](https://github.com/with-ours/ingest-sdk-python/compare/v1.25.0...v1.26.0)
