@@ -57,9 +57,10 @@ class BatchResource(SyncAPIResource):
     ) -> BatchCreateResponse:
         """Send multiple `/track`-shaped events in a single request.
 
-        The top-level token is
-        authorized once for the full batch. Each batch row must include `distinctId`,
-        and mixed validation or queue outcomes are reported per row.
+        This endpoint is
+        intended for replay, backfill, and asynchronous bulk delivery. The top-level
+        token is authorized once for the full batch. Each batch row must include
+        `distinctId`, and mixed validation or queue outcomes are reported per row.
 
         Args:
           token: The token for your Source. You can find this in the dashboard.
@@ -124,9 +125,10 @@ class AsyncBatchResource(AsyncAPIResource):
     ) -> BatchCreateResponse:
         """Send multiple `/track`-shaped events in a single request.
 
-        The top-level token is
-        authorized once for the full batch. Each batch row must include `distinctId`,
-        and mixed validation or queue outcomes are reported per row.
+        This endpoint is
+        intended for replay, backfill, and asynchronous bulk delivery. The top-level
+        token is authorized once for the full batch. Each batch row must include
+        `distinctId`, and mixed validation or queue outcomes are reported per row.
 
         Args:
           token: The token for your Source. You can find this in the dashboard.
