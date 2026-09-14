@@ -23,8 +23,6 @@ class Personalization(BaseModel):
 
 
 class ExperimentPersonalizationResponse(BaseModel):
-    personalizations: List[Personalization]
-
     properties: Dict[str, Union[str, float, bool]]
     """
     The visitor traits accumulated by your personalization property rules, keyed by
@@ -36,3 +34,10 @@ class ExperimentPersonalizationResponse(BaseModel):
     """
 
     success: Literal[True]
+
+    personalizations: Optional[List[Personalization]] = None
+    """Deprecated legacy personalization assignments.
+
+    Current API responses omit this field; use properties for accumulated
+    personalization traits. Retained in the SDK for callers using older responses.
+    """
