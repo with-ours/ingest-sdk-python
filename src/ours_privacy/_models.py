@@ -115,6 +115,7 @@ class BaseModel(pydantic.BaseModel):
 
         class Config(pydantic.BaseConfig):  # pyright: ignore[reportDeprecated]
             extra: Any = pydantic.Extra.allow  # type: ignore
+            smart_union: bool = True
     else:
         model_config: ClassVar[ConfigDict] = ConfigDict(
             extra="allow", defer_build=coerce_boolean(os.environ.get("DEFER_PYDANTIC_BUILD", "true"))
