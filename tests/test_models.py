@@ -379,6 +379,33 @@ def test_dict_of_union() -> None:
     # TODO: test mismatched type
 
 
+@pytest.mark.parametrize("value", ["hello", "", "1", 2.5, 0, False, True, None])
+def test_nullable_scalar_union_preserves_json_types(value: object) -> None:
+    class Model(BaseModel):
+        data: Dict[str, Union[str, float, bool, int, None]]
+        values: List[Union[str, float, bool, int, None]]
+
+    for model in [
+        Model.construct(data={"value": value}, values=[value]),
+        parse_obj(Model, {"data": {"value": value}, "values": [value]}),
+    ]:
+        for actual in [model.data["value"], model.values[0]]:
+            assert actual == value
+            if type(value) in (int, float):
+                assert type(actual) in (int, float)
+            else:
+                assert type(actual) is type(value)
+
+
+@pytest.mark.parametrize("value", [{}, []])
+def test_nullable_scalar_union_rejects_structured_values(value: object) -> None:
+    class Model(BaseModel):
+        data: Dict[str, Union[str, float, bool, int, None]]
+
+    with pytest.raises(pydantic.ValidationError):
+        parse_obj(Model, {"data": {"value": value}})
+
+
 def test_double_nested_union() -> None:
     class SubModel1(BaseModel):
         name: str
