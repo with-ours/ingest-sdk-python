@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable, Optional
+from typing import Union, Mapping, Iterable, Optional
 
 import httpx
 
@@ -52,23 +52,25 @@ class TrackResource(SyncAPIResource):
         distinct_id: Optional[str] | Omit = omit,
         email: Optional[str] | Omit = omit,
         event_properties: Optional[
-            Dict[
+            Mapping[
                 str,
                 Union[
                     Optional[str],
                     float,
                     bool,
-                    SequenceNotStr[Union[Optional[str], float, bool, Iterable[object], Dict[str, object], int, None]],
-                    Dict[
+                    SequenceNotStr[
+                        Union[Optional[str], float, bool, Iterable[object], Mapping[str, object], int, None]
+                    ],
+                    Mapping[
                         str,
                         Union[
                             Optional[str],
                             float,
                             bool,
                             SequenceNotStr[
-                                Union[Optional[str], float, bool, Iterable[object], Dict[str, object], int, None]
+                                Union[Optional[str], float, bool, Iterable[object], Mapping[str, object], int, None]
                             ],
-                            Dict[
+                            Mapping[
                                 str,
                                 Union[
                                     Optional[str],
@@ -76,10 +78,16 @@ class TrackResource(SyncAPIResource):
                                     bool,
                                     SequenceNotStr[
                                         Union[
-                                            Optional[str], float, bool, Iterable[object], Dict[str, object], int, None
+                                            Optional[str],
+                                            float,
+                                            bool,
+                                            Iterable[object],
+                                            Mapping[str, object],
+                                            int,
+                                            None,
                                         ]
                                     ],
-                                    Dict[
+                                    Mapping[
                                         str,
                                         Union[
                                             Optional[str],
@@ -91,12 +99,12 @@ class TrackResource(SyncAPIResource):
                                                     float,
                                                     bool,
                                                     Iterable[object],
-                                                    Dict[str, object],
+                                                    Mapping[str, object],
                                                     int,
                                                     None,
                                                 ]
                                             ],
-                                            Dict[
+                                            Mapping[
                                                 str,
                                                 Union[
                                                     Optional[str],
@@ -108,7 +116,7 @@ class TrackResource(SyncAPIResource):
                                                             float,
                                                             bool,
                                                             Iterable[object],
-                                                            Dict[str, object],
+                                                            Mapping[str, object],
                                                             int,
                                                             None,
                                                         ]
@@ -277,23 +285,25 @@ class AsyncTrackResource(AsyncAPIResource):
         distinct_id: Optional[str] | Omit = omit,
         email: Optional[str] | Omit = omit,
         event_properties: Optional[
-            Dict[
+            Mapping[
                 str,
                 Union[
                     Optional[str],
                     float,
                     bool,
-                    SequenceNotStr[Union[Optional[str], float, bool, Iterable[object], Dict[str, object], int, None]],
-                    Dict[
+                    SequenceNotStr[
+                        Union[Optional[str], float, bool, Iterable[object], Mapping[str, object], int, None]
+                    ],
+                    Mapping[
                         str,
                         Union[
                             Optional[str],
                             float,
                             bool,
                             SequenceNotStr[
-                                Union[Optional[str], float, bool, Iterable[object], Dict[str, object], int, None]
+                                Union[Optional[str], float, bool, Iterable[object], Mapping[str, object], int, None]
                             ],
-                            Dict[
+                            Mapping[
                                 str,
                                 Union[
                                     Optional[str],
@@ -301,10 +311,16 @@ class AsyncTrackResource(AsyncAPIResource):
                                     bool,
                                     SequenceNotStr[
                                         Union[
-                                            Optional[str], float, bool, Iterable[object], Dict[str, object], int, None
+                                            Optional[str],
+                                            float,
+                                            bool,
+                                            Iterable[object],
+                                            Mapping[str, object],
+                                            int,
+                                            None,
                                         ]
                                     ],
-                                    Dict[
+                                    Mapping[
                                         str,
                                         Union[
                                             Optional[str],
@@ -316,12 +332,12 @@ class AsyncTrackResource(AsyncAPIResource):
                                                     float,
                                                     bool,
                                                     Iterable[object],
-                                                    Dict[str, object],
+                                                    Mapping[str, object],
                                                     int,
                                                     None,
                                                 ]
                                             ],
-                                            Dict[
+                                            Mapping[
                                                 str,
                                                 Union[
                                                     Optional[str],
@@ -333,7 +349,7 @@ class AsyncTrackResource(AsyncAPIResource):
                                                             float,
                                                             bool,
                                                             Iterable[object],
-                                                            Dict[str, object],
+                                                            Mapping[str, object],
                                                             int,
                                                             None,
                                                         ]
