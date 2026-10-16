@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable, Optional
+from typing import Union, Mapping, Iterable, Optional
 from typing_extensions import Required, Annotated, TypedDict
 
 from .._types import SequenceNotStr
@@ -274,7 +274,7 @@ class EventDefaultProperties(TypedDict, total=False):
     Ex: irclickid123 Leading and trailing whitespace is removed before validation.
     """
 
-    is_bot: Union[Optional[str], float, bool, Iterable[object], Dict[str, object], int, None]
+    is_bot: Union[Optional[str], float, bool, Iterable[object], Mapping[str, object], int, None]
     """Any JSON value: string, number, boolean, array, object, or null."""
 
     li_fat_id: Optional[str]
@@ -553,32 +553,32 @@ class EventUserProperties(TypedDict, total=False):
     """Leading and trailing whitespace is removed before validation."""
 
     consent: Optional[
-        Dict[
+        Mapping[
             str,
             Union[
                 Optional[str],
                 float,
                 bool,
-                SequenceNotStr[Union[Optional[str], float, bool, Iterable[object], Dict[str, object], int, None]],
-                Dict[
+                SequenceNotStr[Union[Optional[str], float, bool, Iterable[object], Mapping[str, object], int, None]],
+                Mapping[
                     str,
                     Union[
                         Optional[str],
                         float,
                         bool,
                         SequenceNotStr[
-                            Union[Optional[str], float, bool, Iterable[object], Dict[str, object], int, None]
+                            Union[Optional[str], float, bool, Iterable[object], Mapping[str, object], int, None]
                         ],
-                        Dict[
+                        Mapping[
                             str,
                             Union[
                                 Optional[str],
                                 float,
                                 bool,
                                 SequenceNotStr[
-                                    Union[Optional[str], float, bool, Iterable[object], Dict[str, object], int, None]
+                                    Union[Optional[str], float, bool, Iterable[object], Mapping[str, object], int, None]
                                 ],
-                                Dict[
+                                Mapping[
                                     str,
                                     Union[
                                         Optional[str],
@@ -590,12 +590,12 @@ class EventUserProperties(TypedDict, total=False):
                                                 float,
                                                 bool,
                                                 Iterable[object],
-                                                Dict[str, object],
+                                                Mapping[str, object],
                                                 int,
                                                 None,
                                             ]
                                         ],
-                                        Dict[
+                                        Mapping[
                                             str,
                                             Union[
                                                 Optional[str],
@@ -607,7 +607,7 @@ class EventUserProperties(TypedDict, total=False):
                                                         float,
                                                         bool,
                                                         Iterable[object],
-                                                        Dict[str, object],
+                                                        Mapping[str, object],
                                                         int,
                                                         None,
                                                     ]
@@ -648,32 +648,32 @@ class EventUserProperties(TypedDict, total=False):
     """
 
     custom_properties: Optional[
-        Dict[
+        Mapping[
             str,
             Union[
                 Optional[str],
                 float,
                 bool,
-                SequenceNotStr[Union[Optional[str], float, bool, Iterable[object], Dict[str, object], int, None]],
-                Dict[
+                SequenceNotStr[Union[Optional[str], float, bool, Iterable[object], Mapping[str, object], int, None]],
+                Mapping[
                     str,
                     Union[
                         Optional[str],
                         float,
                         bool,
                         SequenceNotStr[
-                            Union[Optional[str], float, bool, Iterable[object], Dict[str, object], int, None]
+                            Union[Optional[str], float, bool, Iterable[object], Mapping[str, object], int, None]
                         ],
-                        Dict[
+                        Mapping[
                             str,
                             Union[
                                 Optional[str],
                                 float,
                                 bool,
                                 SequenceNotStr[
-                                    Union[Optional[str], float, bool, Iterable[object], Dict[str, object], int, None]
+                                    Union[Optional[str], float, bool, Iterable[object], Mapping[str, object], int, None]
                                 ],
-                                Dict[
+                                Mapping[
                                     str,
                                     Union[
                                         Optional[str],
@@ -685,12 +685,12 @@ class EventUserProperties(TypedDict, total=False):
                                                 float,
                                                 bool,
                                                 Iterable[object],
-                                                Dict[str, object],
+                                                Mapping[str, object],
                                                 int,
                                                 None,
                                             ]
                                         ],
-                                        Dict[
+                                        Mapping[
                                             str,
                                             Union[
                                                 Optional[str],
@@ -702,7 +702,7 @@ class EventUserProperties(TypedDict, total=False):
                                                         float,
                                                         bool,
                                                         Iterable[object],
-                                                        Dict[str, object],
+                                                        Mapping[str, object],
                                                         int,
                                                         None,
                                                     ]
@@ -799,7 +799,7 @@ class EventUserProperties(TypedDict, total=False):
 
     irclickid: Optional[str]
 
-    is_bot: Union[Optional[str], float, bool, Iterable[object], Dict[str, object], int, None]
+    is_bot: Union[Optional[str], float, bool, Iterable[object], Mapping[str, object], int, None]
     """Any JSON value: string, number, boolean, array, object, or null."""
 
     job_title: Optional[str]
@@ -822,7 +822,7 @@ class EventUserProperties(TypedDict, total=False):
 
     oppref: Optional[str]
 
-    phone_number: Union[Optional[str], float, bool, Iterable[object], Dict[str, object], int, None]
+    phone_number: Union[Optional[str], float, bool, Iterable[object], Mapping[str, object], int, None]
     """Any JSON value: string, number, boolean, array, object, or null."""
 
     qclid: Optional[str]
@@ -902,7 +902,7 @@ class EventUserProperties(TypedDict, total=False):
 
     wbraid: Optional[str]
 
-    zip: Union[Optional[str], float, bool, Iterable[object], Dict[str, object], int, None]
+    zip: Union[Optional[str], float, bool, Iterable[object], Mapping[str, object], int, None]
     """Any JSON value: string, number, boolean, array, object, or null."""
 
 
@@ -940,23 +940,25 @@ class Event(TypedDict, total=False):
 
     event_properties: Annotated[
         Optional[
-            Dict[
+            Mapping[
                 str,
                 Union[
                     Optional[str],
                     float,
                     bool,
-                    SequenceNotStr[Union[Optional[str], float, bool, Iterable[object], Dict[str, object], int, None]],
-                    Dict[
+                    SequenceNotStr[
+                        Union[Optional[str], float, bool, Iterable[object], Mapping[str, object], int, None]
+                    ],
+                    Mapping[
                         str,
                         Union[
                             Optional[str],
                             float,
                             bool,
                             SequenceNotStr[
-                                Union[Optional[str], float, bool, Iterable[object], Dict[str, object], int, None]
+                                Union[Optional[str], float, bool, Iterable[object], Mapping[str, object], int, None]
                             ],
-                            Dict[
+                            Mapping[
                                 str,
                                 Union[
                                     Optional[str],
@@ -964,10 +966,16 @@ class Event(TypedDict, total=False):
                                     bool,
                                     SequenceNotStr[
                                         Union[
-                                            Optional[str], float, bool, Iterable[object], Dict[str, object], int, None
+                                            Optional[str],
+                                            float,
+                                            bool,
+                                            Iterable[object],
+                                            Mapping[str, object],
+                                            int,
+                                            None,
                                         ]
                                     ],
-                                    Dict[
+                                    Mapping[
                                         str,
                                         Union[
                                             Optional[str],
@@ -979,12 +987,12 @@ class Event(TypedDict, total=False):
                                                     float,
                                                     bool,
                                                     Iterable[object],
-                                                    Dict[str, object],
+                                                    Mapping[str, object],
                                                     int,
                                                     None,
                                                 ]
                                             ],
-                                            Dict[
+                                            Mapping[
                                                 str,
                                                 Union[
                                                     Optional[str],
@@ -996,7 +1004,7 @@ class Event(TypedDict, total=False):
                                                             float,
                                                             bool,
                                                             Iterable[object],
-                                                            Dict[str, object],
+                                                            Mapping[str, object],
                                                             int,
                                                             None,
                                                         ]
