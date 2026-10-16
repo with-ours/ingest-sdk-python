@@ -110,8 +110,8 @@ from ours_privacy import OursPrivacy
 client = OursPrivacy()
 
 response = client.track.event(
-    token="x",
-    event="x",
+    token="P",
+    event="P",
     default_properties={},
 )
 print(response.default_properties)
