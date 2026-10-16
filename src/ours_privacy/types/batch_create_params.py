@@ -284,7 +284,7 @@ class EventDefaultProperties(TypedDict, total=False):
     """The UTM Term. The web SDK automatically captures this from the query params."""
 
     version: Optional[str]
-    """The SDK version (e.g., web SDK or ingest-sdk-\\** via Stainless headers)"""
+    """The SDK version (e.g., web SDK or ingest-sdk-\\** via generated SDK headers)"""
 
     viant_click_id: Optional[str]
     """
