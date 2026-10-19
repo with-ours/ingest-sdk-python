@@ -11,7 +11,7 @@ jobs:
     name: lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
@@ -24,7 +24,7 @@ jobs:
           RYE_INSTALL_OPTION: '--yes'
 
       - name: Install dependencies
-        run: rye sync --all-features
+        run: rye sync --all-features --no-lock
 
       - name: Run lints
         run: ./scripts/lint
@@ -33,10 +33,14 @@ jobs:
     permissions:
       contents: read
     timeout-minutes: 10
-    name: build
+    name: build (Python ${{ matrix.python-version }})
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.9.18', '3.10']
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
@@ -48,8 +52,13 @@ jobs:
           RYE_VERSION: '0.44.0'
           RYE_INSTALL_OPTION: '--yes'
 
+      - name: Select build Python
+        env:
+          BUILD_PYTHON: ${{ matrix.python-version }}
+        run: rye pin "$BUILD_PYTHON"
+
       - name: Install dependencies
-        run: rye sync --all-features
+        run: rye sync --all-features --no-lock
 
       - name: Run build
         run: rye build
@@ -61,7 +70,7 @@ jobs:
     name: test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
