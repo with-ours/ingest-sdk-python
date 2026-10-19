@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.33.1 (2026-10-19)
+
+Full Changelog: [v1.33.0...v1.33.1](https://github.com/with-ours/ingest-sdk-python/compare/v1.33.0...v1.33.1)
+
+### Chores
+
+* Use supported Hatchling versions for source builds on Python 3.9 and Python 3.10+.
 ## 1.33.0 (2026-10-16)
 
 Full Changelog: [v1.32.0...v1.33.0](https://github.com/with-ours/ingest-sdk-python/compare/v1.32.0...v1.33.0)
