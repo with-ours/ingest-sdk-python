@@ -63,12 +63,12 @@ jobs:
       - name: Run build
         run: rye build
 
-      - name: Test HTTPX2 base installation
+      - name: Test installed package
         run: |
-          rye run python -m venv "$RUNNER_TEMP/httpx2"
-          "$RUNNER_TEMP/httpx2/bin/python" -m pip install dist/*.whl
-          "$RUNNER_TEMP/httpx2/bin/python" -c 'import importlib.util; assert importlib.util.find_spec("httpx") is None'
-          "$RUNNER_TEMP/httpx2/bin/python" tests/test_http_backend.py
+          rye run python -m venv "$RUNNER_TEMP/sdk"
+          "$RUNNER_TEMP/sdk/bin/python" -m pip install dist/*.whl
+          "$RUNNER_TEMP/sdk/bin/python" -c 'import importlib.util; assert importlib.util.find_spec("httpx") is None'
+          "$RUNNER_TEMP/sdk/bin/python" tests/test_http_backend.py
 
   test:
     permissions:

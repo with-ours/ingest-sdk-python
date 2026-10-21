@@ -18,19 +18,6 @@ The REST API documentation can be found on [docs.oursprivacy.com](https://docs.o
 pip install oursprivacy-client
 ```
 
-### HTTP backend compatibility
-
-The base installation depends on HTTPX2 and does not install HTTPX. Python 3.9 remains supported.
-If HTTPX is already installed, the SDK uses it to preserve existing custom clients, transports, and response types.
-Supported legacy HTTPX versions remain `>=0.23.0,<1`.
-The optional `aiohttp` extra also installs and uses HTTPX.
-
-Import the selected backend with `from ours_privacy import httpx` when creating custom HTTP objects.
-HTTPX and HTTPX2 objects cannot be mixed. To use HTTPX2, use an environment without HTTPX and restart your application after changing dependencies.
-HTTPX2 2.3 and newer uses the operating system's certificate store, which must be kept up to date.
-HTTPX2 2.0 on Python 3.9 and the HTTPX backend use certifi.
-Type annotations follow HTTPX2. Importing `httpx` from the SDK keeps custom HTTP objects consistent with those annotations and the selected backend.
-
 ## Usage
 
 The full API of this library can be found in [api.md](api.md).
@@ -73,7 +60,7 @@ Functionality between the synchronous and asynchronous clients is otherwise iden
 
 ### With aiohttp
 
-By default, the async client uses the selected HTTPX2 or HTTPX backend. For improved concurrency performance you may also use `aiohttp` as the HTTP backend.
+For improved async concurrency performance, you can use `aiohttp`. This optional backend requires HTTPX.
 
 You can enable this by installing `aiohttp`:
 
@@ -201,7 +188,7 @@ client.with_options(max_retries=5).track.event(
 ### Timeouts
 
 By default requests time out after 1 minute. You can configure this with a `timeout` option,
-which accepts a float or a `Timeout` object from the selected HTTP backend:
+which accepts a float or a `Timeout` object:
 
 ```python
 from ours_privacy import OursPrivacy, httpx
@@ -331,7 +318,8 @@ can also get all the extra fields on the Pydantic model as a dict with
 
 ### Configuring the HTTP client
 
-You can directly override the selected HTTP client to customize it for your use case, including:
+The SDK uses HTTPX2 unless HTTPX is already installed. Import `httpx` from the SDK to match the active backend.
+You can customize the client with:
 
 - Support for [proxies](https://www.python-httpx.org/advanced/proxies/)
 - Custom [transports](https://www.python-httpx.org/advanced/transports/)
