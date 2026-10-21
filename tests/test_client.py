@@ -14,12 +14,12 @@ from typing import Any, Union, TypeVar, Callable, Iterable, Iterator, Optional, 
 from unittest import mock
 from typing_extensions import Literal, AsyncIterator, override
 
-import httpx
+import httpx as legacy_httpx
 import pytest
 from respx import MockRouter
 from pydantic import ValidationError
 
-from ours_privacy import OursPrivacy, AsyncOursPrivacy, APIResponseValidationError
+from ours_privacy import OursPrivacy, AsyncOursPrivacy, APIResponseValidationError, httpx
 from ours_privacy._types import Omit
 from ours_privacy._utils import asyncify
 from ours_privacy._models import BaseModel, FinalRequestOptions
@@ -51,8 +51,8 @@ def _low_retry_timeout(*_args: Any, **_kwargs: Any) -> float:
     return 0.1
 
 
-def mirror_request_content(request: httpx.Request) -> httpx.Response:
-    return httpx.Response(200, content=request.content)
+def mirror_request_content(request: legacy_httpx.Request) -> legacy_httpx.Response:
+    return legacy_httpx.Response(200, content=request.content)
 
 
 # note: we can't use the httpx.MockTransport class as it consumes the request
@@ -113,7 +113,7 @@ def _get_open_connections(client: OursPrivacy | AsyncOursPrivacy) -> int:
 class TestOursPrivacy:
     @pytest.mark.respx(base_url=base_url)
     def test_raw_response(self, respx_mock: MockRouter, client: OursPrivacy) -> None:
-        respx_mock.post("/foo").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        respx_mock.post("/foo").mock(return_value=legacy_httpx.Response(200, json={"foo": "bar"}))
 
         response = client.post("/foo", cast_to=httpx.Response)
         assert response.status_code == 200
@@ -123,7 +123,9 @@ class TestOursPrivacy:
     @pytest.mark.respx(base_url=base_url)
     def test_raw_response_for_binary(self, respx_mock: MockRouter, client: OursPrivacy) -> None:
         respx_mock.post("/foo").mock(
-            return_value=httpx.Response(200, headers={"Content-Type": "application/binary"}, content='{"foo": "bar"}')
+            return_value=legacy_httpx.Response(
+                200, headers={"Content-Type": "application/binary"}, content='{"foo": "bar"}'
+            )
         )
 
         response = client.post("/foo", cast_to=httpx.Response)
@@ -613,7 +615,7 @@ class TestOursPrivacy:
         class Model2(BaseModel):
             foo: str
 
-        respx_mock.get("/foo").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        respx_mock.get("/foo").mock(return_value=legacy_httpx.Response(200, json={"foo": "bar"}))
 
         response = client.get("/foo", cast_to=cast(Any, Union[Model1, Model2]))
         assert isinstance(response, Model2)
@@ -629,13 +631,13 @@ class TestOursPrivacy:
         class Model2(BaseModel):
             foo: str
 
-        respx_mock.get("/foo").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        respx_mock.get("/foo").mock(return_value=legacy_httpx.Response(200, json={"foo": "bar"}))
 
         response = client.get("/foo", cast_to=cast(Any, Union[Model1, Model2]))
         assert isinstance(response, Model2)
         assert response.foo == "bar"
 
-        respx_mock.get("/foo").mock(return_value=httpx.Response(200, json={"foo": 1}))
+        respx_mock.get("/foo").mock(return_value=legacy_httpx.Response(200, json={"foo": 1}))
 
         response = client.get("/foo", cast_to=cast(Any, Union[Model1, Model2]))
         assert isinstance(response, Model1)
@@ -651,7 +653,7 @@ class TestOursPrivacy:
             foo: int
 
         respx_mock.get("/foo").mock(
-            return_value=httpx.Response(
+            return_value=legacy_httpx.Response(
                 200,
                 content=json.dumps({"foo": 2}),
                 headers={"Content-Type": "application/text"},
@@ -770,7 +772,7 @@ class TestOursPrivacy:
         class Model(BaseModel):
             foo: str
 
-        respx_mock.get("/foo").mock(return_value=httpx.Response(200, json={"foo": {"invalid": True}}))
+        respx_mock.get("/foo").mock(return_value=legacy_httpx.Response(200, json={"foo": {"invalid": True}}))
 
         with pytest.raises(APIResponseValidationError) as exc:
             client.get("/foo", cast_to=Model)
@@ -786,7 +788,7 @@ class TestOursPrivacy:
         class Model(BaseModel):
             name: str
 
-        respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
+        respx_mock.get("/foo").mock(return_value=legacy_httpx.Response(200, text="my-custom-format"))
 
         strict_client = OursPrivacy(base_url=base_url, _strict_response_validation=True)
 
@@ -834,7 +836,7 @@ class TestOursPrivacy:
     @mock.patch("ours_privacy._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: OursPrivacy) -> None:
-        respx_mock.post("/track").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/track").mock(side_effect=legacy_httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
             client.track.with_streaming_response.event(token="P", event="P").__enter__()
@@ -844,7 +846,7 @@ class TestOursPrivacy:
     @mock.patch("ours_privacy._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: OursPrivacy) -> None:
-        respx_mock.post("/track").mock(return_value=httpx.Response(500))
+        respx_mock.post("/track").mock(return_value=legacy_httpx.Response(500))
 
         with pytest.raises(APIStatusError):
             client.track.with_streaming_response.event(token="P", event="P").__enter__()
@@ -865,14 +867,14 @@ class TestOursPrivacy:
 
         nb_retries = 0
 
-        def retry_handler(_request: httpx.Request) -> httpx.Response:
+        def retry_handler(_request: legacy_httpx.Request) -> legacy_httpx.Response:
             nonlocal nb_retries
             if nb_retries < failures_before_success:
                 nb_retries += 1
                 if failure_mode == "exception":
                     raise RuntimeError("oops")
-                return httpx.Response(500)
-            return httpx.Response(200)
+                return legacy_httpx.Response(500)
+            return legacy_httpx.Response(200)
 
         respx_mock.post("/track").mock(side_effect=retry_handler)
 
@@ -891,12 +893,12 @@ class TestOursPrivacy:
 
         nb_retries = 0
 
-        def retry_handler(_request: httpx.Request) -> httpx.Response:
+        def retry_handler(_request: legacy_httpx.Request) -> legacy_httpx.Response:
             nonlocal nb_retries
             if nb_retries < failures_before_success:
                 nb_retries += 1
-                return httpx.Response(500)
-            return httpx.Response(200)
+                return legacy_httpx.Response(500)
+            return legacy_httpx.Response(200)
 
         respx_mock.post("/track").mock(side_effect=retry_handler)
 
@@ -916,12 +918,12 @@ class TestOursPrivacy:
 
         nb_retries = 0
 
-        def retry_handler(_request: httpx.Request) -> httpx.Response:
+        def retry_handler(_request: legacy_httpx.Request) -> legacy_httpx.Response:
             nonlocal nb_retries
             if nb_retries < failures_before_success:
                 nb_retries += 1
-                return httpx.Response(500)
-            return httpx.Response(200)
+                return legacy_httpx.Response(500)
+            return legacy_httpx.Response(200)
 
         respx_mock.post("/track").mock(side_effect=retry_handler)
 
@@ -965,9 +967,9 @@ class TestOursPrivacy:
     def test_follow_redirects(self, respx_mock: MockRouter, client: OursPrivacy) -> None:
         # Test that the default follow_redirects=True allows following redirects
         respx_mock.post("/redirect").mock(
-            return_value=httpx.Response(302, headers={"Location": f"{base_url}/redirected"})
+            return_value=legacy_httpx.Response(302, headers={"Location": f"{base_url}/redirected"})
         )
-        respx_mock.get("/redirected").mock(return_value=httpx.Response(200, json={"status": "ok"}))
+        respx_mock.get("/redirected").mock(return_value=legacy_httpx.Response(200, json={"status": "ok"}))
 
         response = client.post("/redirect", body={"key": "value"}, cast_to=httpx.Response)
         assert response.status_code == 200
@@ -977,7 +979,7 @@ class TestOursPrivacy:
     def test_follow_redirects_disabled(self, respx_mock: MockRouter, client: OursPrivacy) -> None:
         # Test that follow_redirects=False prevents following redirects
         respx_mock.post("/redirect").mock(
-            return_value=httpx.Response(302, headers={"Location": f"{base_url}/redirected"})
+            return_value=legacy_httpx.Response(302, headers={"Location": f"{base_url}/redirected"})
         )
 
         with pytest.raises(APIStatusError) as exc_info:
@@ -990,7 +992,7 @@ class TestOursPrivacy:
 class TestAsyncOursPrivacy:
     @pytest.mark.respx(base_url=base_url)
     async def test_raw_response(self, respx_mock: MockRouter, async_client: AsyncOursPrivacy) -> None:
-        respx_mock.post("/foo").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        respx_mock.post("/foo").mock(return_value=legacy_httpx.Response(200, json={"foo": "bar"}))
 
         response = await async_client.post("/foo", cast_to=httpx.Response)
         assert response.status_code == 200
@@ -1000,7 +1002,9 @@ class TestAsyncOursPrivacy:
     @pytest.mark.respx(base_url=base_url)
     async def test_raw_response_for_binary(self, respx_mock: MockRouter, async_client: AsyncOursPrivacy) -> None:
         respx_mock.post("/foo").mock(
-            return_value=httpx.Response(200, headers={"Content-Type": "application/binary"}, content='{"foo": "bar"}')
+            return_value=legacy_httpx.Response(
+                200, headers={"Content-Type": "application/binary"}, content='{"foo": "bar"}'
+            )
         )
 
         response = await async_client.post("/foo", cast_to=httpx.Response)
@@ -1500,7 +1504,7 @@ class TestAsyncOursPrivacy:
         class Model2(BaseModel):
             foo: str
 
-        respx_mock.get("/foo").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        respx_mock.get("/foo").mock(return_value=legacy_httpx.Response(200, json={"foo": "bar"}))
 
         response = await async_client.get("/foo", cast_to=cast(Any, Union[Model1, Model2]))
         assert isinstance(response, Model2)
@@ -1516,13 +1520,13 @@ class TestAsyncOursPrivacy:
         class Model2(BaseModel):
             foo: str
 
-        respx_mock.get("/foo").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        respx_mock.get("/foo").mock(return_value=legacy_httpx.Response(200, json={"foo": "bar"}))
 
         response = await async_client.get("/foo", cast_to=cast(Any, Union[Model1, Model2]))
         assert isinstance(response, Model2)
         assert response.foo == "bar"
 
-        respx_mock.get("/foo").mock(return_value=httpx.Response(200, json={"foo": 1}))
+        respx_mock.get("/foo").mock(return_value=legacy_httpx.Response(200, json={"foo": 1}))
 
         response = await async_client.get("/foo", cast_to=cast(Any, Union[Model1, Model2]))
         assert isinstance(response, Model1)
@@ -1540,7 +1544,7 @@ class TestAsyncOursPrivacy:
             foo: int
 
         respx_mock.get("/foo").mock(
-            return_value=httpx.Response(
+            return_value=legacy_httpx.Response(
                 200,
                 content=json.dumps({"foo": 2}),
                 headers={"Content-Type": "application/text"},
@@ -1662,7 +1666,7 @@ class TestAsyncOursPrivacy:
         class Model(BaseModel):
             foo: str
 
-        respx_mock.get("/foo").mock(return_value=httpx.Response(200, json={"foo": {"invalid": True}}))
+        respx_mock.get("/foo").mock(return_value=legacy_httpx.Response(200, json={"foo": {"invalid": True}}))
 
         with pytest.raises(APIResponseValidationError) as exc:
             await async_client.get("/foo", cast_to=Model)
@@ -1678,7 +1682,7 @@ class TestAsyncOursPrivacy:
         class Model(BaseModel):
             name: str
 
-        respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
+        respx_mock.get("/foo").mock(return_value=legacy_httpx.Response(200, text="my-custom-format"))
 
         strict_client = AsyncOursPrivacy(base_url=base_url, _strict_response_validation=True)
 
@@ -1728,7 +1732,7 @@ class TestAsyncOursPrivacy:
     async def test_retrying_timeout_errors_doesnt_leak(
         self, respx_mock: MockRouter, async_client: AsyncOursPrivacy
     ) -> None:
-        respx_mock.post("/track").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/track").mock(side_effect=legacy_httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
             await async_client.track.with_streaming_response.event(token="P", event="P").__aenter__()
@@ -1740,7 +1744,7 @@ class TestAsyncOursPrivacy:
     async def test_retrying_status_errors_doesnt_leak(
         self, respx_mock: MockRouter, async_client: AsyncOursPrivacy
     ) -> None:
-        respx_mock.post("/track").mock(return_value=httpx.Response(500))
+        respx_mock.post("/track").mock(return_value=legacy_httpx.Response(500))
 
         with pytest.raises(APIStatusError):
             await async_client.track.with_streaming_response.event(token="P", event="P").__aenter__()
@@ -1761,14 +1765,14 @@ class TestAsyncOursPrivacy:
 
         nb_retries = 0
 
-        def retry_handler(_request: httpx.Request) -> httpx.Response:
+        def retry_handler(_request: legacy_httpx.Request) -> legacy_httpx.Response:
             nonlocal nb_retries
             if nb_retries < failures_before_success:
                 nb_retries += 1
                 if failure_mode == "exception":
                     raise RuntimeError("oops")
-                return httpx.Response(500)
-            return httpx.Response(200)
+                return legacy_httpx.Response(500)
+            return legacy_httpx.Response(200)
 
         respx_mock.post("/track").mock(side_effect=retry_handler)
 
@@ -1787,12 +1791,12 @@ class TestAsyncOursPrivacy:
 
         nb_retries = 0
 
-        def retry_handler(_request: httpx.Request) -> httpx.Response:
+        def retry_handler(_request: legacy_httpx.Request) -> legacy_httpx.Response:
             nonlocal nb_retries
             if nb_retries < failures_before_success:
                 nb_retries += 1
-                return httpx.Response(500)
-            return httpx.Response(200)
+                return legacy_httpx.Response(500)
+            return legacy_httpx.Response(200)
 
         respx_mock.post("/track").mock(side_effect=retry_handler)
 
@@ -1812,12 +1816,12 @@ class TestAsyncOursPrivacy:
 
         nb_retries = 0
 
-        def retry_handler(_request: httpx.Request) -> httpx.Response:
+        def retry_handler(_request: legacy_httpx.Request) -> legacy_httpx.Response:
             nonlocal nb_retries
             if nb_retries < failures_before_success:
                 nb_retries += 1
-                return httpx.Response(500)
-            return httpx.Response(200)
+                return legacy_httpx.Response(500)
+            return legacy_httpx.Response(200)
 
         respx_mock.post("/track").mock(side_effect=retry_handler)
 
@@ -1865,9 +1869,9 @@ class TestAsyncOursPrivacy:
     async def test_follow_redirects(self, respx_mock: MockRouter, async_client: AsyncOursPrivacy) -> None:
         # Test that the default follow_redirects=True allows following redirects
         respx_mock.post("/redirect").mock(
-            return_value=httpx.Response(302, headers={"Location": f"{base_url}/redirected"})
+            return_value=legacy_httpx.Response(302, headers={"Location": f"{base_url}/redirected"})
         )
-        respx_mock.get("/redirected").mock(return_value=httpx.Response(200, json={"status": "ok"}))
+        respx_mock.get("/redirected").mock(return_value=legacy_httpx.Response(200, json={"status": "ok"}))
 
         response = await async_client.post("/redirect", body={"key": "value"}, cast_to=httpx.Response)
         assert response.status_code == 200
@@ -1877,7 +1881,7 @@ class TestAsyncOursPrivacy:
     async def test_follow_redirects_disabled(self, respx_mock: MockRouter, async_client: AsyncOursPrivacy) -> None:
         # Test that follow_redirects=False prevents following redirects
         respx_mock.post("/redirect").mock(
-            return_value=httpx.Response(302, headers={"Location": f"{base_url}/redirected"})
+            return_value=legacy_httpx.Response(302, headers={"Location": f"{base_url}/redirected"})
         )
 
         with pytest.raises(APIStatusError) as exc_info:

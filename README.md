@@ -5,7 +5,7 @@
 
 The Ours Privacy Python library provides convenient access to the Ours Privacy REST API from any Python 3.9+
 application. The library includes type definitions for all request params and response fields,
-and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
+and offers both synchronous and asynchronous clients powered by [HTTPX2](https://github.com/pydantic/httpx2).
 
 ## Documentation
 
@@ -17,6 +17,19 @@ The REST API documentation can be found on [docs.oursprivacy.com](https://docs.o
 # install from PyPI
 pip install oursprivacy-client
 ```
+
+### HTTP backend compatibility
+
+The base installation depends on HTTPX2 and does not install HTTPX. Python 3.9 remains supported.
+If HTTPX is already installed, the SDK uses it to preserve existing custom clients, transports, and response types.
+Supported legacy HTTPX versions remain `>=0.23.0,<1`.
+The optional `aiohttp` extra also installs and uses HTTPX.
+
+Import the selected backend with `from ours_privacy import httpx` when creating custom HTTP objects.
+HTTPX and HTTPX2 objects cannot be mixed. To use HTTPX2, use an environment without HTTPX and restart your application after changing dependencies.
+HTTPX2 2.3 and newer uses the operating system's certificate store, which must be kept up to date.
+HTTPX2 2.0 on Python 3.9 and the HTTPX backend use certifi.
+Type annotations follow HTTPX2. Importing `httpx` from the SDK keeps custom HTTP objects consistent with those annotations and the selected backend.
 
 ## Usage
 
@@ -60,7 +73,7 @@ Functionality between the synchronous and asynchronous clients is otherwise iden
 
 ### With aiohttp
 
-By default, the async client uses `httpx` for HTTP requests. However, for improved concurrency performance you may also use `aiohttp` as the HTTP backend.
+By default, the async client uses the selected HTTPX2 or HTTPX backend. For improved concurrency performance you may also use `aiohttp` as the HTTP backend.
 
 You can enable this by installing `aiohttp`:
 
@@ -188,10 +201,10 @@ client.with_options(max_retries=5).track.event(
 ### Timeouts
 
 By default requests time out after 1 minute. You can configure this with a `timeout` option,
-which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:
+which accepts a float or a `Timeout` object from the selected HTTP backend:
 
 ```python
-from ours_privacy import OursPrivacy
+from ours_privacy import OursPrivacy, httpx
 
 # Configure the default for all requests:
 client = OursPrivacy(
@@ -294,7 +307,7 @@ To make requests to undocumented endpoints, you can make requests using `client.
 http verbs. Options on the client will be respected (such as retries) when making this request.
 
 ```py
-import httpx
+from ours_privacy import httpx
 
 response = client.post(
     "/foo",
@@ -318,15 +331,14 @@ can also get all the extra fields on the Pydantic model as a dict with
 
 ### Configuring the HTTP client
 
-You can directly override the [httpx client](https://www.python-httpx.org/api/#client) to customize it for your use case, including:
+You can directly override the selected HTTP client to customize it for your use case, including:
 
 - Support for [proxies](https://www.python-httpx.org/advanced/proxies/)
 - Custom [transports](https://www.python-httpx.org/advanced/transports/)
 - Additional [advanced](https://www.python-httpx.org/advanced/clients/) functionality
 
 ```python
-import httpx
-from ours_privacy import OursPrivacy, DefaultHttpxClient
+from ours_privacy import OursPrivacy, DefaultHttpxClient, httpx
 
 client = OursPrivacy(
     # Or use the `OURS_PRIVACY_BASE_URL` env var

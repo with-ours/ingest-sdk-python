@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.34.0 (2026-10-21)
+
+### Features
+
+* Use HTTPX2 for installations without HTTPX, while preserving existing HTTPX clients and Python 3.9 support.
+* Export the selected HTTP backend as `ours_privacy.httpx` for custom clients, timeouts, and raw responses.
+
+### Chores
+
+* Refresh the certificate bundle dependency.
+
 ## 1.33.0 (2026-10-16)
 
 Full Changelog: [v1.32.0...v1.33.0](https://github.com/with-ours/ingest-sdk-python/compare/v1.32.0...v1.33.0)
