@@ -1,6 +1,6 @@
 [project]
 name = "oursprivacy-client"
-version = "1.34.0"
+version = "2.0.0"
 description = "The official Python library for the ours-privacy API"
 dynamic = ["readme"]
 license = "Apache-2.0"
@@ -9,7 +9,7 @@ authors = [
 ]
 
 dependencies = [
-  "httpx2>=2, <3",
+  "httpx2>=2.12.0, <3",
   "certifi>=2026.10.19",
   "pydantic>=1.9.0, <3",
   "typing-extensions>=4.14, <5",
@@ -18,11 +18,10 @@ dependencies = [
   "sniffio",
 ]
 
-requires-python = ">= 3.9"
+requires-python = ">= 3.10"
 classifiers = [
   "Typing :: Typed",
   "Intended Audience :: Developers",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
@@ -42,7 +41,7 @@ Homepage = "https://github.com/with-ours/ingest-sdk-python"
 Repository = "https://github.com/with-ours/ingest-sdk-python"
 
 [project.optional-dependencies]
-aiohttp = ["aiohttp", "httpx_aiohttp>=0.1.9"]
+aiohttp = ["aiohttp", "httpx-aiohttp[httpx2]>=0.2.0"]
 
 [tool.rye]
 managed = true
@@ -51,6 +50,7 @@ dev-dependencies = [
     "pyright==1.1.399",
     "mypy==1.17",
     "respx",
+    "pytest-httpx2>=1.0.0",
     "pytest",
     "pytest-asyncio",
     "ruff",
@@ -92,10 +92,8 @@ typecheck = { chain = [
 "typecheck:mypy" = "mypy ."
 
 [build-system]
-# Hatchling 1.28+ requires Python 3.10; retain source builds on supported Python 3.9.
 requires = [
-  "hatchling==1.27.0; python_version < '3.10'",
-  "hatchling==1.32.4; python_version >= '3.10'",
+  "hatchling==1.32.4",
   "hatch-fancy-pypi-readme",
 ]
 build-backend = "hatchling.build"
@@ -149,7 +147,7 @@ filterwarnings = [
 # there are a couple of flags that are still disabled by
 # default in strict mode as they are experimental and niche.
 typeCheckingMode = "strict"
-pythonVersion = "3.9"
+pythonVersion = "3.10"
 
 exclude = [
     "_dev",

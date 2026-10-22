@@ -6,14 +6,15 @@ import json
 import asyncio
 import unittest
 from typing import Any
-from importlib.util import find_spec
 
-from ours_privacy import OursPrivacy, APIStatusError, AsyncOursPrivacy, httpx
+import httpx2 as httpx
+
+from ours_privacy import OursPrivacy, APIStatusError, AsyncOursPrivacy, httpx as sdk_httpx
 
 
 class HTTPBackendTests(unittest.TestCase):
     def test_selected_backend(self) -> None:
-        self.assertEqual(httpx.__name__, "httpx" if find_spec("httpx") else "httpx2")
+        self.assertIs(sdk_httpx, httpx)
 
     def test_sync_requests(self) -> None:
         requests: list[httpx.Request] = []

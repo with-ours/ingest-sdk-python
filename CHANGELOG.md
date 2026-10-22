@@ -1,15 +1,14 @@
 # Changelog
 
-## 1.34.0 (2026-10-21)
+## 2.0.0 (2026-10-22)
 
-### Features
+### Breaking Changes
 
-* Use HTTPX2 for installations without HTTPX, while preserving existing HTTPX clients and Python 3.9 support.
-* Export the selected HTTP backend as `ours_privacy.httpx` for custom clients, timeouts, and raw responses.
+* Require Python 3.10+ and HTTPX2. Custom HTTP clients and related types must use `httpx2`.
 
 ### Chores
 
-* Refresh the certificate bundle dependency.
+* Update HTTP dependencies and the certificate bundle minimum.
 
 ## 1.33.0 (2026-10-16)
 

@@ -111,7 +111,12 @@ def _get_open_connections(client: OursPrivacy | AsyncOursPrivacy) -> int:
 
 
 class TestOursPrivacy:
-    @pytest.mark.respx(base_url=base_url)
+    def test_legacy_httpx_client_rejected(self) -> None:
+        with legacy_httpx.Client() as http_client:
+            with pytest.raises(TypeError, match="Invalid `http_client`"):
+                OursPrivacy(http_client=cast(Any, http_client))
+
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     def test_raw_response(self, respx_mock: MockRouter, client: OursPrivacy) -> None:
         respx_mock.post("/foo").mock(return_value=legacy_httpx.Response(200, json={"foo": "bar"}))
 
@@ -120,7 +125,7 @@ class TestOursPrivacy:
         assert isinstance(response, httpx.Response)
         assert response.json() == {"foo": "bar"}
 
-    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     def test_raw_response_for_binary(self, respx_mock: MockRouter, client: OursPrivacy) -> None:
         respx_mock.post("/foo").mock(
             return_value=legacy_httpx.Response(
@@ -544,7 +549,7 @@ class TestOursPrivacy:
             b"",
         ]
 
-    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     def test_binary_content_upload(self, respx_mock: MockRouter, client: OursPrivacy) -> None:
         respx_mock.post("/upload").mock(side_effect=mirror_request_content)
 
@@ -587,7 +592,7 @@ class TestOursPrivacy:
             assert response.content == file_content
             assert counter.value == 1
 
-    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     def test_binary_content_upload_with_body_is_deprecated(self, respx_mock: MockRouter, client: OursPrivacy) -> None:
         respx_mock.post("/upload").mock(side_effect=mirror_request_content)
 
@@ -607,7 +612,7 @@ class TestOursPrivacy:
         assert response.request.headers["Content-Type"] == "application/octet-stream"
         assert response.content == file_content
 
-    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     def test_basic_union_response(self, respx_mock: MockRouter, client: OursPrivacy) -> None:
         class Model1(BaseModel):
             name: str
@@ -621,7 +626,7 @@ class TestOursPrivacy:
         assert isinstance(response, Model2)
         assert response.foo == "bar"
 
-    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     def test_union_response_different_types(self, respx_mock: MockRouter, client: OursPrivacy) -> None:
         """Union of objects with the same field name using a different type"""
 
@@ -643,7 +648,7 @@ class TestOursPrivacy:
         assert isinstance(response, Model1)
         assert response.foo == 1
 
-    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     def test_non_application_json_content_type_for_json_data(self, respx_mock: MockRouter, client: OursPrivacy) -> None:
         """
         Response that sets Content-Type to something other than application/json but returns json data
@@ -767,7 +772,7 @@ class TestOursPrivacy:
             assert not test_client.is_closed()
         assert test_client.is_closed()
 
-    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     def test_client_response_validation_error(self, respx_mock: MockRouter, client: OursPrivacy) -> None:
         class Model(BaseModel):
             foo: str
@@ -783,7 +788,7 @@ class TestOursPrivacy:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
             OursPrivacy(base_url=base_url, _strict_response_validation=True, max_retries=cast(Any, None))
 
-    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     def test_received_text_for_expected_json(self, respx_mock: MockRouter) -> None:
         class Model(BaseModel):
             name: str
@@ -834,9 +839,9 @@ class TestOursPrivacy:
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
     @mock.patch("ours_privacy._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
-    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: OursPrivacy) -> None:
-        respx_mock.post("/track").mock(side_effect=legacy_httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/track").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
             client.track.with_streaming_response.event(token="P", event="P").__enter__()
@@ -844,7 +849,7 @@ class TestOursPrivacy:
         assert _get_open_connections(client) == 0
 
     @mock.patch("ours_privacy._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
-    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: OursPrivacy) -> None:
         respx_mock.post("/track").mock(return_value=legacy_httpx.Response(500))
 
@@ -854,7 +859,7 @@ class TestOursPrivacy:
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
     @mock.patch("ours_privacy._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
-    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     def test_retries_taken(
         self,
@@ -881,11 +886,11 @@ class TestOursPrivacy:
         response = client.track.with_raw_response.event(token="P", event="P")
 
         assert response.retries_taken == failures_before_success
-        assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
+        assert int(response.http_request.headers["x-stainless-retry-count"]) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
     @mock.patch("ours_privacy._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
-    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     def test_omit_retry_count_header(
         self, client: OursPrivacy, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
@@ -910,7 +915,7 @@ class TestOursPrivacy:
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
     @mock.patch("ours_privacy._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
-    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     def test_overwrite_retry_count_header(
         self, client: OursPrivacy, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
@@ -963,7 +968,7 @@ class TestOursPrivacy:
             limits=httpx.Limits(max_connections=100, max_keepalive_connections=20),
         )
 
-    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     def test_follow_redirects(self, respx_mock: MockRouter, client: OursPrivacy) -> None:
         # Test that the default follow_redirects=True allows following redirects
         respx_mock.post("/redirect").mock(
@@ -975,7 +980,7 @@ class TestOursPrivacy:
         assert response.status_code == 200
         assert response.json() == {"status": "ok"}
 
-    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     def test_follow_redirects_disabled(self, respx_mock: MockRouter, client: OursPrivacy) -> None:
         # Test that follow_redirects=False prevents following redirects
         respx_mock.post("/redirect").mock(
@@ -990,7 +995,12 @@ class TestOursPrivacy:
 
 
 class TestAsyncOursPrivacy:
-    @pytest.mark.respx(base_url=base_url)
+    async def test_legacy_httpx_client_rejected(self) -> None:
+        async with legacy_httpx.AsyncClient() as http_client:
+            with pytest.raises(TypeError, match="Invalid `http_client`"):
+                AsyncOursPrivacy(http_client=cast(Any, http_client))
+
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     async def test_raw_response(self, respx_mock: MockRouter, async_client: AsyncOursPrivacy) -> None:
         respx_mock.post("/foo").mock(return_value=legacy_httpx.Response(200, json={"foo": "bar"}))
 
@@ -999,7 +1009,7 @@ class TestAsyncOursPrivacy:
         assert isinstance(response, httpx.Response)
         assert response.json() == {"foo": "bar"}
 
-    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     async def test_raw_response_for_binary(self, respx_mock: MockRouter, async_client: AsyncOursPrivacy) -> None:
         respx_mock.post("/foo").mock(
             return_value=legacy_httpx.Response(
@@ -1431,7 +1441,7 @@ class TestAsyncOursPrivacy:
             b"",
         ]
 
-    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     async def test_binary_content_upload(self, respx_mock: MockRouter, async_client: AsyncOursPrivacy) -> None:
         respx_mock.post("/upload").mock(side_effect=mirror_request_content)
 
@@ -1474,7 +1484,7 @@ class TestAsyncOursPrivacy:
             assert response.content == file_content
             assert counter.value == 1
 
-    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     async def test_binary_content_upload_with_body_is_deprecated(
         self, respx_mock: MockRouter, async_client: AsyncOursPrivacy
     ) -> None:
@@ -1496,7 +1506,7 @@ class TestAsyncOursPrivacy:
         assert response.request.headers["Content-Type"] == "application/octet-stream"
         assert response.content == file_content
 
-    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     async def test_basic_union_response(self, respx_mock: MockRouter, async_client: AsyncOursPrivacy) -> None:
         class Model1(BaseModel):
             name: str
@@ -1510,7 +1520,7 @@ class TestAsyncOursPrivacy:
         assert isinstance(response, Model2)
         assert response.foo == "bar"
 
-    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     async def test_union_response_different_types(self, respx_mock: MockRouter, async_client: AsyncOursPrivacy) -> None:
         """Union of objects with the same field name using a different type"""
 
@@ -1532,7 +1542,7 @@ class TestAsyncOursPrivacy:
         assert isinstance(response, Model1)
         assert response.foo == 1
 
-    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     async def test_non_application_json_content_type_for_json_data(
         self, respx_mock: MockRouter, async_client: AsyncOursPrivacy
     ) -> None:
@@ -1659,7 +1669,7 @@ class TestAsyncOursPrivacy:
             assert not test_client.is_closed()
         assert test_client.is_closed()
 
-    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     async def test_client_response_validation_error(
         self, respx_mock: MockRouter, async_client: AsyncOursPrivacy
     ) -> None:
@@ -1677,7 +1687,7 @@ class TestAsyncOursPrivacy:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
             AsyncOursPrivacy(base_url=base_url, _strict_response_validation=True, max_retries=cast(Any, None))
 
-    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     async def test_received_text_for_expected_json(self, respx_mock: MockRouter) -> None:
         class Model(BaseModel):
             name: str
@@ -1728,11 +1738,11 @@ class TestAsyncOursPrivacy:
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
     @mock.patch("ours_privacy._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
-    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     async def test_retrying_timeout_errors_doesnt_leak(
         self, respx_mock: MockRouter, async_client: AsyncOursPrivacy
     ) -> None:
-        respx_mock.post("/track").mock(side_effect=legacy_httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/track").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
             await async_client.track.with_streaming_response.event(token="P", event="P").__aenter__()
@@ -1740,7 +1750,7 @@ class TestAsyncOursPrivacy:
         assert _get_open_connections(async_client) == 0
 
     @mock.patch("ours_privacy._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
-    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     async def test_retrying_status_errors_doesnt_leak(
         self, respx_mock: MockRouter, async_client: AsyncOursPrivacy
     ) -> None:
@@ -1752,7 +1762,7 @@ class TestAsyncOursPrivacy:
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
     @mock.patch("ours_privacy._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
-    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     async def test_retries_taken(
         self,
@@ -1779,11 +1789,11 @@ class TestAsyncOursPrivacy:
         response = await client.track.with_raw_response.event(token="P", event="P")
 
         assert response.retries_taken == failures_before_success
-        assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
+        assert int(response.http_request.headers["x-stainless-retry-count"]) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
     @mock.patch("ours_privacy._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
-    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     async def test_omit_retry_count_header(
         self, async_client: AsyncOursPrivacy, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
@@ -1808,7 +1818,7 @@ class TestAsyncOursPrivacy:
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
     @mock.patch("ours_privacy._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
-    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     async def test_overwrite_retry_count_header(
         self, async_client: AsyncOursPrivacy, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
@@ -1865,7 +1875,7 @@ class TestAsyncOursPrivacy:
             limits=httpx.Limits(max_connections=100, max_keepalive_connections=20),
         )
 
-    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     async def test_follow_redirects(self, respx_mock: MockRouter, async_client: AsyncOursPrivacy) -> None:
         # Test that the default follow_redirects=True allows following redirects
         respx_mock.post("/redirect").mock(
@@ -1877,7 +1887,7 @@ class TestAsyncOursPrivacy:
         assert response.status_code == 200
         assert response.json() == {"status": "ok"}
 
-    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.respx(base_url=base_url, using="httpcore2")
     async def test_follow_redirects_disabled(self, respx_mock: MockRouter, async_client: AsyncOursPrivacy) -> None:
         # Test that follow_redirects=False prevents following redirects
         respx_mock.post("/redirect").mock(

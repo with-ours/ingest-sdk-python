@@ -859,7 +859,7 @@ class SyncAPIClient(BaseClient[httpx.Client, Stream[Any]]):
 
         if http_client is not None and not isinstance(http_client, httpx.Client):  # pyright: ignore[reportUnnecessaryIsInstance]
             raise TypeError(
-                f"Invalid `http_client` argument; Expected an instance of `httpx.Client` but got {type(http_client)}"
+                f"Invalid `http_client` argument; Expected an instance of `httpx2.Client` but got {type(http_client)}"
             )
 
         super().__init__(
@@ -1365,7 +1365,7 @@ class _DefaultAsyncHttpxClient(httpx.AsyncClient):
 
 
 try:
-    import httpx_aiohttp
+    from httpx_aiohttp.httpx2 import Httpx2AiohttpClient
 except ImportError:
 
     class _DefaultAioHttpClient(httpx.AsyncClient):
@@ -1373,7 +1373,7 @@ except ImportError:
             raise RuntimeError("To use the aiohttp client you must have installed the package with the `aiohttp` extra")
 else:
 
-    class _DefaultAioHttpClient(httpx_aiohttp.HttpxAiohttpClient):  # type: ignore
+    class _DefaultAioHttpClient(Httpx2AiohttpClient):  # type: ignore
         def __init__(self, **kwargs: Any) -> None:
             kwargs.setdefault("timeout", DEFAULT_TIMEOUT)
             kwargs.setdefault("limits", DEFAULT_CONNECTION_LIMITS)
@@ -1441,7 +1441,7 @@ class AsyncAPIClient(BaseClient[httpx.AsyncClient, AsyncStream[Any]]):
 
         if http_client is not None and not isinstance(http_client, httpx.AsyncClient):  # pyright: ignore[reportUnnecessaryIsInstance]
             raise TypeError(
-                f"Invalid `http_client` argument; Expected an instance of `httpx.AsyncClient` but got {type(http_client)}"
+                f"Invalid `http_client` argument; Expected an instance of `httpx2.AsyncClient` but got {type(http_client)}"
             )
 
         super().__init__(
