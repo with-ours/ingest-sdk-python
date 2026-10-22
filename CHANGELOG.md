@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.0.0 (2026-10-22)
+
+### Breaking Changes
+
+* Require Python 3.10+ and HTTPX2. Custom HTTP clients and related types must use `httpx2`.
+
+### Chores
+
+* Update HTTP dependencies and the certificate bundle minimum.
+
 ## 1.33.0 (2026-10-16)
 
 Full Changelog: [v1.32.0...v1.33.0](https://github.com/with-ours/ingest-sdk-python/compare/v1.32.0...v1.33.0)
