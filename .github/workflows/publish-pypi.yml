@@ -72,19 +72,21 @@ jobs:
           echo "RELEASE_VERSION=$RELEASE_VERSION" >> "$GITHUB_ENV"
           echo "RELEASE_COMMIT=$RELEASE_COMMIT" >> "$GITHUB_ENV"
 
-      - name: Install Rye
-        run: |
-          curl -sSf https://rye.astral.sh/get | bash
-          echo "$HOME/.rye/shims" >> $GITHUB_PATH
-        env:
-          RYE_VERSION: '0.44.0'
-          RYE_INSTALL_OPTION: '--yes'
+      - name: Install uv
+        uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          version: '0.13.5'
+          enable-cache: false
+
+      - name: Build distributions
+        run: uv build
 
       - name: Publish to PyPI
-        run: |
-          bash ./bin/publish-pypi
+        # Keep the existing token for release recovery. Configure and verify a
+        # matching PyPI trusted publisher before switching authentication.
+        run: uv publish --trusted-publishing never # zizmor: ignore[use-trusted-publishing]
         env:
-          PYPI_TOKEN: ${{ secrets.OURS_PRIVACY_PYPI_TOKEN || secrets.PYPI_TOKEN }}
+          UV_PUBLISH_TOKEN: ${{ secrets.OURS_PRIVACY_PYPI_TOKEN || secrets.PYPI_TOKEN }}
 
       - name: Tag and create GitHub Release
         env:
