@@ -78,10 +78,13 @@ jobs:
           version: '0.13.5'
           enable-cache: false
 
+      - name: Build distributions
+        run: uv build
+
       - name: Publish to PyPI
-        run: |
-          uv build
-          uv publish
+        # Keep the existing token for release recovery. Configure and verify a
+        # matching PyPI trusted publisher before switching authentication.
+        run: uv publish --trusted-publishing never # zizmor: ignore[use-trusted-publishing]
         env:
           UV_PUBLISH_TOKEN: ${{ secrets.OURS_PRIVACY_PYPI_TOKEN || secrets.PYPI_TOKEN }}
 
