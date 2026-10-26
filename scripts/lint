@@ -1,16 +1,11 @@
 #!/usr/bin/env bash
-
-set -e
-
+set -euo pipefail
 cd "$(dirname "$0")/.."
-
-if [ "$1" = "--fix" ]; then
-  echo "==> Running lints with --fix"
-  rye run fix:ruff
+if [ "${1:-}" = "--fix" ]; then
+  uv run --locked --all-extras ruff check --fix .
 else
-  echo "==> Running lints"
-  rye run lint
+  uv run --locked --all-extras ruff check .
 fi
-
-echo "==> Making sure it imports"
-rye run python -c 'import ours_privacy'
+uv run --locked --all-extras pyright
+uv run --locked --all-extras mypy .
+uv run --locked --all-extras python -c 'import ours_privacy'

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")/.."
+uv export --locked --all-extras --no-dev --no-hashes --output-file requirements.lock >/dev/null
+uv export --locked --all-extras --no-hashes --output-file requirements-dev.lock >/dev/null

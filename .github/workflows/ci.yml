@@ -3,6 +3,9 @@ on: [push, pull_request]
 
 permissions: {}
 
+env:
+  UV_MANAGED_PYTHON: 'true'
+
 jobs:
   lint:
     permissions:
@@ -15,16 +18,19 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Install Rye
-        run: |
-          curl -sSf https://rye.astral.sh/get | bash
-          echo "$HOME/.rye/shims" >> $GITHUB_PATH
-        env:
-          RYE_VERSION: '0.44.0'
-          RYE_INSTALL_OPTION: '--yes'
+      - name: Install uv
+        uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          version: '0.13.5'
+          enable-cache: false
 
       - name: Install dependencies
-        run: rye sync --all-features --no-lock
+        run: ./scripts/bootstrap
+
+      - name: Verify pip lock exports
+        run: |
+          ./scripts/lock-exports
+          git diff --exit-code -- requirements.lock requirements-dev.lock
 
       - name: Run lints
         run: ./scripts/lint
@@ -37,40 +43,37 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.10', '3.13']
+        python-version: ['3.10', '3.14']
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
-      - name: Install Rye
-        run: |
-          curl -sSf https://rye.astral.sh/get | bash
-          echo "$HOME/.rye/shims" >> $GITHUB_PATH
-        env:
-          RYE_VERSION: '0.44.0'
-          RYE_INSTALL_OPTION: '--yes'
-
-      - name: Select build Python
-        env:
-          BUILD_PYTHON: ${{ matrix.python-version }}
-        run: rye pin "$BUILD_PYTHON"
-
-      - name: Install dependencies
-        run: rye sync --all-features --no-lock
+      - name: Install uv
+        uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          version: '0.13.5'
+          enable-cache: false
 
       - name: Run build
-        run: rye build
+        env:
+          BUILD_PYTHON: ${{ matrix.python-version }}
+        run: uv build --python "$BUILD_PYTHON"
 
       - name: Test installed package
+        env:
+          BUILD_PYTHON: ${{ matrix.python-version }}
         run: |
-          rye run python -m venv "$RUNNER_TEMP/sdk"
-          "$RUNNER_TEMP/sdk/bin/python" -m pip install dist/*.whl
-          "$RUNNER_TEMP/sdk/bin/python" -c 'import importlib.util; assert importlib.util.find_spec("httpx") is None'
+          uv venv --python "$BUILD_PYTHON" "$RUNNER_TEMP/sdk"
+          uv pip install --python "$RUNNER_TEMP/sdk/bin/python" dist/*.whl
+          "$RUNNER_TEMP/sdk/bin/python" -c 'import importlib.util; assert importlib.util.find_spec("httpx") is None; assert importlib.util.find_spec("aiohttp") is None'
           "$RUNNER_TEMP/sdk/bin/python" tests/test_http_backend.py
-          "$RUNNER_TEMP/sdk/bin/python" -m pip install httpx
+          uv pip install --python "$RUNNER_TEMP/sdk/bin/python" httpx
           "$RUNNER_TEMP/sdk/bin/python" tests/test_http_backend.py
+          uv pip install --python "$RUNNER_TEMP/sdk/bin/python" --reinstall "$(find dist -name '*.whl')[aiohttp]"
+          "$RUNNER_TEMP/sdk/bin/python" tests/test_http_backend.py
+          uv pip check --python "$RUNNER_TEMP/sdk/bin/python"
 
   test:
     permissions:
@@ -83,13 +86,11 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Install Rye
-        run: |
-          curl -sSf https://rye.astral.sh/get | bash
-          echo "$HOME/.rye/shims" >> $GITHUB_PATH
-        env:
-          RYE_VERSION: '0.44.0'
-          RYE_INSTALL_OPTION: '--yes'
+      - name: Install uv
+        uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          version: '0.13.5'
+          enable-cache: false
 
       - name: Bootstrap
         run: ./scripts/bootstrap

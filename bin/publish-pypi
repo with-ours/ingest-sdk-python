@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-
-set -eux
-mkdir -p dist
-rye build --clean
-rye publish --yes --token=$PYPI_TOKEN
+set -euo pipefail
+cd "$(dirname "$0")/.."
+: "${PYPI_TOKEN:?Set PYPI_TOKEN for a manual release}"
+uv build --clear
+UV_PUBLISH_TOKEN="$PYPI_TOKEN" uv publish --trusted-publishing never

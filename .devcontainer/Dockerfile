@@ -1,9 +1,6 @@
-ARG VARIANT="3.10"
-FROM mcr.microsoft.com/vscode/devcontainers/python:0-${VARIANT}
-
+FROM ghcr.io/astral-sh/uv:0.13.5 AS uv
+FROM mcr.microsoft.com/devcontainers/python:3.13-bookworm
+COPY --from=uv /uv /uvx /usr/local/bin/
+ENV UV_MANAGED_PYTHON=true
 USER vscode
-
-RUN curl -sSf https://rye.astral.sh/get | RYE_VERSION="0.44.0" RYE_INSTALL_OPTION="--yes" bash
-ENV PATH=/home/vscode/.rye/shims:$PATH
-
 RUN echo "[[ -d .venv ]] && source .venv/bin/activate || export PATH=\$PATH" >> /home/vscode/.bashrc

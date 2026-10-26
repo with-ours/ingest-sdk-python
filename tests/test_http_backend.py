@@ -5,11 +5,12 @@ from __future__ import annotations
 import json
 import asyncio
 import unittest
+import importlib.util
 from typing import Any
 
 import httpx2 as httpx
 
-from ours_privacy import OursPrivacy, APIStatusError, AsyncOursPrivacy, httpx as sdk_httpx
+from ours_privacy import OursPrivacy, APIStatusError, AsyncOursPrivacy, DefaultAioHttpClient, httpx as sdk_httpx
 
 
 class HTTPBackendTests(unittest.TestCase):
@@ -54,6 +55,52 @@ class HTTPBackendTests(unittest.TestCase):
                     token="test-token", event="test-event"
                 ) as response:
                     self.assertTrue((await response.parse()).success)
+
+        asyncio.run(run())
+
+    def test_optional_aiohttp_backend(self) -> None:
+        if importlib.util.find_spec("httpx_aiohttp") is None:
+            with self.assertRaisesRegex(RuntimeError, "aiohttp.*extra"):
+                DefaultAioHttpClient()
+            return
+
+        async def run() -> None:
+            requests: list[bytes] = []
+
+            async def respond(reader: asyncio.StreamReader, writer: asyncio.StreamWriter) -> None:
+                try:
+                    headers = await reader.readuntil(b"\r\n\r\n")
+                    length = next(
+                        int(line.split(b":", 1)[1])
+                        for line in headers.split(b"\r\n")
+                        if line.lower().startswith(b"content-length:")
+                    )
+                    requests.append(await reader.readexactly(length))
+                    # A normal chunked response exercises aiohttp's real response parser.
+                    writer.write(
+                        b"HTTP/1.1 200 OK\r\nContent-Type: application/json\r\n"
+                        b"Transfer-Encoding: chunked\r\nConnection: close\r\n\r\n"
+                        b'11\r\n{"success": true}\r\n0\r\n\r\n'
+                    )
+                    await writer.drain()
+                finally:
+                    writer.close()
+                    await writer.wait_closed()
+
+            server = await asyncio.start_server(respond, "127.0.0.1", 0)
+            port = server.sockets[0].getsockname()[1]
+            async with server:
+                async with AsyncOursPrivacy(
+                    base_url=f"http://127.0.0.1:{port}",
+                    http_client=DefaultAioHttpClient(),
+                ) as client:
+                    self.assertTrue((await client.track.event(token="test-token", event="test-event")).success)
+                    async with client.track.with_streaming_response.event(
+                        token="test-token", event="test-event"
+                    ) as response:
+                        self.assertTrue((await response.parse()).success)
+            self.assertEqual(len(requests), 2)
+            self.assertEqual(json.loads(requests[0])["event"], "test-event")
 
         asyncio.run(run())
 
