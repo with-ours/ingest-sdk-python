@@ -29,7 +29,7 @@ jobs:
       - name: Run lints
         run: ./scripts/lint
 
-  build:
+  build-matrix:
     permissions:
       contents: read
     timeout-minutes: 10
@@ -96,3 +96,19 @@ jobs:
 
       - name: Run tests
         run: ./scripts/test
+
+  # Stable required-check name; matrix legs above include versions in their names.
+  build:
+    name: build
+    needs: [build-matrix]
+    if: always()
+    permissions: {}
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require all matrix legs
+        env:
+          RESULT: ${{ needs.build-matrix.result }}
+        run: |
+          echo "build-matrix: $RESULT"
+          [ "$RESULT" = "success" ]
