@@ -32,6 +32,7 @@ jobs:
     timeout-minutes: 30
     permissions:
       contents: write
+      id-token: write
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -81,12 +82,10 @@ jobs:
       - name: Build distributions
         run: uv build
 
+      # Trusted publishing: PyPI exchanges this job's OIDC token for a short-lived
+      # upload token under the publisher registered for this repository and workflow.
       - name: Publish to PyPI
-        # Keep the existing token for release recovery. Configure and verify a
-        # matching PyPI trusted publisher before switching authentication.
-        run: uv publish --trusted-publishing never # zizmor: ignore[use-trusted-publishing]
-        env:
-          UV_PUBLISH_TOKEN: ${{ secrets.OURS_PRIVACY_PYPI_TOKEN || secrets.PYPI_TOKEN }}
+        run: uv publish --trusted-publishing always
 
       - name: Tag and create GitHub Release
         env:
