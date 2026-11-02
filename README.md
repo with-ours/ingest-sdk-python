@@ -389,7 +389,7 @@ print(ours_privacy.__version__)
 
 ## Requirements
 
-Python 3.11 or higher.
+Python 3.11 or higher. Version 2.3.0 is the last release that supports Python 3.10.
 
 ## Contributing
 
