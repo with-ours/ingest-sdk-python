@@ -23,5 +23,3 @@ jobs:
       - name: Check release environment
         run: |
           bash ./bin/check-release-environment
-        env:
-          PYPI_TOKEN: ${{ secrets.OURS_PRIVACY_PYPI_TOKEN || secrets.PYPI_TOKEN }}
