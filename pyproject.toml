@@ -52,7 +52,7 @@ dev-dependencies = [
     "mypy==1.17",
     "respx",
     "pytest-httpx2>=1.0.0",
-    "pytest",
+    "pytest>=9.0.3",
     "pytest-asyncio",
     "ruff",
     "time-machine",
@@ -219,6 +219,8 @@ ignore_missing_imports = true
 line-length = 120
 output-format = "grouped"
 target-version = "py311"
+# README/api.md snippets are formatted by scripts/utils/ruffen-docs.py
+extend-exclude = ["*.md"]
 
 [tool.ruff.format]
 docstring-code-format = true
