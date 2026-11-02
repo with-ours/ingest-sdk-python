@@ -51,13 +51,14 @@ jobs:
           enable-cache: false
 
       - name: Run build
-        run: uv build
+        env:
+          BUILD_PYTHON: ${{ matrix.python-version }}
+        run: uv build --managed-python --python "$BUILD_PYTHON"
 
       - name: Test installed package
         env:
           BUILD_PYTHON: ${{ matrix.python-version }}
         run: |
-          uv python install "$BUILD_PYTHON"
           "$(uv python find --managed-python "$BUILD_PYTHON")" -m venv "$RUNNER_TEMP/sdk"
           "$RUNNER_TEMP/sdk/bin/python" -m pip install dist/*.whl
           "$RUNNER_TEMP/sdk/bin/python" -c 'import importlib.util; assert importlib.util.find_spec("httpx") is None'
