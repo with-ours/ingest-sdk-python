@@ -3,7 +3,7 @@
 <!-- prettier-ignore -->
 [![PyPI version](https://img.shields.io/pypi/v/oursprivacy-client.svg?label=pypi%20(stable))](https://pypi.org/project/oursprivacy-client/)
 
-The Ours Privacy Python library provides convenient access to the Ours Privacy REST API from any Python 3.10+
+The Ours Privacy Python library provides convenient access to the Ours Privacy REST API from any Python 3.11+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [HTTPX2](https://github.com/pydantic/httpx2).
 
@@ -389,7 +389,7 @@ print(ours_privacy.__version__)
 
 ## Requirements
 
-Python 3.10 or higher.
+Python 3.11 or higher. Version 2.3.0 is the last release that supports Python 3.10.
 
 ## Contributing
 

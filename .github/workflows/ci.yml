@@ -37,46 +37,40 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.10', '3.13']
+        python-version: ['3.11', '3.12', '3.13', '3.14', '3.15']
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
-      - name: Install Rye
-        run: |
-          curl -sSf https://rye.astral.sh/get | bash
-          echo "$HOME/.rye/shims" >> $GITHUB_PATH
-        env:
-          RYE_VERSION: '0.44.0'
-          RYE_INSTALL_OPTION: '--yes'
-
-      - name: Select build Python
-        env:
-          BUILD_PYTHON: ${{ matrix.python-version }}
-        run: rye pin "$BUILD_PYTHON"
-
-      - name: Install dependencies
-        run: rye sync --all-features --no-lock
+      - name: Install uv
+        uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
+        with:
+          version: '0.13.5'
+          enable-cache: false
 
       - name: Run build
-        run: rye build
+        env:
+          BUILD_PYTHON: ${{ matrix.python-version }}
+        run: uv build --managed-python --python "$BUILD_PYTHON"
 
       - name: Test installed package
+        env:
+          BUILD_PYTHON: ${{ matrix.python-version }}
         run: |
-          rye run python -m venv "$RUNNER_TEMP/sdk"
+          "$(uv python find --managed-python "$BUILD_PYTHON")" -m venv "$RUNNER_TEMP/sdk"
           "$RUNNER_TEMP/sdk/bin/python" -m pip install dist/*.whl
           "$RUNNER_TEMP/sdk/bin/python" -c 'import importlib.util; assert importlib.util.find_spec("httpx") is None'
           "$RUNNER_TEMP/sdk/bin/python" tests/test_http_backend.py
           "$RUNNER_TEMP/sdk/bin/python" -m pip install httpx
           "$RUNNER_TEMP/sdk/bin/python" tests/test_http_backend.py
 
-  test:
+  test-scripts:
     permissions:
       contents: read
     timeout-minutes: 10
-    name: test
+    name: test (scripts)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -97,7 +91,40 @@ jobs:
       - name: Run tests
         run: ./scripts/test
 
-  # Stable required-check name; matrix legs above include versions in their names.
+  test-matrix:
+    permissions:
+      contents: read
+    timeout-minutes: 10
+    name: test (Python ${{ matrix.python-version }})
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.11', '3.12', '3.13', '3.14', '3.15']
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
+        with:
+          version: '0.13.5'
+          enable-cache: false
+
+      - name: Install locked dependencies
+        env:
+          TEST_PYTHON: ${{ matrix.python-version }}
+        run: |
+          uv venv --managed-python --python "$TEST_PYTHON" "$RUNNER_TEMP/venv"
+          uv pip sync --python "$RUNNER_TEMP/venv/bin/python" requirements-dev.lock
+
+      - name: Run tests
+        env:
+          DEFER_PYDANTIC_BUILD: 'false'
+        run: '"$RUNNER_TEMP/venv/bin/python" -m pytest'
+
+  # Stable required-check names; matrix legs above include versions in their names.
   build:
     name: build
     needs: [build-matrix]
@@ -112,3 +139,20 @@ jobs:
         run: |
           echo "build-matrix: $RESULT"
           [ "$RESULT" = "success" ]
+
+  test:
+    name: test
+    needs: [test-scripts, test-matrix]
+    if: always()
+    permissions: {}
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require all test jobs
+        env:
+          SCRIPTS_RESULT: ${{ needs.test-scripts.result }}
+          MATRIX_RESULT: ${{ needs.test-matrix.result }}
+        run: |
+          echo "test-scripts: $SCRIPTS_RESULT"
+          echo "test-matrix: $MATRIX_RESULT"
+          [ "$SCRIPTS_RESULT" = "success" ] && [ "$MATRIX_RESULT" = "success" ]
