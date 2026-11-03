@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.4.0 (2026-11-03)
+
+Full Changelog: [v2.3.0...v2.4.0](https://github.com/with-ours/ingest-sdk-python/compare/v2.3.0...v2.4.0)
+
+### Features
+
+* **python:** require Python 3.11 or later; 2.3.0 is the last release that supports Python 3.10
 ## 2.3.0 (2026-10-30)
 
 Full Changelog: [v2.2.0...v2.3.0](https://github.com/with-ours/ingest-sdk-python/compare/v2.2.0...v2.3.0)
