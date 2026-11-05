@@ -87,6 +87,7 @@ from ._exceptions import (
     APIResponseValidationError,
 )
 from ._utils._json import openapi_dumps
+from ._utils._logs import redact_sensitive
 
 log: logging.Logger = logging.getLogger(__name__)
 
@@ -417,7 +418,7 @@ class BaseClient(Generic[_HttpxClientT, _DefaultStreamT]):
 
             try:
                 body = json.loads(err_text)
-                err_msg = f"Error code: {response.status_code} - {body}"
+                err_msg = f"Error code: {response.status_code} - {redact_sensitive(body)}"
             except Exception:
                 err_msg = err_text or f"Error code: {response.status_code}"
 
@@ -483,15 +484,17 @@ class BaseClient(Generic[_HttpxClientT, _DefaultStreamT]):
         if log.isEnabledFor(logging.DEBUG):
             log.debug(
                 "Request options: %s",
-                model_dump(
-                    options,
-                    exclude_unset=True,
-                    # Pydantic v1 can't dump every type we support in content, so we exclude it for now.
-                    exclude={
-                        "content",
-                    }
-                    if PYDANTIC_V1
-                    else {},
+                redact_sensitive(
+                    model_dump(
+                        options,
+                        exclude_unset=True,
+                        # Pydantic v1 can't dump every type we support in content, so we exclude it for now.
+                        exclude={
+                            "content",
+                        }
+                        if PYDANTIC_V1
+                        else {},
+                    )
                 ),
             )
         kwargs: dict[str, Any] = {}
@@ -1044,7 +1047,7 @@ class SyncAPIClient(BaseClient[httpx.Client, Stream[Any]]):
                 request.url,
                 response.status_code,
                 response.reason_phrase,
-                response.headers,
+                redact_sensitive(response.headers),
             )
 
             try:
@@ -1628,7 +1631,7 @@ class AsyncAPIClient(BaseClient[httpx.AsyncClient, AsyncStream[Any]]):
                 request.url,
                 response.status_code,
                 response.reason_phrase,
-                response.headers,
+                redact_sensitive(response.headers),
             )
 
             try:

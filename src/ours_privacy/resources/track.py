@@ -211,8 +211,9 @@ class TrackResource(SyncAPIResource):
               identity resolution when the caller is a backend server rather than an end-user
               browser.
 
-          time: The time at which the event occurred in milliseconds since UTC epoch. The time
-              must be in the past and within the last 7 days.
+          time: The time at which the event occurred in milliseconds since UTC epoch. Times
+              older than one year are recorded as exactly one year ago, and future times as
+              now.
 
           user_id: The Ours Visitor ID stored in local storage and cookies on your web properties.
               When present, this is used directly — no lookup by externalId, email, or phone
@@ -444,8 +445,9 @@ class AsyncTrackResource(AsyncAPIResource):
               identity resolution when the caller is a backend server rather than an end-user
               browser.
 
-          time: The time at which the event occurred in milliseconds since UTC epoch. The time
-              must be in the past and within the last 7 days.
+          time: The time at which the event occurred in milliseconds since UTC epoch. Times
+              older than one year are recorded as exactly one year ago, and future times as
+              now.
 
           user_id: The Ours Visitor ID stored in local storage and cookies on your web properties.
               When present, this is used directly — no lookup by externalId, email, or phone
