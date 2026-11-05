@@ -8,8 +8,7 @@ Events go to production unless OURS_PRIVACY_BASE_URL overrides the host. The val
 are samples. The program exits non-zero if any row is left over.
 
 The supported backfill window is 1 year. An older time is moved to the edge of the window,
-not rejected. The generated `time` field docs say 7 days, which is out of date. The sample
-rows below are a few days old.
+not rejected. The sample rows below are a few days old.
 
 A partial failure is HTTP 207, which the SDK returns rather than raises, so check every row.
 Resend queue_failed rows unchanged. Correct invalid_event rows before sending them again.
