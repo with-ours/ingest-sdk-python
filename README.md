@@ -13,6 +13,10 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 The REST API documentation can be found on [docs.oursprivacy.com](https://docs.oursprivacy.com). The full API of this library can be found in [api.md](api.md).
 
+`token` is the Source token from your Ours Privacy dashboard. Events must be allow-listed: an event that isn't on your [Event Allowlist](https://docs.oursprivacy.com/docs/allow-listing-events) isn't forwarded to your destinations.
+
+See the [SDK guide](https://docs.oursprivacy.com/docs/python) and the runnable code in [`examples`](examples).
+
 ## Installation
 
 ```sh
@@ -30,11 +34,97 @@ from ours_privacy import OursPrivacy
 client = OursPrivacy()
 
 response = client.track.event(
-    token="REPLACE_ME",
-    event="REPLACE_ME",
+    token="YOUR_SOURCE_TOKEN",
+    event="signup_completed",
+    distinct_id="evt_01J9ZK3Q7X",
+    event_properties={
+        "plan": "pro",
+        "value": 49,
+        "currency": "USD",
+    },
+    external_id="crm_contact_1042",
+    identity_context={
+        "ip": "203.0.113.10",
+        "user_agent": "Mozilla/5.0",
+    },
 )
 print(response.success)
 ```
+
+### Identify a visitor
+
+Set properties on a visitor, creating the visitor if there's no match.
+
+```python
+from ours_privacy import OursPrivacy
+
+client = OursPrivacy()
+
+response = client.visitor.upsert(
+    token="YOUR_SOURCE_TOKEN",
+    user_properties={
+        "first_name": "Sample",
+        "last_name": "User",
+    },
+    email="user@example.com",
+)
+print(response.success)
+```
+
+### Send a batch of events
+
+Send many events in one request, each with its own required `distinctId`.
+
+```python
+from ours_privacy import OursPrivacy
+
+client = OursPrivacy()
+
+batch = client.batch.create(
+    token="YOUR_SOURCE_TOKEN",
+    events=[
+        {
+            "event": "signup_completed",
+            "distinct_id": "evt_01J9ZK3Q7X",
+            "external_id": "crm_contact_1042",
+        },
+        {
+            "event": "plan_upgraded",
+            "distinct_id": "evt_01J9ZK3Q8Y",
+            "external_id": "crm_contact_1042",
+        },
+    ],
+)
+print(batch.accepted)
+```
+
+A partial success returns HTTP 207 with a result for each row. Retry only the rows whose `code` is `queue_failed`, with the same `distinctId`. You can backfill events up to one year old; older `time` values are clamped.
+
+### Get an experiment assignment
+
+Look up a visitor's variant, using the experiment's `exp_*` token rather than the Source token.
+
+```python
+from ours_privacy import OursPrivacy
+
+client = OursPrivacy()
+
+response = client.experiments.assignment(
+    experiment_key="checkout_redesign",
+    token="exp_YOUR_EXPERIMENT_TOKEN",
+    visitor_id="visitor_1042",
+)
+```
+
+### Further reading
+
+The docs cover each endpoint in full.
+
+- [Track](https://docs.oursprivacy.com/docs/reference/track)
+- [Identify](https://docs.oursprivacy.com/docs/reference/identify)
+- [Batch](https://docs.oursprivacy.com/docs/reference/batch)
+- [Rate limits](https://docs.oursprivacy.com/docs/reference/rate-limits)
+- [Server-side experimentation](https://docs.oursprivacy.com/docs/experimentation/server-side)
 
 ## Async usage
 
@@ -49,8 +139,19 @@ client = AsyncOursPrivacy()
 
 async def main() -> None:
     response = await client.track.event(
-        token="REPLACE_ME",
-        event="REPLACE_ME",
+        token="YOUR_SOURCE_TOKEN",
+        event="signup_completed",
+        distinct_id="evt_01J9ZK3Q7X",
+        event_properties={
+            "plan": "pro",
+            "value": 49,
+            "currency": "USD",
+        },
+        external_id="crm_contact_1042",
+        identity_context={
+            "ip": "203.0.113.10",
+            "user_agent": "Mozilla/5.0",
+        },
     )
     print(response.success)
 
@@ -84,8 +185,19 @@ async def main() -> None:
         http_client=DefaultAioHttpClient(),
     ) as client:
         response = await client.track.event(
-            token="REPLACE_ME",
-            event="REPLACE_ME",
+            token="YOUR_SOURCE_TOKEN",
+            event="signup_completed",
+            distinct_id="evt_01J9ZK3Q7X",
+            event_properties={
+                "plan": "pro",
+                "value": 49,
+                "currency": "USD",
+            },
+            external_id="crm_contact_1042",
+            identity_context={
+                "ip": "203.0.113.10",
+                "user_agent": "Mozilla/5.0",
+            },
         )
         print(response.success)
 
