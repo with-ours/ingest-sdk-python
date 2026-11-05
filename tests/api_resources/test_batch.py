@@ -17,7 +17,6 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestBatch:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: OursPrivacy) -> None:
         batch = client.batch.create(
@@ -31,7 +30,6 @@ class TestBatch:
         )
         assert_matches_type(BatchCreateResponse, batch, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: OursPrivacy) -> None:
         response = client.batch.with_raw_response.create(
@@ -49,7 +47,6 @@ class TestBatch:
         batch = response.parse()
         assert_matches_type(BatchCreateResponse, batch, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: OursPrivacy) -> None:
         with client.batch.with_streaming_response.create(
@@ -75,7 +72,6 @@ class TestAsyncBatch:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncOursPrivacy) -> None:
         batch = await async_client.batch.create(
@@ -89,7 +85,6 @@ class TestAsyncBatch:
         )
         assert_matches_type(BatchCreateResponse, batch, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncOursPrivacy) -> None:
         response = await async_client.batch.with_raw_response.create(
@@ -107,7 +102,6 @@ class TestAsyncBatch:
         batch = await response.parse()
         assert_matches_type(BatchCreateResponse, batch, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncOursPrivacy) -> None:
         async with async_client.batch.with_streaming_response.create(

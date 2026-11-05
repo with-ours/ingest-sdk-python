@@ -20,7 +20,6 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestExperiments:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_assignment(self, client: OursPrivacy) -> None:
         experiment = client.experiments.assignment(
@@ -30,7 +29,6 @@ class TestExperiments:
         )
         assert_matches_type(ExperimentAssignmentResponse, experiment, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_assignment_with_all_params(self, client: OursPrivacy) -> None:
         experiment = client.experiments.assignment(
@@ -45,7 +43,6 @@ class TestExperiments:
         )
         assert_matches_type(ExperimentAssignmentResponse, experiment, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_assignment(self, client: OursPrivacy) -> None:
         response = client.experiments.with_raw_response.assignment(
@@ -59,7 +56,6 @@ class TestExperiments:
         experiment = response.parse()
         assert_matches_type(ExperimentAssignmentResponse, experiment, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_assignment(self, client: OursPrivacy) -> None:
         with client.experiments.with_streaming_response.assignment(
@@ -75,7 +71,6 @@ class TestExperiments:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_assignment(self, client: OursPrivacy) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_key` but received ''"):
@@ -85,7 +80,6 @@ class TestExperiments:
                 visitor_id="x",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_personalization(self, client: OursPrivacy) -> None:
         experiment = client.experiments.personalization(
@@ -94,7 +88,6 @@ class TestExperiments:
         )
         assert_matches_type(ExperimentPersonalizationResponse, experiment, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_personalization(self, client: OursPrivacy) -> None:
         response = client.experiments.with_raw_response.personalization(
@@ -107,7 +100,6 @@ class TestExperiments:
         experiment = response.parse()
         assert_matches_type(ExperimentPersonalizationResponse, experiment, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_personalization(self, client: OursPrivacy) -> None:
         with client.experiments.with_streaming_response.personalization(
@@ -128,7 +120,6 @@ class TestAsyncExperiments:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_assignment(self, async_client: AsyncOursPrivacy) -> None:
         experiment = await async_client.experiments.assignment(
@@ -138,7 +129,6 @@ class TestAsyncExperiments:
         )
         assert_matches_type(ExperimentAssignmentResponse, experiment, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_assignment_with_all_params(self, async_client: AsyncOursPrivacy) -> None:
         experiment = await async_client.experiments.assignment(
@@ -153,7 +143,6 @@ class TestAsyncExperiments:
         )
         assert_matches_type(ExperimentAssignmentResponse, experiment, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_assignment(self, async_client: AsyncOursPrivacy) -> None:
         response = await async_client.experiments.with_raw_response.assignment(
@@ -167,7 +156,6 @@ class TestAsyncExperiments:
         experiment = await response.parse()
         assert_matches_type(ExperimentAssignmentResponse, experiment, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_assignment(self, async_client: AsyncOursPrivacy) -> None:
         async with async_client.experiments.with_streaming_response.assignment(
@@ -183,7 +171,6 @@ class TestAsyncExperiments:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_assignment(self, async_client: AsyncOursPrivacy) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_key` but received ''"):
@@ -193,7 +180,6 @@ class TestAsyncExperiments:
                 visitor_id="x",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_personalization(self, async_client: AsyncOursPrivacy) -> None:
         experiment = await async_client.experiments.personalization(
@@ -202,7 +188,6 @@ class TestAsyncExperiments:
         )
         assert_matches_type(ExperimentPersonalizationResponse, experiment, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_personalization(self, async_client: AsyncOursPrivacy) -> None:
         response = await async_client.experiments.with_raw_response.personalization(
@@ -215,7 +200,6 @@ class TestAsyncExperiments:
         experiment = await response.parse()
         assert_matches_type(ExperimentPersonalizationResponse, experiment, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_personalization(self, async_client: AsyncOursPrivacy) -> None:
         async with async_client.experiments.with_streaming_response.personalization(
