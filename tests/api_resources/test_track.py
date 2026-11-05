@@ -17,7 +17,6 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestTrack:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_event(self, client: OursPrivacy) -> None:
         track = client.track.event(
@@ -26,7 +25,6 @@ class TestTrack:
         )
         assert_matches_type(TrackEventResponse, track, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_event_with_all_params(self, client: OursPrivacy) -> None:
         track = client.track.event(
@@ -38,6 +36,7 @@ class TestTrack:
                 "ad_id": "ad_id",
                 "admitad_uid": "admitad_uid",
                 "adset_id": "adset_id",
+                "affiliatly_v3": "affiliatly_v3",
                 "alart": "alart",
                 "aleid": "aleid",
                 "axwrt": "axwrt",
@@ -131,6 +130,7 @@ class TestTrack:
                 "ad_id": "ad_id",
                 "admitad_uid": "admitad_uid",
                 "adset_id": "adset_id",
+                "affiliatly_v3": "affiliatly_v3",
                 "alart": "alart",
                 "aleid": "aleid",
                 "axwrt": "axwrt",
@@ -199,7 +199,6 @@ class TestTrack:
         )
         assert_matches_type(TrackEventResponse, track, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_event(self, client: OursPrivacy) -> None:
         response = client.track.with_raw_response.event(
@@ -212,7 +211,6 @@ class TestTrack:
         track = response.parse()
         assert_matches_type(TrackEventResponse, track, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_event(self, client: OursPrivacy) -> None:
         with client.track.with_streaming_response.event(
@@ -233,7 +231,6 @@ class TestAsyncTrack:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_event(self, async_client: AsyncOursPrivacy) -> None:
         track = await async_client.track.event(
@@ -242,7 +239,6 @@ class TestAsyncTrack:
         )
         assert_matches_type(TrackEventResponse, track, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_event_with_all_params(self, async_client: AsyncOursPrivacy) -> None:
         track = await async_client.track.event(
@@ -254,6 +250,7 @@ class TestAsyncTrack:
                 "ad_id": "ad_id",
                 "admitad_uid": "admitad_uid",
                 "adset_id": "adset_id",
+                "affiliatly_v3": "affiliatly_v3",
                 "alart": "alart",
                 "aleid": "aleid",
                 "axwrt": "axwrt",
@@ -347,6 +344,7 @@ class TestAsyncTrack:
                 "ad_id": "ad_id",
                 "admitad_uid": "admitad_uid",
                 "adset_id": "adset_id",
+                "affiliatly_v3": "affiliatly_v3",
                 "alart": "alart",
                 "aleid": "aleid",
                 "axwrt": "axwrt",
@@ -415,7 +413,6 @@ class TestAsyncTrack:
         )
         assert_matches_type(TrackEventResponse, track, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_event(self, async_client: AsyncOursPrivacy) -> None:
         response = await async_client.track.with_raw_response.event(
@@ -428,7 +425,6 @@ class TestAsyncTrack:
         track = await response.parse()
         assert_matches_type(TrackEventResponse, track, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_event(self, async_client: AsyncOursPrivacy) -> None:
         async with async_client.track.with_streaming_response.event(

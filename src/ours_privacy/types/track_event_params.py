@@ -176,7 +176,8 @@ class TrackEventParams(TypedDict, total=False):
     time: Optional[float]
     """The time at which the event occurred in milliseconds since UTC epoch.
 
-    The time must be in the past and within the last 7 days.
+    Times older than one year are recorded as exactly one year ago, and future times
+    as now.
     """
 
     user_id: Annotated[Optional[str], PropertyInfo(alias="userId")]
@@ -229,6 +230,14 @@ class DefaultProperties(TypedDict, total=False):
 
     This is set by the web sdk automatically. Leading and trailing whitespace is
     removed before validation.
+    """
+
+    affiliatly_v3: Optional[str]
+    """
+    The raw Affiliatly tracking cookie value (affiliatly_v3), set by the Affiliatly
+    script when a visitor lands from an affiliate link. Web-only. Ex:
+    id_hash=abc&id_user=123&aff_uid=45 Leading and trailing whitespace is removed
+    before validation.
     """
 
     alart: Optional[str]
@@ -714,6 +723,8 @@ class UserProperties(TypedDict, total=False):
     """Leading and trailing whitespace is removed before validation."""
 
     adset_id: Optional[str]
+
+    affiliatly_v3: Optional[str]
 
     alart: Optional[str]
 
