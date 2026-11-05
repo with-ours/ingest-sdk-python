@@ -86,6 +86,8 @@ class UserProperties(TypedDict, total=False):
 
     adset_id: Optional[str]
 
+    affiliatly_v3: Optional[str]
+
     alart: Optional[str]
 
     aleid: Optional[str]
@@ -506,6 +508,14 @@ class DefaultProperties(TypedDict, total=False):
 
     This is set by the web sdk automatically. Leading and trailing whitespace is
     removed before validation.
+    """
+
+    affiliatly_v3: Optional[str]
+    """
+    The raw Affiliatly tracking cookie value (affiliatly_v3), set by the Affiliatly
+    script when a visitor lands from an affiliate link. Web-only. Ex:
+    id_hash=abc&id_user=123&aff_uid=45 Leading and trailing whitespace is removed
+    before validation.
     """
 
     alart: Optional[str]

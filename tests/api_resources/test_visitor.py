@@ -17,7 +17,6 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestVisitor:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_upsert(self, client: OursPrivacy) -> None:
         visitor = client.visitor.upsert(
@@ -26,7 +25,6 @@ class TestVisitor:
         )
         assert_matches_type(VisitorUpsertResponse, visitor, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_upsert_with_all_params(self, client: OursPrivacy) -> None:
         visitor = client.visitor.upsert(
@@ -36,6 +34,7 @@ class TestVisitor:
                 "ad_id": "ad_id",
                 "admitad_uid": "admitad_uid",
                 "adset_id": "adset_id",
+                "affiliatly_v3": "affiliatly_v3",
                 "alart": "alart",
                 "aleid": "aleid",
                 "axwrt": "axwrt",
@@ -107,6 +106,7 @@ class TestVisitor:
                 "ad_id": "ad_id",
                 "admitad_uid": "admitad_uid",
                 "adset_id": "adset_id",
+                "affiliatly_v3": "affiliatly_v3",
                 "alart": "alart",
                 "aleid": "aleid",
                 "axwrt": "axwrt",
@@ -195,7 +195,6 @@ class TestVisitor:
         )
         assert_matches_type(VisitorUpsertResponse, visitor, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_upsert(self, client: OursPrivacy) -> None:
         response = client.visitor.with_raw_response.upsert(
@@ -208,7 +207,6 @@ class TestVisitor:
         visitor = response.parse()
         assert_matches_type(VisitorUpsertResponse, visitor, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_upsert(self, client: OursPrivacy) -> None:
         with client.visitor.with_streaming_response.upsert(
@@ -229,7 +227,6 @@ class TestAsyncVisitor:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_upsert(self, async_client: AsyncOursPrivacy) -> None:
         visitor = await async_client.visitor.upsert(
@@ -238,7 +235,6 @@ class TestAsyncVisitor:
         )
         assert_matches_type(VisitorUpsertResponse, visitor, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_upsert_with_all_params(self, async_client: AsyncOursPrivacy) -> None:
         visitor = await async_client.visitor.upsert(
@@ -248,6 +244,7 @@ class TestAsyncVisitor:
                 "ad_id": "ad_id",
                 "admitad_uid": "admitad_uid",
                 "adset_id": "adset_id",
+                "affiliatly_v3": "affiliatly_v3",
                 "alart": "alart",
                 "aleid": "aleid",
                 "axwrt": "axwrt",
@@ -319,6 +316,7 @@ class TestAsyncVisitor:
                 "ad_id": "ad_id",
                 "admitad_uid": "admitad_uid",
                 "adset_id": "adset_id",
+                "affiliatly_v3": "affiliatly_v3",
                 "alart": "alart",
                 "aleid": "aleid",
                 "axwrt": "axwrt",
@@ -407,7 +405,6 @@ class TestAsyncVisitor:
         )
         assert_matches_type(VisitorUpsertResponse, visitor, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_upsert(self, async_client: AsyncOursPrivacy) -> None:
         response = await async_client.visitor.with_raw_response.upsert(
@@ -420,7 +417,6 @@ class TestAsyncVisitor:
         visitor = await response.parse()
         assert_matches_type(VisitorUpsertResponse, visitor, path=["response"])
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_upsert(self, async_client: AsyncOursPrivacy) -> None:
         async with async_client.visitor.with_streaming_response.upsert(
