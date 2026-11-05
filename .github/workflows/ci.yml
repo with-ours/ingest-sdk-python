@@ -119,9 +119,7 @@ jobs:
           uv venv --managed-python --python "$TEST_PYTHON" "$RUNNER_TEMP/venv"
           uv pip sync --python "$RUNNER_TEMP/venv/bin/python" requirements-dev.lock
 
-      # Regeneration adds scripts/mock and un-skips the resource tests, which then
-      # run against this mock. Without scripts/mock this step does nothing and the
-      # resource tests stay skipped.
+      # Tests run against this mock server when the repository includes one.
       - name: Start mock server
         timeout-minutes: 5
         env:
