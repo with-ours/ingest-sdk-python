@@ -119,6 +119,17 @@ jobs:
           uv venv --managed-python --python "$TEST_PYTHON" "$RUNNER_TEMP/venv"
           uv pip sync --python "$RUNNER_TEMP/venv/bin/python" requirements-dev.lock
 
+      # Tests run against this mock server when the repository includes one.
+      - name: Start mock server
+        timeout-minutes: 5
+        env:
+          STAINLESS_MOCK_PORT: '4010'
+        run: |
+          if [ -f ./scripts/mock ]; then
+            ./scripts/mock --daemon
+            echo "TEST_API_BASE_URL=http://127.0.0.1:$STAINLESS_MOCK_PORT" >> "$GITHUB_ENV"
+          fi
+
       - name: Run tests
         env:
           DEFER_PYDANTIC_BUILD: 'false'
