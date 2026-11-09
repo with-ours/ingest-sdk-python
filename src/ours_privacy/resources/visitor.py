@@ -52,6 +52,7 @@ class VisitorResource(SyncAPIResource):
         external_id: Optional[str] | Omit = omit,
         identity_context: Optional[visitor_upsert_params.IdentityContext] | Omit = omit,
         user_id: Optional[str] | Omit = omit,
+        visitor_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -62,7 +63,7 @@ class VisitorResource(SyncAPIResource):
         """
         Set or update properties on an existing visitor, or create a new visitor if no
         match is found. This fires a $identify event, making the call visible in the
-        event stream. Identity resolution runs in priority order: userId (direct, no
+        event stream. Identity resolution runs in priority order: visitorId (direct, no
         lookup) → externalId → email → userProperties.phone_number. Each lookup runs
         only if earlier identifiers did not resolve a visitor. Phone matching ignores
         common formatting and an international + or 00 prefix, but does not infer a
@@ -85,16 +86,16 @@ class VisitorResource(SyncAPIResource):
           default_properties: These properties are used throughout the Ours app to pass known values onto
               destinations
 
-          email: The email address of a user. When userId is absent and externalId does not
+          email: The email address of a user. When visitorId is absent and externalId does not
               resolve a visitor, we search your account for a visitor with this email. If no
               match is found, we try userProperties.phone_number before creating a new
               visitor. Leading and trailing whitespace is removed before validation.
 
-          external_id: Your system's unique identifier for this user. When userId is absent, we search
-              your account for an existing visitor with this externalId. If no match is found,
-              we try email and then userProperties.phone_number before creating a new visitor.
-              If you also have the userId from cookies or local storage, send both — it
-              removes the lookup round-trip. Non-string input is converted to text before
+          external_id: Your system's unique identifier for this user. When visitorId is absent, we
+              search your account for an existing visitor with this externalId. If no match is
+              found, we try email and then userProperties.phone_number before creating a new
+              visitor. If you also have the visitorId from cookies or local storage, send both
+              — it removes the lookup round-trip. Non-string input is converted to text before
               validation; clients should send a string. Leading and trailing whitespace is
               removed before validation.
 
@@ -104,9 +105,17 @@ class VisitorResource(SyncAPIResource):
 
           user_id: The Ours Visitor ID stored in local storage and cookies on your web properties.
               When present, this is used directly — no lookup by externalId, email, or phone
-              is performed. If you have both a userId and an externalId, send both so the
-              event is attached to the right visitor without any lookup overhead. Leading and
-              trailing whitespace is removed before validation.
+              is performed. If you have both a visitorId and an externalId, send both so the
+              event is attached to the right visitor without any lookup overhead. visitorId
+              takes precedence over the deprecated userId alias. Leading and trailing
+              whitespace is removed before validation.
+
+          visitor_id: The Ours Visitor ID stored in local storage and cookies on your web properties.
+              When present, this is used directly — no lookup by externalId, email, or phone
+              is performed. If you have both a visitorId and an externalId, send both so the
+              event is attached to the right visitor without any lookup overhead. visitorId
+              takes precedence over the deprecated userId alias. Leading and trailing
+              whitespace is removed before validation.
 
           extra_headers: Send extra headers
 
@@ -127,6 +136,7 @@ class VisitorResource(SyncAPIResource):
                     "external_id": external_id,
                     "identity_context": identity_context,
                     "user_id": user_id,
+                    "visitor_id": visitor_id,
                 },
                 visitor_upsert_params.VisitorUpsertParams,
             ),
@@ -167,6 +177,7 @@ class AsyncVisitorResource(AsyncAPIResource):
         external_id: Optional[str] | Omit = omit,
         identity_context: Optional[visitor_upsert_params.IdentityContext] | Omit = omit,
         user_id: Optional[str] | Omit = omit,
+        visitor_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -177,7 +188,7 @@ class AsyncVisitorResource(AsyncAPIResource):
         """
         Set or update properties on an existing visitor, or create a new visitor if no
         match is found. This fires a $identify event, making the call visible in the
-        event stream. Identity resolution runs in priority order: userId (direct, no
+        event stream. Identity resolution runs in priority order: visitorId (direct, no
         lookup) → externalId → email → userProperties.phone_number. Each lookup runs
         only if earlier identifiers did not resolve a visitor. Phone matching ignores
         common formatting and an international + or 00 prefix, but does not infer a
@@ -200,16 +211,16 @@ class AsyncVisitorResource(AsyncAPIResource):
           default_properties: These properties are used throughout the Ours app to pass known values onto
               destinations
 
-          email: The email address of a user. When userId is absent and externalId does not
+          email: The email address of a user. When visitorId is absent and externalId does not
               resolve a visitor, we search your account for a visitor with this email. If no
               match is found, we try userProperties.phone_number before creating a new
               visitor. Leading and trailing whitespace is removed before validation.
 
-          external_id: Your system's unique identifier for this user. When userId is absent, we search
-              your account for an existing visitor with this externalId. If no match is found,
-              we try email and then userProperties.phone_number before creating a new visitor.
-              If you also have the userId from cookies or local storage, send both — it
-              removes the lookup round-trip. Non-string input is converted to text before
+          external_id: Your system's unique identifier for this user. When visitorId is absent, we
+              search your account for an existing visitor with this externalId. If no match is
+              found, we try email and then userProperties.phone_number before creating a new
+              visitor. If you also have the visitorId from cookies or local storage, send both
+              — it removes the lookup round-trip. Non-string input is converted to text before
               validation; clients should send a string. Leading and trailing whitespace is
               removed before validation.
 
@@ -219,9 +230,17 @@ class AsyncVisitorResource(AsyncAPIResource):
 
           user_id: The Ours Visitor ID stored in local storage and cookies on your web properties.
               When present, this is used directly — no lookup by externalId, email, or phone
-              is performed. If you have both a userId and an externalId, send both so the
-              event is attached to the right visitor without any lookup overhead. Leading and
-              trailing whitespace is removed before validation.
+              is performed. If you have both a visitorId and an externalId, send both so the
+              event is attached to the right visitor without any lookup overhead. visitorId
+              takes precedence over the deprecated userId alias. Leading and trailing
+              whitespace is removed before validation.
+
+          visitor_id: The Ours Visitor ID stored in local storage and cookies on your web properties.
+              When present, this is used directly — no lookup by externalId, email, or phone
+              is performed. If you have both a visitorId and an externalId, send both so the
+              event is attached to the right visitor without any lookup overhead. visitorId
+              takes precedence over the deprecated userId alias. Leading and trailing
+              whitespace is removed before validation.
 
           extra_headers: Send extra headers
 
@@ -242,6 +261,7 @@ class AsyncVisitorResource(AsyncAPIResource):
                     "external_id": external_id,
                     "identity_context": identity_context,
                     "user_id": user_id,
+                    "visitor_id": visitor_id,
                 },
                 visitor_upsert_params.VisitorUpsertParams,
             ),
