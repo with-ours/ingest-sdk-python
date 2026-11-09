@@ -94,7 +94,7 @@ typecheck = { chain = [
 
 [build-system]
 requires = [
-  "hatchling==1.32.4",
+  "hatchling==1.33.0",
   "hatch-fancy-pypi-readme",
 ]
 build-backend = "hatchling.build"
