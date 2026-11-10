@@ -192,6 +192,7 @@ class TestVisitor:
                 "user_agent": "userAgent",
             },
             user_id="P",
+            visitor_id="P",
         )
         assert_matches_type(VisitorUpsertResponse, visitor, path=["response"])
 
@@ -402,6 +403,7 @@ class TestAsyncVisitor:
                 "user_agent": "userAgent",
             },
             user_id="P",
+            visitor_id="P",
         )
         assert_matches_type(VisitorUpsertResponse, visitor, path=["response"])
 

@@ -147,6 +147,7 @@ class TrackResource(SyncAPIResource):
         time: Optional[float] | Omit = omit,
         user_id: Optional[str] | Omit = omit,
         user_properties: Optional[track_event_params.UserProperties] | Omit = omit,
+        visitor_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -156,16 +157,16 @@ class TrackResource(SyncAPIResource):
     ) -> TrackEventResponse:
         """Track events from your server.
 
-        Include userId, externalId, email, or
+        Include visitorId, externalId, email, or
         userProperties.phone_number to associate the event with an existing visitor.
-        Identity resolution runs in priority order: userId (direct, no lookup) →
+        Identity resolution runs in priority order: visitorId (direct, no lookup) →
         externalId → email → userProperties.phone_number. Each lookup runs only if
         earlier identifiers did not resolve a visitor. Phone matching ignores common
         formatting and an international + or 00 prefix, but does not infer a country
-        code. If you know both userId and externalId, send both. For top-level visitor
-        properties: null clears the existing value, while undefined, omitted fields, and
-        empty strings are ignored. For entries inside custom_properties: null,
-        undefined, and empty strings are all ignored (custom_properties use merge
+        code. If you know both visitorId and externalId, send both. For top-level
+        visitor properties: null clears the existing value, while undefined, omitted
+        fields, and empty strings are ignored. For entries inside custom_properties:
+        null, undefined, and empty strings are all ignored (custom_properties use merge
         semantics). See https://docs.oursprivacy.com/docs/data-types for details and
         common pitfalls.
 
@@ -186,7 +187,7 @@ class TrackResource(SyncAPIResource):
               clients should send a string. Leading and trailing whitespace is removed before
               validation.
 
-          email: The email address of a user. When userId is absent and externalId does not
+          email: The email address of a user. When visitorId is absent and externalId does not
               resolve a visitor, we search your account for a visitor with this email. If no
               match is found, we try userProperties.phone_number before creating a new
               visitor. Leading and trailing whitespace is removed before validation.
@@ -198,11 +199,11 @@ class TrackResource(SyncAPIResource):
               strings. After normalization, the serialized JSON must be shorter than 1,048,576
               UTF-16 code units.
 
-          external_id: Your system's unique identifier for this user. When userId is absent, we search
-              your account for an existing visitor with this externalId. If no match is found,
-              we try email and then userProperties.phone_number before creating a new visitor.
-              If you also have the userId from cookies or local storage, send both — it
-              removes the lookup round-trip. Non-string input is converted to text before
+          external_id: Your system's unique identifier for this user. When visitorId is absent, we
+              search your account for an existing visitor with this externalId. If no match is
+              found, we try email and then userProperties.phone_number before creating a new
+              visitor. If you also have the visitorId from cookies or local storage, send both
+              — it removes the lookup round-trip. Non-string input is converted to text before
               validation; clients should send a string. Leading and trailing whitespace is
               removed before validation.
 
@@ -216,12 +217,20 @@ class TrackResource(SyncAPIResource):
 
           user_id: The Ours Visitor ID stored in local storage and cookies on your web properties.
               When present, this is used directly — no lookup by externalId, email, or phone
-              is performed. If you have both a userId and an externalId, send both so the
-              event is attached to the right visitor without any lookup overhead. Leading and
-              trailing whitespace is removed before validation.
+              is performed. If you have both a visitorId and an externalId, send both so the
+              event is attached to the right visitor without any lookup overhead. visitorId
+              takes precedence over the deprecated userId alias. Leading and trailing
+              whitespace is removed before validation.
 
           user_properties: Properties to set on the visitor. (optional) You can also update these
               properties via the identify endpoint.
+
+          visitor_id: The Ours Visitor ID stored in local storage and cookies on your web properties.
+              When present, this is used directly — no lookup by externalId, email, or phone
+              is performed. If you have both a visitorId and an externalId, send both so the
+              event is attached to the right visitor without any lookup overhead. visitorId
+              takes precedence over the deprecated userId alias. Leading and trailing
+              whitespace is removed before validation.
 
           extra_headers: Send extra headers
 
@@ -246,6 +255,7 @@ class TrackResource(SyncAPIResource):
                     "time": time,
                     "user_id": user_id,
                     "user_properties": user_properties,
+                    "visitor_id": visitor_id,
                 },
                 track_event_params.TrackEventParams,
             ),
@@ -381,6 +391,7 @@ class AsyncTrackResource(AsyncAPIResource):
         time: Optional[float] | Omit = omit,
         user_id: Optional[str] | Omit = omit,
         user_properties: Optional[track_event_params.UserProperties] | Omit = omit,
+        visitor_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -390,16 +401,16 @@ class AsyncTrackResource(AsyncAPIResource):
     ) -> TrackEventResponse:
         """Track events from your server.
 
-        Include userId, externalId, email, or
+        Include visitorId, externalId, email, or
         userProperties.phone_number to associate the event with an existing visitor.
-        Identity resolution runs in priority order: userId (direct, no lookup) →
+        Identity resolution runs in priority order: visitorId (direct, no lookup) →
         externalId → email → userProperties.phone_number. Each lookup runs only if
         earlier identifiers did not resolve a visitor. Phone matching ignores common
         formatting and an international + or 00 prefix, but does not infer a country
-        code. If you know both userId and externalId, send both. For top-level visitor
-        properties: null clears the existing value, while undefined, omitted fields, and
-        empty strings are ignored. For entries inside custom_properties: null,
-        undefined, and empty strings are all ignored (custom_properties use merge
+        code. If you know both visitorId and externalId, send both. For top-level
+        visitor properties: null clears the existing value, while undefined, omitted
+        fields, and empty strings are ignored. For entries inside custom_properties:
+        null, undefined, and empty strings are all ignored (custom_properties use merge
         semantics). See https://docs.oursprivacy.com/docs/data-types for details and
         common pitfalls.
 
@@ -420,7 +431,7 @@ class AsyncTrackResource(AsyncAPIResource):
               clients should send a string. Leading and trailing whitespace is removed before
               validation.
 
-          email: The email address of a user. When userId is absent and externalId does not
+          email: The email address of a user. When visitorId is absent and externalId does not
               resolve a visitor, we search your account for a visitor with this email. If no
               match is found, we try userProperties.phone_number before creating a new
               visitor. Leading and trailing whitespace is removed before validation.
@@ -432,11 +443,11 @@ class AsyncTrackResource(AsyncAPIResource):
               strings. After normalization, the serialized JSON must be shorter than 1,048,576
               UTF-16 code units.
 
-          external_id: Your system's unique identifier for this user. When userId is absent, we search
-              your account for an existing visitor with this externalId. If no match is found,
-              we try email and then userProperties.phone_number before creating a new visitor.
-              If you also have the userId from cookies or local storage, send both — it
-              removes the lookup round-trip. Non-string input is converted to text before
+          external_id: Your system's unique identifier for this user. When visitorId is absent, we
+              search your account for an existing visitor with this externalId. If no match is
+              found, we try email and then userProperties.phone_number before creating a new
+              visitor. If you also have the visitorId from cookies or local storage, send both
+              — it removes the lookup round-trip. Non-string input is converted to text before
               validation; clients should send a string. Leading and trailing whitespace is
               removed before validation.
 
@@ -450,12 +461,20 @@ class AsyncTrackResource(AsyncAPIResource):
 
           user_id: The Ours Visitor ID stored in local storage and cookies on your web properties.
               When present, this is used directly — no lookup by externalId, email, or phone
-              is performed. If you have both a userId and an externalId, send both so the
-              event is attached to the right visitor without any lookup overhead. Leading and
-              trailing whitespace is removed before validation.
+              is performed. If you have both a visitorId and an externalId, send both so the
+              event is attached to the right visitor without any lookup overhead. visitorId
+              takes precedence over the deprecated userId alias. Leading and trailing
+              whitespace is removed before validation.
 
           user_properties: Properties to set on the visitor. (optional) You can also update these
               properties via the identify endpoint.
+
+          visitor_id: The Ours Visitor ID stored in local storage and cookies on your web properties.
+              When present, this is used directly — no lookup by externalId, email, or phone
+              is performed. If you have both a visitorId and an externalId, send both so the
+              event is attached to the right visitor without any lookup overhead. visitorId
+              takes precedence over the deprecated userId alias. Leading and trailing
+              whitespace is removed before validation.
 
           extra_headers: Send extra headers
 
@@ -480,6 +499,7 @@ class AsyncTrackResource(AsyncAPIResource):
                     "time": time,
                     "user_id": user_id,
                     "user_properties": user_properties,
+                    "visitor_id": visitor_id,
                 },
                 track_event_params.TrackEventParams,
             ),
