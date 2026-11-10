@@ -196,6 +196,7 @@ class TestTrack:
                 "ylpcid": "ylpcid",
                 "zip": "string",
             },
+            visitor_id="P",
         )
         assert_matches_type(TrackEventResponse, track, path=["response"])
 
@@ -410,6 +411,7 @@ class TestAsyncTrack:
                 "ylpcid": "ylpcid",
                 "zip": "string",
             },
+            visitor_id="P",
         )
         assert_matches_type(TrackEventResponse, track, path=["response"])
 
