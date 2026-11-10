@@ -46,9 +46,9 @@ jobs:
           echo "Dispatched publish-pypi.yml on $DEFAULT_BRANCH for $RELEASE_VERSION at $RELEASE_COMMIT"
 
   # Validates the release and builds the distributions.
-  build:
+  package:
     if: github.event_name == 'workflow_dispatch' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
-    name: build
+    name: package
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -136,7 +136,7 @@ jobs:
   # Uploads the built distributions to PyPI, then tags and creates the GitHub Release.
   publish:
     name: publish
-    needs: build
+    needs: package
     runs-on: ubuntu-latest
     timeout-minutes: 15
     environment: release
@@ -147,8 +147,8 @@ jobs:
       contents: write
       id-token: write
     env:
-      RELEASE_VERSION: ${{ needs.build.outputs.version }}
-      RELEASE_COMMIT: ${{ needs.build.outputs.commit }}
+      RELEASE_VERSION: ${{ needs.package.outputs.version }}
+      RELEASE_COMMIT: ${{ needs.package.outputs.commit }}
 
     steps:
       - name: Install uv
@@ -166,18 +166,18 @@ jobs:
 
       - name: Verify distribution checksums
         env:
-          SDIST_FILE: ${{ runner.temp }}/dist/${{ needs.build.outputs.sdist }}
-          SDIST_SHA256: ${{ needs.build.outputs.sdist_sha256 }}
-          WHEEL_FILE: ${{ runner.temp }}/dist/${{ needs.build.outputs.wheel }}
-          WHEEL_SHA256: ${{ needs.build.outputs.wheel_sha256 }}
+          SDIST_FILE: ${{ runner.temp }}/dist/${{ needs.package.outputs.sdist }}
+          SDIST_SHA256: ${{ needs.package.outputs.sdist_sha256 }}
+          WHEEL_FILE: ${{ runner.temp }}/dist/${{ needs.package.outputs.wheel }}
+          WHEEL_SHA256: ${{ needs.package.outputs.wheel_sha256 }}
         run: |
           set -euo pipefail
           printf '%s  %s\n' "$SDIST_SHA256" "$SDIST_FILE" "$WHEEL_SHA256" "$WHEEL_FILE" | sha256sum --check --strict
 
       - name: Publish to PyPI
         env:
-          SDIST_FILE: ${{ runner.temp }}/dist/${{ needs.build.outputs.sdist }}
-          WHEEL_FILE: ${{ runner.temp }}/dist/${{ needs.build.outputs.wheel }}
+          SDIST_FILE: ${{ runner.temp }}/dist/${{ needs.package.outputs.sdist }}
+          WHEEL_FILE: ${{ runner.temp }}/dist/${{ needs.package.outputs.wheel }}
         run: |
           set -euo pipefail
           uv publish --trusted-publishing always "$SDIST_FILE" "$WHEEL_FILE"
@@ -187,7 +187,7 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0
-          ref: ${{ needs.build.outputs.commit }}
+          ref: ${{ needs.package.outputs.commit }}
 
       - name: Tag and create GitHub Release
         env:
