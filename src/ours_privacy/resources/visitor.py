@@ -111,6 +111,8 @@ class VisitorResource(SyncAPIResource):
               takes precedence over the deprecated userId alias. Leading and trailing
               whitespace is removed before validation.
 
+              Deprecated.
+
           visitor_id: The Ours Visitor ID stored in local storage and cookies on your web properties.
               When present, this is used directly — no lookup by externalId, email, or phone
               is performed. If you have both a visitorId and an externalId, send both so the
@@ -235,6 +237,8 @@ class AsyncVisitorResource(AsyncAPIResource):
               event is attached to the right visitor without any lookup overhead. visitorId
               takes precedence over the deprecated userId alias. Leading and trailing
               whitespace is removed before validation.
+
+              Deprecated.
 
           visitor_id: The Ours Visitor ID stored in local storage and cookies on your web properties.
               When present, this is used directly — no lookup by externalId, email, or phone
