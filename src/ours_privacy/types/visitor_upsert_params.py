@@ -68,6 +68,8 @@ class VisitorUpsertParams(TypedDict, total=False):
     event is attached to the right visitor without any lookup overhead. visitorId
     takes precedence over the deprecated userId alias. Leading and trailing
     whitespace is removed before validation.
+
+    Deprecated.
     """
 
     visitor_id: Annotated[Optional[str], PropertyInfo(alias="visitorId")]

@@ -222,6 +222,8 @@ class TrackResource(SyncAPIResource):
               takes precedence over the deprecated userId alias. Leading and trailing
               whitespace is removed before validation.
 
+              Deprecated.
+
           user_properties: Properties to set on the visitor. (optional) You can also update these
               properties via the identify endpoint.
 
@@ -465,6 +467,8 @@ class AsyncTrackResource(AsyncAPIResource):
               event is attached to the right visitor without any lookup overhead. visitorId
               takes precedence over the deprecated userId alias. Leading and trailing
               whitespace is removed before validation.
+
+              Deprecated.
 
           user_properties: Properties to set on the visitor. (optional) You can also update these
               properties via the identify endpoint.
