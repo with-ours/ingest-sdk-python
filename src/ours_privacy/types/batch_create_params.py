@@ -1108,6 +1108,8 @@ class Event(TypedDict, total=False):
     event is attached to the right visitor without any lookup overhead. visitorId
     takes precedence over the deprecated userId alias. Leading and trailing
     whitespace is removed before validation.
+
+    Deprecated.
     """
 
     user_properties: Annotated[Optional[EventUserProperties], PropertyInfo(alias="userProperties")]
