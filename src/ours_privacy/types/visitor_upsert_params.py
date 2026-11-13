@@ -54,10 +54,9 @@ class VisitorUpsertParams(TypedDict, total=False):
     """
 
     identity_context: Annotated[Optional[IdentityContext], PropertyInfo(alias="identityContext")]
-    """End-user network context for server-side calls.
+    """Deprecated and ignored. Accepted so existing clients keep working.
 
-    Required for probabilistic identity resolution when the caller is a backend
-    server rather than an end-user browser.
+    Deprecated.
     """
 
     user_id: Annotated[Optional[str], PropertyInfo(alias="userId")]
@@ -996,10 +995,7 @@ class DefaultProperties(TypedDict, total=False):
 
 
 class IdentityContext(TypedDict, total=False):
-    """End-user network context for server-side calls.
-
-    Required for probabilistic identity resolution when the caller is a backend server rather than an end-user browser.
-    """
+    """Deprecated and ignored. Accepted so existing clients keep working."""
 
     ip: Required[str]
     """The end-user IP address (not the server IP)."""

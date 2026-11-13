@@ -208,9 +208,9 @@ class TrackResource(SyncAPIResource):
               validation; clients should send a string. Leading and trailing whitespace is
               removed before validation.
 
-          identity_context: End-user network context for server-side calls. Required for probabilistic
-              identity resolution when the caller is a backend server rather than an end-user
-              browser.
+          identity_context: Deprecated and ignored. Accepted so existing clients keep working.
+
+              Deprecated.
 
           time: The time at which the event occurred in milliseconds since UTC epoch. Times
               older than one year are recorded as exactly one year ago, and future times as
@@ -454,9 +454,9 @@ class AsyncTrackResource(AsyncAPIResource):
               validation; clients should send a string. Leading and trailing whitespace is
               removed before validation.
 
-          identity_context: End-user network context for server-side calls. Required for probabilistic
-              identity resolution when the caller is a backend server rather than an end-user
-              browser.
+          identity_context: Deprecated and ignored. Accepted so existing clients keep working.
+
+              Deprecated.
 
           time: The time at which the event occurred in milliseconds since UTC epoch. Times
               older than one year are recorded as exactly one year ago, and future times as

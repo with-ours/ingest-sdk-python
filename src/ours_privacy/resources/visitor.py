@@ -100,9 +100,9 @@ class VisitorResource(SyncAPIResource):
               validation; clients should send a string. Leading and trailing whitespace is
               removed before validation.
 
-          identity_context: End-user network context for server-side calls. Required for probabilistic
-              identity resolution when the caller is a backend server rather than an end-user
-              browser.
+          identity_context: Deprecated and ignored. Accepted so existing clients keep working.
+
+              Deprecated.
 
           user_id: The Ours Visitor ID stored in local storage and cookies on your web properties.
               When present, this is used directly — no lookup by externalId, email, or phone
@@ -227,9 +227,9 @@ class AsyncVisitorResource(AsyncAPIResource):
               validation; clients should send a string. Leading and trailing whitespace is
               removed before validation.
 
-          identity_context: End-user network context for server-side calls. Required for probabilistic
-              identity resolution when the caller is a backend server rather than an end-user
-              browser.
+          identity_context: Deprecated and ignored. Accepted so existing clients keep working.
+
+              Deprecated.
 
           user_id: The Ours Visitor ID stored in local storage and cookies on your web properties.
               When present, this is used directly — no lookup by externalId, email, or phone
