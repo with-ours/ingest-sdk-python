@@ -45,6 +45,12 @@ class EventDefaultProperties(TypedDict, total=False):
     removed before validation.
     """
 
+    adct: Optional[str]
+    """The AdRoll Click ID (adct) from the landing URL.
+
+    Ex: adct123 Leading and trailing whitespace is removed before validation.
+    """
+
     admitad_uid: Optional[str]
     """The Admitad (Mitgo) affiliate Click ID.
 
@@ -545,6 +551,9 @@ class EventUserProperties(TypedDict, total=False):
     """Leading and trailing whitespace is removed before validation."""
 
     ad_id: Optional[str]
+
+    adct: Optional[str]
+    """Leading and trailing whitespace is removed before validation."""
 
     admitad_uid: Optional[str]
     """Leading and trailing whitespace is removed before validation."""
