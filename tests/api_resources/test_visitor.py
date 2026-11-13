@@ -32,6 +32,7 @@ class TestVisitor:
             user_properties={
                 "_ef_transaction_id": "_ef_transaction_id",
                 "ad_id": "ad_id",
+                "adct": "adct",
                 "admitad_uid": "admitad_uid",
                 "adset_id": "adset_id",
                 "affiliatly_v3": "affiliatly_v3",
@@ -104,6 +105,7 @@ class TestVisitor:
                 "_ef_transaction_id": "_ef_transaction_id",
                 "active_duration": 0,
                 "ad_id": "ad_id",
+                "adct": "adct",
                 "admitad_uid": "admitad_uid",
                 "adset_id": "adset_id",
                 "affiliatly_v3": "affiliatly_v3",
@@ -243,6 +245,7 @@ class TestAsyncVisitor:
             user_properties={
                 "_ef_transaction_id": "_ef_transaction_id",
                 "ad_id": "ad_id",
+                "adct": "adct",
                 "admitad_uid": "admitad_uid",
                 "adset_id": "adset_id",
                 "affiliatly_v3": "affiliatly_v3",
@@ -315,6 +318,7 @@ class TestAsyncVisitor:
                 "_ef_transaction_id": "_ef_transaction_id",
                 "active_duration": 0,
                 "ad_id": "ad_id",
+                "adct": "adct",
                 "admitad_uid": "admitad_uid",
                 "adset_id": "adset_id",
                 "affiliatly_v3": "affiliatly_v3",
