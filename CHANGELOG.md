@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.7.0 (2026-11-11)
+
+Full Changelog: [v2.6.0...v2.7.0](https://github.com/with-ours/ingest-sdk-python/compare/v2.6.0...v2.7.0)
+
+### Features
+
+* **api:** API update.
 ## 2.6.0 (2026-11-10)
 
 Full Changelog: [v2.5.0...v2.6.0](https://github.com/with-ours/ingest-sdk-python/compare/v2.5.0...v2.6.0)
