@@ -230,6 +230,38 @@ class DefaultProperties(TypedDict, total=False):
     removed before validation.
     """
 
+    ad_touch_ad_id: Optional[str]
+    """The platform ad id resolved by the Ours server for this event.
+
+    Ex: 120212 Leading and trailing whitespace is removed before validation.
+    """
+
+    ad_touch_adset_id: Optional[str]
+    """The platform ad set or ad group id resolved by the Ours server for this event.
+
+    Ex: 120211 Leading and trailing whitespace is removed before validation.
+    """
+
+    ad_touch_campaign_id: Optional[str]
+    """The platform campaign id resolved by the Ours server for this event.
+
+    Ex: 120210 Leading and trailing whitespace is removed before validation.
+    """
+
+    ad_touch_platform: Optional[str]
+    """
+    The ad platform resolved by the Ours server from the ad tag, ad ids, and click
+    ids on this event. Ex: meta, google Leading and trailing whitespace is removed
+    before validation.
+    """
+
+    ad_touch_source: Optional[str]
+    """
+    Which signal the Ours server used to resolve the ad touch: ours_ad, url_ids,
+    gad_campaignid, utm_id, or click_id. Leading and trailing whitespace is removed
+    before validation.
+    """
+
     adct: Optional[str]
     """The AdRoll Click ID (adct) from the landing URL.
 
@@ -417,6 +449,12 @@ class DefaultProperties(TypedDict, total=False):
     fv: Optional[bool]
     """Deprecated"""
 
+    gad_campaignid: Optional[str]
+    """The Google Ads campaign id that Google auto-tagging appends to ad clicks.
+
+    Ex: 21780011223 Leading and trailing whitespace is removed before validation.
+    """
+
     gad_source: Optional[str]
     """The Google Ad Source.
 
@@ -526,6 +564,13 @@ class DefaultProperties(TypedDict, total=False):
     """The version of the operating system.
 
     Ex: 10.0 Leading and trailing whitespace is removed before validation.
+    """
+
+    ours_ad: Optional[str]
+    """The Ours ad tag from the ours_ad query parameter, as platform.campaign.adset.ad.
+
+    Ex: meta.120210.120211.120212 Leading and trailing whitespace is removed before
+    validation.
     """
 
     page_hash: Optional[float]
@@ -645,6 +690,13 @@ class DefaultProperties(TypedDict, total=False):
 
     utm_content: Optional[str]
     """The UTM Content.
+
+    The web SDK automatically captures this from the query params. Leading and
+    trailing whitespace is removed before validation.
+    """
+
+    utm_id: Optional[str]
+    """The UTM ID.
 
     The web SDK automatically captures this from the query params. Leading and
     trailing whitespace is removed before validation.
